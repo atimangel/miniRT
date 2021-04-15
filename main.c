@@ -1,43 +1,55 @@
 //#include "libft_bonus.h"
 #include "minirt.h"
 
-/*typedef struct s_mlx
+typedef struct s_pixel_map
 {
-	void	*ptr;
-	void	*win;
-}		t_mlx;*/
-/*
-void	ft_make_window(t_mlx *mlx)
+	void	*img_ptr;
+	char	*pixel_str;
+	int	bpp;
+	int	l_len;
+	int	endian;
+}		t_pixel_map;
+
+typedef struct s_pixel_unit
 {
-	mlx->ptr = mlx_init();
-	mlx->win = mlx_new_window(mlx->ptr, 500, 500, "miniRT by snpark");
-}*/
-/*
-int	ft_exit_event(int a, void *parm)
+	int x;
+	int y;
+	int color;
+}		t_pixel_unit;
+
+void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm)
 {
-	exit(0);
-	return (0);
+	pm->img_ptr = mlx_new_image(mlx.ptr, 500, 500);
+	pm->pixel_str = mlx_get_data_addr(pm->img_ptr, &pm->bpp, &pm->l_len, &pm->endian); 
 }
 
-int	ft_key_press(int key, void *parm)
+void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 {
-	printf("press %d\n", key);
-	if (key == 53)
-		exit(0);
-	return (0);
-}
+	t_pixel_unit u;
 
-void	ft_hook_event(t_mlx mlx)
-{
-	mlx_key_hook(mlx.win, ft_key_press, 0);
-	mlx_hook(mlx.win, 17, 0, ft_exit_event, 0);
-}*/
+	u.x = 0;
+	u.color = 0xf0f0ff;
+	while (u.x < 500)
+	{
+		u.y = 0;
+		while (u.y < 500)
+		{
+			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = u.color;
+			u.y++;
+		}
+		u.x++;
+	}
+	mlx_put_image_to_window(mlx.ptr, mlx.win, pm.img_ptr, 0, 0);
+}
 
 int	main(void)
 {
 	t_mlx	mlx;
+	t_pixel_map	pm;
 	
 	ft_make_window(&mlx);
+	ft_make_pixel_map(mlx, &pm);
+	ft_draw_pixel_map(mlx, pm);
 	ft_hook_event(mlx);
 	mlx_loop(mlx.ptr);
 }
