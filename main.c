@@ -24,24 +24,16 @@ int	ft_exit_event(int a, void *parm)
 
 int	ft_key_press(int key, void *parm)
 {
+	printf("press %d\n", key);
 	if (key == 53)
-	{
 		exit(0);
-	}
 	return (0);
 }
-void	ft_hook_event(t_mlx *mlx)
-{
-	mlx_key_hook(mlx->ptr, ft_key_press, mlx);
 
-/*	mlx_hook(mlx->ptr, 2, 0, key_press_hook, 0);
-	mlx_hook(mlx->ptr, 3, 0, key_release, 0);
-	mlx_hook(mlx->ptr, 4, 0, mouse_press, 0);
-	mlx_hook(mlx->ptr, 5, 0, mouse_release, 0);
-	mlx_hook(mlx->ptr, 6, 0, motion, 0);
-	mlx_hook(mlx->ptr, 12, 0, expose, 0);*/
-	//mlx_hook(mlx->ptr, 17, 0, ft_exit_event, 0);
-	mlx_loop(mlx->ptr);
+void	ft_hook_event(t_mlx mlx)
+{
+	mlx_key_hook(mlx.win, ft_key_press, 0);
+	mlx_hook(mlx.win, 17, 0, ft_exit_event, 0);
 }
 
 int	main(void)
@@ -49,6 +41,7 @@ int	main(void)
 	t_mlx	mlx;
 	
 	ft_make_window(&mlx);
-//	ft_hook_event(mlx);
+	//mlx_key_hook(mlx.win, ft_key_press, &mlx);
+	ft_hook_event(mlx);
 	mlx_loop(mlx.ptr);
 }
