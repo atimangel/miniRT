@@ -1,6 +1,6 @@
 //#include "libft_bonus.h"
 #include "minirt.h"
-
+/*
 typedef struct s_pixel_map
 {
 	void	*img_ptr;
@@ -41,7 +41,7 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 	}
 	mlx_put_image_to_window(mlx.ptr, mlx.win, pm.img_ptr, 0, 0);
 }
-
+*/
 int	main(void)
 {
 	t_mlx	mlx;

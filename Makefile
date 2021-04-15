@@ -1,5 +1,6 @@
 SRCS = make_window.c\
 	hook_event.c\
+	pixel_map.c
 
 NAME = a.out
 
@@ -15,7 +16,7 @@ $(NAME) :
 all :
 	gcc $(mlx) $(libft) $(SRCS) main.c
 clean :
-
+	rm a.out
 fclean :
 
-re :
+re : clean all
