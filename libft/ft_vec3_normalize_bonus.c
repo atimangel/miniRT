@@ -13,9 +13,9 @@ t_vec3		*ft_vec3_normalize(t_vec3 v)
 	len = ft_vec3_len(v);
 	while (i < 3)
 	{
-		normalized[i] = v[i] / len;
+		(*normalized)[i] = v[i] / len;
 		i++;
 	}
-	normalized[3] = 1;
+	(*normalized)[3] = 1;
 	return (normalized);
 }

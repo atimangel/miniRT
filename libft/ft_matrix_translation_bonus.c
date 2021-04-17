@@ -1,6 +1,6 @@
 #include "libft_bonus.h"
 
-t_a16		*ft_matrix_translation(t_a16 a, double x, double y, double z)
+t_a16		*ft_matrix_translation(double x, double y, double z)
 {
 	t_a16	*translate;
 

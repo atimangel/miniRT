@@ -15,7 +15,7 @@ t_a16	*ft_matrix_transpose(t_a16 a)
 		j = 0;
 		while (j < 4)
 		{
-			trans[i][j] = a[j][i];
+			(*trans)[i][j] = a[j][i];
 			j++;
 		}
 		i++;

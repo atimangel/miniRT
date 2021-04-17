@@ -68,7 +68,9 @@ BONUS_SRCS = ft_lstnew.c\
 	 		 ft_vec3_normalize_bonus.c\
 			 ft_vec3_cross_product_bonus.c\
 			 ft_vec3_remove_bonus.c\
-			 ft_matrix_determinant.c\
+			 ft_matrix_determinant_bonus.c\
+			ft_vec3_transform_coord_bonus.c\
+			ft_vec3_transform_normal_bonus.c\
 
 
 BONUS_OBJS = $(BONUS_SRCS:.c=.o);

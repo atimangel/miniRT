@@ -1,6 +1,6 @@
 #include "libft_bonus.h"
 
-t_a16		ft_matrix_determinant(t_a16	a)
+double		ft_matrix_determinant(t_a16 a)
 {
 	double	determinant;
 	int		i;
