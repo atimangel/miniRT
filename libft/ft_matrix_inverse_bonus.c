@@ -1,14 +1,13 @@
 #include "libft_bonus.h"
 
-//treat as 3*3 matrix
 t_a16		ft_matrix_inverse(t_a16 origin, double determinant)
 {
 	t_a16	inverse;
 	int		i;
 	int		j;
-
+/*
 	if (determinant == 0.0)
-		return (0);
+		return (0);*/
 	i = 0;
 	while (i < 4)
 	{

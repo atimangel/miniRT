@@ -20,10 +20,7 @@
 /*
 **Vector
 */
-typedef struct s_vector3
-{
-	double v[4];
-}				t_vec3;
+typedef	double t_vec3[4];
 
 double	ft_vec3_len(t_vec3 v);
 t_vec3	ft_vec3_normalize(t_vec3 v);
@@ -38,10 +35,7 @@ t_vec3	ft_vec3_cross_product(t_vec3 v1, t_vec3 v2);
 /*
 **Array
 */
-typedef struct s_array16
-{
-	double	a[4][4];
-}				t_a16;
+typedef	double	t_a16[4][4];
 
 double		ft_matrix_determinant(t_a16 array);
 t_a16		ft_matrix_identity(void);

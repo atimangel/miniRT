@@ -2,17 +2,18 @@
 
 t_vec3		ft_vec3_normalize(t_vec3 v)
 {
-	t_vec3	normalized;
+	t_vec3	*normalized;
 	double	len;
 	int		i;
 
+	normalized = (t_vec3 *)malloc(sizeof(t_vec3));
 	i = 0;
 	len = ft_vec3_len(v);
 	while (i < 3)
 	{
-		normalize.v[i] = v.v[i] / len;
+		normalized[i] = v[i] / len;
 		i++;
 	}
-	normalize.v[3] = 1;
+	normalized[3] = 1;
 	return (normalized);
 }

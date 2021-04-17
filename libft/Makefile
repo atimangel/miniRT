@@ -85,11 +85,11 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	ar $(ARFLAG) $@ $^
 
-bonus : $(OBJS) $(BONUS_OBJS)
+bonus : $(BONUS_OBJS)
 	ar $(ARFLAG) $(NAME) $^
 
 clean :
-	rm -rf $(OBJS) $(BONUS_OBJS)
+	rm -rf *.o
 
 fclean : clean
 	rm -rf libft.a
