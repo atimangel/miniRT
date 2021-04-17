@@ -14,6 +14,7 @@
 # define _LIBFT_BONUS_H
 # include <stdlib.h>
 # include <math.h>
+# include <stdio.h>
 /*
 **Bonus MiniRT ARRAY & VECTOR
 */
@@ -47,4 +48,7 @@ t_a16		*ft_matrix_rotation_x(double radian);
 t_a16		*ft_matrix_rotation_y(double radian);
 t_a16		*ft_matrix_rotation_z(double radian);
 t_a16		*ft_matrix_scailing(double x, double y, double z);
+
+void		ft_putvec(t_vec3 vec);
+void		ft_puta16(t_a16 array);
 #endif
