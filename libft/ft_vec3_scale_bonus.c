@@ -9,11 +9,10 @@ t_vec3		*ft_vec3_scale(t_vec3 v, double scala)
 	if (!scaled)
 		return (0);
 	i = 0;
-	while (i < 3)
+	while (i < 4)
 	{
-		scaled[i] = v[i] * scala;
+		(*scaled)[i] = v[i] * scala;
 		i++;
 	}
-	scaled[i] = 1.0;
 	return (scaled);
 }
