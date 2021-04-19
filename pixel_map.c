@@ -43,9 +43,16 @@ void	ft_make_image_plane(t_image_plane *ip)
 	tmp = ip->up;
 	ip->up = ft_vec3_normalize(*ip->up);
 	free(tmp);
-	ip->len_h = 2 * tan(M_PI * (ip->fob_h / 360) / 2);
+	ip->len_h = 2 * tan(M_PI * (ip->fob_h / 180) / 2);
 	ip->fob_v = (ip->y * ip->fob_h) / ip->x;
-	ip->len_v = 2 * tan(M_PI * (ip->fob_v / 360) / 2);
+	ip->len_v = 2 * tan(M_PI * (ip->fob_v / 180) / 2);
+	printf("fob_h %f fob_v %f len_h %f len_v%f x %d y %d\n", ip->fob_h, ip->fob_v, ip->len_h, ip->len_v, ip->x, ip->y);
+	printf("tan(30) = %f\n" , tan(M_PI * (30 / 360)));
+	printf("camera, direction, right, up\n");
+	ft_putvec(*ip->camera);
+	ft_putvec(*ip->direction);
+	ft_putvec(*ip->right);
+	ft_putvec(*ip->up);
 }
 
 void	ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip)
@@ -55,8 +62,8 @@ void	ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip)
 	t_vec3	*pixel_p;
 	t_vec3	*tmp;
 
-	pixel_r = ft_vec3_scale(*ip.right, (u->x + 0.5 - ip.x / 2.0) * ip.len_h);//x == 500 u->x[0,499] [-249.5,249.5]
-	pixel_u = ft_vec3_scale(*ip.up, (u->y + 0.5 - ip.y / 2.0) * ip.len_v);
+	pixel_r = ft_vec3_scale(*ip.right, (u->x + 0.5 - ip.x / 2.0) / ip.x * ip.len_h);//x == 500 u->x[0,499] [-249.5,249.5]
+	pixel_u = ft_vec3_scale(*ip.up, (u->y + 0.5 - ip.y / 2.0) / ip.y  * ip.len_v);
 	pixel_p = ft_vec3_add(*ip.camera, *pixel_r);
 	tmp = pixel_p;
 	pixel_p = ft_vec3_add(*pixel_p, *pixel_u);
