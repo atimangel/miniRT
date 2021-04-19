@@ -21,7 +21,7 @@ t_a16		*ft_matrix_inverse(t_a16 origin, double determinant)
 			{
 				(*inverse)[i][j] = origin[(i + 1) % 3][(j + 1) % 3] * origin[(i + 2) % 3][(j + 2) % 3];
 				(*inverse)[i][j] -= origin[(i + 1) % 3][(j + 2) % 3] * origin[(i + 2) % 3][(j + 1) % 3];
-				(*inverse)[i][j] *= determinant;
+				(*inverse)[i][j] /= determinant;
 			}
 			else
 				(*inverse)[i][j] = origin[i][j];
