@@ -75,6 +75,7 @@ BONUS_SRCS = ft_lstnew.c\
 			ft_puta16_bonus.c\
 			ft_vec3_bonus.c\
 			ft_vec3_scale_bonus.c\
+			ft_vec3_dot_product_bonus.c\
 
 
 BONUS_OBJS = $(BONUS_SRCS:.c=.o);
