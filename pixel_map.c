@@ -89,21 +89,22 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 	t_pixel_unit	u;
 	t_image_plane	ip;
 	t_ray			r;
-	double			t;
 
 	u.x = 0;
-	t = -1.0;
 	u.color = 0xf9f9ff;
 	ft_make_image_plane(&ip);
 	r.e = ip.camera;
+	r.t_max = 50;
 	while (u.x < 500)
 	{
 		u.y = 0;
 		while (u.y < 500)
 		{
 			u.color = 0xf9f9ff;
+			r.t = -1.0;
 			r.d = ft_trans_image_plane(&u, ip);
-			t = ft_sphere_touch(r, &u.color);
+			ft_sphere_touch(&r, &u.color);
+			//ft_plane_touch(&r, &u.color);
 			free(r.d);
 			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = u.color;
 			u.y++;

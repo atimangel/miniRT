@@ -8,7 +8,7 @@ typedef struct s_sphere
 	int	color;
 }		t_sphere;
 
-double	ft_sphere_touch(t_ray r, int *color)
+void	ft_sphere_touch(t_ray *r, int *color)
 {
 	t_sphere s;
 	double	a;
@@ -21,25 +21,23 @@ double	ft_sphere_touch(t_ray r, int *color)
 	s.center = ft_vec3(0.0, 0.0, -5.0);
 	s.r = 1.0;
 	s.color = 0x01d030;
-	a = ft_vec3_dot_product(*r.d, *r.d);
-	tmp = ft_vec3_remove(*r.e, *s.center);
+	a = ft_vec3_dot_product(*r->d, *r->d);
+	tmp = ft_vec3_remove(*r->e, *s.center);
 	c = ft_vec3_dot_product(*tmp, *tmp) - pow(s.r, 2.0);
-	b = ft_vec3_dot_product(*r.d, *tmp) * 2;
-	printf("a = %f b = %f c = %f", a, b, c);
+	b = ft_vec3_dot_product(*r->d, *tmp) * 2;
 	free(tmp);
 	free(s.center);
 	if (pow(b, 2.0) - 4 * a * c < 0)
-		return (-1);
-	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0)
+		t = -1;
+	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && ((r->t > 0 && t < r->t)|| r->t <= 0))
 	{
-		*color = 0x900000;
-		return (t);
+		r->t = t;
+		printf("per %f\n", (r->t_max - r->t) / r->t_max);
+		*color = 0x90 * (r->t_max - r->t) / r->t_max;
 	}
-	else if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0)
+	else if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && r->t > 0 && t < r->t)
 	{
-		*color = 0x000090;
-		return (t);
+		r->t = t;
+		*color = 0x000090 * (r->t_max - r->t) / r->t_max;
 	}
-	else
-		return (-1);
 }

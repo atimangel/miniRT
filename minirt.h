@@ -33,11 +33,14 @@ typedef struct s_ray
 {
 	t_vec3	*e;
 	t_vec3	*d;
+	double	t;
+	double	t_max;
 }				t_ray;
 
 void	ft_make_window(t_mlx *mlx);
 void	ft_hook_event(t_mlx mlx);
 void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm);
 void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm);
-double	ft_sphere_touch(t_ray r, int *color);
+void	ft_sphere_touch(t_ray *r, int *color);
+void	ft_plane_touch(t_ray *r, int *color);
 #endif
