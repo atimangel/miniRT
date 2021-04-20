@@ -33,7 +33,7 @@ void	ft_make_image_plane(t_image_plane *ip)
 	ip->y = 500;
 	ip->camera = ft_vec3(0.0, 0.0, -1.0);
 	ip->direction = ft_vec3(0.0, 0.0, -1.0);
-	ip->fob_h = 60;
+	ip->fob_h = 120;
 	ip->abs_up = ft_vec3(0.0, 1.0, 0.0);
 	ip->right = ft_vec3_cross_product(*ip->direction, *ip->abs_up);
 	ip->up = ft_vec3_cross_product(*ip->direction, *ip->right);
@@ -46,16 +46,16 @@ void	ft_make_image_plane(t_image_plane *ip)
 	ip->len_h = 2 * tan(M_PI * (ip->fob_h / 180) / 2);
 	ip->fob_v = (ip->y * ip->fob_h) / ip->x;
 	ip->len_v = 2 * tan(M_PI * (ip->fob_v / 180) / 2);
-	printf("fob_h %f fob_v %f len_h %f len_v%f x %d y %d\n", ip->fob_h, ip->fob_v, ip->len_h, ip->len_v, ip->x, ip->y);
+/*	printf("fob_h %f fob_v %f len_h %f len_v%f x %d y %d\n", ip->fob_h, ip->fob_v, ip->len_h, ip->len_v, ip->x, ip->y);
 	printf("tan(30) = %f\n" , tan(M_PI * (30 / 360)));
 	printf("camera, direction, right, up\n");
 	ft_putvec(*ip->camera);
 	ft_putvec(*ip->direction);
 	ft_putvec(*ip->right);
-	ft_putvec(*ip->up);
+	ft_putvec(*ip->up);*/
 }
 
-void	ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip)
+t_vec3	*ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip)
 {
 	t_vec3	*pixel_r;
 	t_vec3	*pixel_u;
@@ -68,10 +68,14 @@ void	ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip)
 	tmp = pixel_p;
 	pixel_p = ft_vec3_add(*pixel_p, *pixel_u);
 	free(tmp);
+	tmp = pixel_p;
+	pixel_p = ft_vec3_add(*pixel_p, *ip.direction);
+	free(tmp);
 	free(pixel_u);
 	free(pixel_r);
-	printf("(%d, %d) => ", u->x, u->y);
-	ft_putvec(*pixel_p);
+//	printf("(%d, %d) => ", u->x, u->y);
+//	ft_putvec(*pixel_p);
+	return (pixel_p);
 }
 
 void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm)
@@ -82,18 +86,25 @@ void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm)
 
 void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 {
-	t_pixel_unit u;
-	t_image_plane ip;
+	t_pixel_unit	u;
+	t_image_plane	ip;
+	t_ray			r;
+	double			t;
 
 	u.x = 0;
+	t = -1.0;
 	u.color = 0xf9f9ff;
 	ft_make_image_plane(&ip);
+	r.e = ip.camera;
 	while (u.x < 500)
 	{
 		u.y = 0;
 		while (u.y < 500)
 		{
-			ft_trans_image_plane(&u, ip);
+			u.color = 0xf9f9ff;
+			r.d = ft_trans_image_plane(&u, ip);
+			t = ft_sphere_touch(r, &u.color);
+			free(r.d);
 			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = u.color;
 			u.y++;
 		}
