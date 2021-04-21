@@ -3,6 +3,7 @@ SRCS = make_window.c\
 	pixel_map.c\
 	sphere.c\
 	plane.c\
+	triangle.c\
 
 NAME = a.out
 

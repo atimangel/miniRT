@@ -29,11 +29,10 @@ void	ft_sphere_touch(t_ray *r, int *color)
 	free(s.center);
 	if (pow(b, 2.0) - 4 * a * c < 0)
 		t = -1;
-	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && ((r->t > 0 && t < r->t)|| r->t <= 0))
+	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / (2 * a)) > 0 && ((r->t > 0 && t < r->t)|| r->t <= 0))
 	{
 		r->t = t;
-		printf("per %f\n", (r->t_max - r->t) / r->t_max);
-		*color = 0x90 * (r->t_max - r->t) / r->t_max;
+		*color = 0x900000;
 	}
 	else if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && r->t > 0 && t < r->t)
 	{
