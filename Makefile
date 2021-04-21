@@ -1,6 +1,8 @@
 SRCS = make_window.c\
 	hook_event.c\
-	pixel_map.c
+	pixel_map.c\
+	sphere.c\
+	plane.c\
 
 NAME = a.out
 
