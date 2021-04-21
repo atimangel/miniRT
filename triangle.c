@@ -37,13 +37,15 @@ void	ft_triangle_touch(t_ray *r, int *color)
 	if ((beta >= 0 && beta <= 1) && (gamma >= 0 && gamma <= 1)
 			&& (beta+ gamma <= 1))
 	{
-		printf("beta %.2f, gamma %.2f, t %.2f\n", beta, gamma, t);
 		if ((r->t > 0 && t < r->t) || (r->t <= 0))
 		{
 			*color = tr.color;
 			r->t = t;
 		}
 	}
+	free(tr.o);
+	free(tr.p1);
+	free(tr.p2);
 	free(v1);
 	free(v2);
 	free(v3);

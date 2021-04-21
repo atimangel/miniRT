@@ -105,7 +105,8 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 			r.d = ft_trans_image_plane(&u, ip);
 			//ft_sphere_touch(&r, &u.color);
 			//ft_plane_touch(&r, &u.color);
-			ft_triangle_touch(&r, &u.color);
+			//ft_triangle_touch(&r, &u.color);
+			ft_square_touch(&r, &u.color);
 			free(r.d);
 			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = u.color;
 			u.y++;
