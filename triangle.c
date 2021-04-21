@@ -24,11 +24,11 @@ void	ft_triangle_touch(t_ray *r, int *color)
 	tr.o = ft_vec3(0.0, 0.0, -7.0);
 	tr.p1 = ft_vec3(0.0, 7.0, -7.0);
 	tr.p2 = ft_vec3(7.0, 0.0, -7.0);
-	tr.color = 0x900000;
+	tr.color = 0x9000;
 	v1 = ft_vec3_remove(*tr.o, *tr.p1);
 	v2 = ft_vec3_remove(*tr.o, *tr.p2);
 	v3 = ft_vec3_remove(*tr.o, *r->e);
-	m = ft_matrix(*v1, *v2, *v3);
+	m = ft_matrix(*v1, *v2, *r->d);
 	m_inverse = ft_matrix_inverse(*m, ft_matrix_determinant(*m));
 	v4 = ft_vec3_transform_normal(*m_inverse, *v3);
 	beta = (*v4)[0];
@@ -37,6 +37,7 @@ void	ft_triangle_touch(t_ray *r, int *color)
 	if ((beta >= 0 && beta <= 1) && (gamma >= 0 && gamma <= 1)
 			&& (beta+ gamma <= 1))
 	{
+		printf("beta %.2f, gamma %.2f, t %.2f\n", beta, gamma, t);
 		if ((r->t > 0 && t < r->t) || (r->t <= 0))
 		{
 			*color = tr.color;

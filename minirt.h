@@ -43,4 +43,6 @@ void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm);
 void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm);
 void	ft_sphere_touch(t_ray *r, int *color);
 void	ft_plane_touch(t_ray *r, int *color);
+void	ft_triangle_touch(t_ray *r, int *color);
 #endif
+
