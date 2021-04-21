@@ -8,5 +8,6 @@ t_vec3		*ft_vec3(double x, double y, double z)
 	(*a)[0] = x;
 	(*a)[1] = y;
 	(*a)[2] = z;
+	(*a)[3] = 1.0;
 	return (a);
 }

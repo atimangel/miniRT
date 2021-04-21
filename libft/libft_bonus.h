@@ -40,6 +40,7 @@ t_vec3	*ft_vec3_transform_normal(t_a16 matrix, t_vec3 src);
 /*
 **Array
 */
+t_a16		*ft_matrix(t_vec3 v1, t_vec3 v2, t_vec3 v3);
 double		ft_matrix_determinant(t_a16 array);
 t_a16		*ft_matrix_identity(void);
 t_a16		*ft_matrix_transpose(t_a16 array);
