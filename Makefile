@@ -5,6 +5,7 @@ SRCS = make_window.c\
 	plane.c\
 	triangle.c\
 	square.c\
+	cylinder.c\
 
 NAME = a.out
 
