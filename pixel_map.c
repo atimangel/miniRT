@@ -108,6 +108,8 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 			//ft_triangle_touch(&r, &u.color);
 			//ft_square_touch(&r, &u.color);
 			ft_cylinder_touch(&r, &u.color);
+			//if (((*r.d)[0] - (int)(*r.d)[0] >= -0.01 && (*r.d)[0] - (int)(*r.d)[0] <= 0.01)|| ((*r.d)[1]- (int)(*r.d)[1] >= -0.01 && (*r.d)[1] - (int)(*r.d)[1] <= 0.01))
+			//	u.color = 0;
 			free(r.d);
 			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = u.color;
 			u.y++;
