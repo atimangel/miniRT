@@ -14,8 +14,8 @@ void	ft_make_cylinder(t_cylinder *cy)
 {
 	t_vec3	*tmp;
 
-	cy->c = ft_vec3(0.0, 10.0, -50.0);
-	cy->n = ft_vec3(0.0, 1.0, 0.0);
+	cy->c = ft_vec3(0.0, 0.0, -50.0);
+	cy->n = ft_vec3(0.0, 0.0, 1.0);
 	cy->r = 10.0;
 	cy->h = 20.0;
 	cy->color = 0x0000ab;
@@ -53,9 +53,6 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, int *color)
 			{
 				r->t = t;
 				*color = cy.color;
-				ft_putvec(*r->d);
-				ft_putvec(*cy.n);
-				printf("1 %f", t);
 			}
 		}
 		if ((t = (-b - sqrt(pow(b, 2.0) - a * c)) / a) > 0 &&
@@ -66,7 +63,6 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, int *color)
 			{
 				r->t = t;
 				*color = 0xffffff - cy.color;
-				printf("2 %f\n", t);
 			}
 		}
 	}
@@ -75,7 +71,55 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, int *color)
 
 void	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, int *color)
 {
-	
+	t_vec3	*tmp;
+	double	t;
+	t_vec3	*ec;
+	double	radius;
+	t_vec3	*cp;
+
+	tmp = ft_vec3_scale(*cy.n, cy.h);
+	cy.c2 = ft_vec3_add(*cy.c, *tmp);
+	free(tmp);
+	ec = ft_vec3_remove(*cy.c, *r->e);
+	if ((t = ft_vec3_dot_product(*ec, *cy.n) / ft_vec3_dot_product(*r->d, *cy.n)) > 0 &&
+	       ((r->t > 0 && t < r->t)|| r->t <= 0))
+	{
+		tmp = ft_vec3_scale(*r->d, t);
+		cp = ft_vec3_remove(*tmp, *ec);
+		free(tmp);
+		radius = ft_vec3_len(*cp);
+		if (radius >= -cy.r && radius <= cy.r)
+		{
+			r->t = t;
+			if (ft_vec3_dot_product(*cy.n, *r->d) > 0)//outside
+				*color = 0x00a000;
+			else if (ft_vec3_dot_product(*cy.n, *r->d) < 0)//inside
+				*color = 0x00c000;
+		}
+		free(cp);
+	}
+	free(ec);
+	ec = ft_vec3_remove(*cy.c2, *r->e);
+	if ((t = ft_vec3_dot_product(*ec, *cy.n) / ft_vec3_dot_product(*r->d, *cy.n)) > 0 &&
+				((r->t > 0 && t < r->t)|| r->t <= 0))//괄호 때문에 2시간 씀
+	{
+		tmp = ft_vec3_scale(*r->d, t);
+		cp = ft_vec3_remove(*tmp, *ec);
+		radius = ft_vec3_len(*cp);
+		printf(" a/b %f / %f \n",  ft_vec3_dot_product(*ec, *cy.n), ft_vec3_dot_product(*r->d, *cy.n)); 
+		printf("rad%f cy_rad%f t %f\n", radius, cy.r, t);
+		if (radius >= -cy.r && radius <= cy.r)
+		{
+			r->t = t;
+			if (ft_vec3_dot_product(*cy.n, *r->d) < 0)//outside
+				*color = 0x00f0f0;
+			else if (ft_vec3_dot_product(*cy.n, *r->d) > 0)//inside
+				*color = 0x0000ff;
+		}
+		free(cp);
+		free(tmp);
+	}
+	free(ec);
 }
 void	ft_cylinder_touch(t_ray *r, int *color)
 {
@@ -95,8 +139,8 @@ void	ft_cylinder_touch(t_ray *r, int *color)
 
 	ft_make_cylinder(&cy);
 	ft_cylinder_touch_side(r, cy, color);
-/*	ft_cylinder_touch_circle(r, cy, color)
-	abs_u = ft_vec3(0.0, 1.0, 0.0);
+	ft_cylinder_touch_circle(r, cy, color);
+/*	abs_u = ft_vec3(0.0, 1.0, 0.0);
 	ri = ft_vec3_cross_product(*cy.c, *abs_u);
 	tmp = ri;
 	ri = ft_vec3_normalize(*ri);
