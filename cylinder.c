@@ -14,7 +14,7 @@ void	ft_make_cylinder(t_cylinder *cy)
 {
 	t_vec3	*tmp;
 
-	cy->c = ft_vec3(0.0, 10.0, -100.0);
+	cy->c = ft_vec3(0.0, 10.0, -50.0);
 	cy->n = ft_vec3(0.0, 1.0, 0.0);
 	cy->r = 10.0;
 	cy->h = 20.0;
@@ -42,10 +42,7 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, int *color)
 	c = pow(cy.r, 2.0) - ft_vec3_dot_product(*ce, *ce) + pow(ft_vec3_dot_product(*ce, *cy.n), 2);
 	alpha = -1.0;
 	if (pow(b, 2.0) - a * c < 0)
-	{
 		t = -1.0;
-		return ;
-	}
 	else
 	{
 		if ((t = (-b + sqrt(pow(b, 2.0) - a * c)) /  a) >= 0 &&
@@ -61,7 +58,7 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, int *color)
 				printf("1 %f", t);
 			}
 		}
-		if ((t = (-b + sqrt(pow(b, 2.0) + a * c)) / a) > 0 &&
+		if ((t = (-b - sqrt(pow(b, 2.0) - a * c)) / a) > 0 &&
 				((r->t > 0 && t < r->t) || r->t <= 0))
 		{
 			alpha = ft_vec3_dot_product(*ce, *cy.n) + t * ft_vec3_dot_product(*r->d, *cy.n);
