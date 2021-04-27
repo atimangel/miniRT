@@ -80,9 +80,11 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 	t_pixel_unit	u;
 	t_image_plane	ip;
 	t_ray			r;
+	t_light			light;
 
 	u.x = 0;
 	ft_make_image_plane(&ip);
+	ft_make_light(&light);
 	r.e = ip.camera;
 	while (u.x < 500)
 	{
@@ -100,7 +102,11 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 			//ft_triangle_touch(&r, &u);
 			//ft_square_touch(&r, &u);
 			//ft_cylinder_touch(&r, &u);
-			ft_render_ambient_light(r.t, &u);
+			if (r.t != -1.0)
+			{
+				ft_ambient_reflection(&u);
+				ft_diffuse_reflection(&r, &u, light);
+			}
 			free(r.d);
 			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = (u.p_r << 16) + (u.p_g << 8) + u.p_b;
 			u.y++;

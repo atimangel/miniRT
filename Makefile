@@ -1,12 +1,14 @@
 SRCS = make_window.c\
-	hook_event.c\
-	pixel_map.c\
-	sphere.c\
-	plane.c\
-	triangle.c\
-	square.c\
-	cylinder.c\
-	ambient_light.c\
+	   hook_event.c\
+	   pixel_map.c\
+	   sphere.c\
+	   plane.c\
+	   triangle.c\
+	   square.c\
+	   cylinder.c\
+	   ambient_reflection.c\
+	   light.c\
+	   diffuse_reflection.c\
 
 NAME = a.out
 
