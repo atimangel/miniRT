@@ -17,7 +17,7 @@ void	ft_make_cylinder(t_cylinder *cy)
 	t_vec3	*tmp;
 
 	cy->c = ft_vec3(0.0, 0.0, -50.0);
-	cy->n = ft_vec3(0.0, 0.0, 1.0);
+	cy->n = ft_vec3(0.0, 1.0, 1.0);
 	cy->r = 10.0;
 	cy->h = 20.0;
 	cy->red = 0x00;
@@ -31,7 +31,7 @@ void	ft_make_cylinder(t_cylinder *cy)
 	free(tmp);
 }
 
-t_vec3	ft_cylinder_side_normal(t_ray r, t_cylinde cy, double t, double alpha)
+t_vec3	*ft_cylinder_side_normal(t_ray r, t_cylinder cy, double t, double alpha)
 {
 	t_vec3	*normal;
 	t_vec3	*center;
@@ -39,13 +39,13 @@ t_vec3	ft_cylinder_side_normal(t_ray r, t_cylinde cy, double t, double alpha)
 	t_vec3	*tmp;
 
 	tmp = ft_vec3_scale(*cy.n, alpha);
-	point = ft_vec3_add(*cy.c, *tmp);
+	center = ft_vec3_add(*cy.c, *tmp);
 	free(tmp);
 	tmp = ft_vec3_scale(*r.d, t);
 	point = ft_vec3_add(*r.e, *tmp);
 	free(tmp);
-	//원기둥 밖이랑 안이랑 노말벡터 구하는게 달라야하는뎅... 이건 고정임
-
+	normal = ft_vec3_remove(*point, *center);
+	return (normal);
 }
 
 void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u)
@@ -55,7 +55,8 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 	double	c;
 	double	t;
 	double	alpha;
-	t_vec3	*ce;	
+	t_vec3	*ce;
+	t_vec3	*tmp;
 
 	t = -1.0;
 	ce = ft_vec3_remove(*r->e, *cy.c);
@@ -79,7 +80,7 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 				u->o_b = cy.blue;
 				if (u->o_n != 0)
 					free(u->o_n);
-				if 
+				u->o_n = ft_cylinder_side_normal(*r, cy, t, alpha);
 			}
 		}
 		if ((t = (-b - sqrt(pow(b, 2.0) - a * c)) / a) > 0 &&
@@ -89,14 +90,21 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 			if (alpha >= 0 && alpha <= cy.h)
 			{
 				r->t = t;
-				*color = 0xffffff - cy.color;
+				u->o_r = cy.red;
+				u->o_g = cy.green;
+				u->o_b = cy.blue;
+				if (u->o_n != 0)
+					free(u->o_n);
+				tmp = ft_cylinder_side_normal(*r, cy, t, alpha);
+				u->o_n = ft_vec3_scale(*tmp, -1);
+				free(tmp);
 			}
 		}
 	}
 	free(ce);
 }
 
-void	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, int *color)
+void	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 {
 	t_vec3	*tmp;
 	double	t;
@@ -119,9 +127,23 @@ void	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, int *color)
 		{
 			r->t = t;
 			if (ft_vec3_dot_product(*cy.n, *r->d) > 0)//outside
-				*color = 0x00a000;
+			{
+				u->o_r = cy.red;
+				u->o_g = cy.green;
+				u->o_b = cy.blue;
+				if (u->o_n != 0)
+					free(u->o_n);
+				u->o_n = ft_vec3_scale(*cy.n, -1);
+			}
 			else if (ft_vec3_dot_product(*cy.n, *r->d) < 0)//inside
-				*color = 0x00c000;
+			{
+				u->o_r = cy.red;
+				u->o_g = cy.green;
+				u->o_b = cy.blue;
+				if (u->o_n != 0)
+					free(u->o_n);
+				u->o_n = cy.n;
+			}
 		}
 		free(cp);
 	}
@@ -133,15 +155,27 @@ void	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, int *color)
 		tmp = ft_vec3_scale(*r->d, t);
 		cp = ft_vec3_remove(*tmp, *ec);
 		radius = ft_vec3_len(*cp);
-		printf(" a/b %f / %f \n",  ft_vec3_dot_product(*ec, *cy.n), ft_vec3_dot_product(*r->d, *cy.n)); 
-		printf("rad%f cy_rad%f t %f\n", radius, cy.r, t);
 		if (radius >= -cy.r && radius <= cy.r)
 		{
 			r->t = t;
 			if (ft_vec3_dot_product(*cy.n, *r->d) < 0)//outside
-				*color = 0x00f0f0;
+			{
+				u->o_r = cy.red;
+				u->o_g = cy.green;
+				u->o_b = cy.blue;
+				if (u->o_n != 0)
+					free(u->o_n);
+				u->o_n = cy.n;
+			}
 			else if (ft_vec3_dot_product(*cy.n, *r->d) > 0)//inside
-				*color = 0x0000ff;
+			{
+				u->o_r = cy.red;
+				u->o_g = cy.green;
+				u->o_b = cy.blue;
+				if (u->o_n != 0)
+					free(u->o_n);
+				u->o_n = ft_vec3_scale(*cy.n, -1);
+			}
 		}
 		free(cp);
 		free(tmp);
@@ -156,4 +190,7 @@ void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u)
 	ft_make_cylinder(&cy);
 	ft_cylinder_touch_side(r, cy, u);
 	ft_cylinder_touch_circle(r, cy, u);
+	if (u->o_n != cy.n)
+		free(cy.n);
+	free(cy.c);
 }

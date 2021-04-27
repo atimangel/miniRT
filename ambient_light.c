@@ -1,0 +1,33 @@
+#include "minirt.h"
+
+typedef struct s_ambient_light
+{
+	double		ratio;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}		t_ambient_light;
+
+void	ft_make_ambient_light(t_ambient_light *amb)
+{
+	amb->ratio = 1.0;
+	amb->r = 255;
+	amb->g = 0;
+	amb->b = 0;
+}
+
+void	ft_render_ambient_light(double t, t_pixel_unit *u)
+{
+	t_ambient_light amb;
+	t_vec3			light;
+
+	if (t == -1.0)
+		return;
+	ft_make_ambient_light(&amb);
+	light[0] = amb.ratio * amb.r / 255;
+	light[1] = amb.ratio * amb.g / 255;
+	light[2] = amb.ratio * amb.b / 255;
+	u->p_r = u->o_r * light[0];
+	u->p_g = u->o_g * light[1];
+	u->p_b = u->o_b * light[2];
+}

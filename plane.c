@@ -17,7 +17,7 @@ void		ft_plane_touch(t_ray *r, t_pixel_unit *u)
 	double	len;
 
 	pl.center = ft_vec3(0.0, 0.0, -10.0);
-	pl.normal = ft_vec3(-1.0, 1.0, -1.0);
+	pl.normal = ft_vec3(0.0, 0.0, 1.0);
 	pl.red =  0x00;
 	pl.green = 0x90;
 	pl.blue = 0x90;
@@ -37,13 +37,13 @@ void		ft_plane_touch(t_ray *r, t_pixel_unit *u)
 			u->o_b = pl.blue;
 			if (u->o_n != 0)
 				free(u->o_n);
-			if (ft_vec3_dot_porduct(*pl.normal, *r->d) > 0)
+			if (ft_vec3_dot_product(*pl.normal, *r->d) > 0)
 				u->o_n = pl.normal;
 			else
-				u->o_n = ft_vec3_scale(pl.normal, -1);
+				u->o_n = ft_vec3_scale(*pl.normal, -1);
 		}
 	}
 	if (u->o_n != pl.normal)
 		free(pl.normal);
-	free(pl.normal);
+	free(pl.center);
 }

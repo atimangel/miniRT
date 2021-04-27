@@ -6,6 +6,7 @@ SRCS = make_window.c\
 	triangle.c\
 	square.c\
 	cylinder.c\
+	ambient_light.c\
 
 NAME = a.out
 

@@ -82,28 +82,27 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 	t_ray			r;
 
 	u.x = 0;
-	u.color = 0xf9f9ff;
 	ft_make_image_plane(&ip);
 	r.e = ip.camera;
-	r.t_max = 50;
 	while (u.x < 500)
 	{
 		u.y = 0;
 		while (u.y < 500)
 		{
-			u.p_r = 0xf9;
+			u.p_r = 0xf0;
 			u.p_g = 0xf9;
 			u.p_b = 0xff;
 			r.t = -1.0;
 			r.d = ft_trans_image_plane(&u, ip);
-			//ft_sphere_touch(&r, &u);
+			u.o_n = 0;
+			ft_sphere_touch(&r, &u);
 			//ft_plane_touch(&r, &u);
 			//ft_triangle_touch(&r, &u);
 			//ft_square_touch(&r, &u);
-			ft_cylinder_touch(&r, &u);
-			//ft_rander_ambient_light(&r, &u);
+			//ft_cylinder_touch(&r, &u);
+			ft_render_ambient_light(r.t, &u);
 			free(r.d);
-			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = u.color;
+			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = (u.p_r << 16) + (u.p_g << 8) + u.p_b;
 			u.y++;
 		}
 		u.x++;

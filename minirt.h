@@ -40,7 +40,6 @@ typedef struct s_ray
 	t_vec3	*e;
 	t_vec3	*d;
 	double	t;
-	double	t_max;
 }				t_ray;
 
 void	ft_make_window(t_mlx *mlx);
@@ -52,5 +51,6 @@ void	ft_plane_touch(t_ray *r, t_pixel_unit *u);
 void	ft_triangle_touch(t_ray *r, t_pixel_unit *u);
 void	ft_square_touch(t_ray *r, t_pixel_unit *u);
 void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u);
+void	ft_render_ambient_light(double t, t_pixel_unit *u);
 #endif
 

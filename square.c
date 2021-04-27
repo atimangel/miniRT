@@ -63,13 +63,12 @@ void	ft_square_touch(t_ray *r, t_pixel_unit *u)
 			if (ft_vec3_dot_product(*r->d, *sq.normal) > 0)
 				u->o_n = sq.normal;
 			else if (ft_vec3_dot_product(*r->d, *sq.normal) < 0)
-				u->o_n = ft_vec3_scale(sq.normal, -1);
+				u->o_n = ft_vec3_scale(*sq.normal, -1);
 			r->t = t;
 		}
 	}
 	if (u->o_n != sq.normal)
 		free(sq.normal);
-	free(sq.normal);
 	free(abs_up);
 	free(up);
 	free(right);
