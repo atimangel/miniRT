@@ -5,10 +5,21 @@ typedef struct s_square
 	t_vec3	*center;
 	t_vec3	*normal;
 	double	len;
-	int	color;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
 }		t_square;
 
-void	ft_square_touch(t_ray *r, int *color)
+void	ft_make_square(t_square *sq)
+{
+	sq->center = ft_vec3(0.0, 0.0, -5.0);
+	sq->normal = ft_vec3(0.0, 0.0, -1.0);
+	sq->len = 1.0;
+	sq->red = 0xa0;
+	sq->green = 0x00;
+	sq->blue = 0x00;
+}
+void	ft_square_touch(t_ray *r, t_pixel_unit *u)
 {
 	t_square	sq;
 	t_vec3		*abs_up;
@@ -23,9 +34,7 @@ void	ft_square_touch(t_ray *r, int *color)
 	double		gamma;
 	double		t;
 
-	sq.center = ft_vec3(0.0, 0.0, -5.0);
-	sq.normal = ft_vec3(0.0, 0.0, -1.0);
-	sq.len	= 1.0;
+	ft_make_square(&sq);
 	abs_up = ft_vec3(0.0, 1.0, 0.0);
 	right = ft_vec3_cross_product(*sq.normal, *abs_up);
 	up = ft_vec3_cross_product(*sq.normal, *right);
@@ -42,17 +51,24 @@ void	ft_square_touch(t_ray *r, int *color)
 	beta = (*v4)[0];
 	gamma = (*v4)[1];
 	t = (*v4)[2];
-	sq.color = 0xa0e5e5;
 	if ((beta >= sq.len / -2 && beta <= sq.len / 2) && (gamma >= sq.len / -2 && gamma <= sq.len / 2))
 	{
-		printf("beta = %f gamma %f t %f\n", beta, gamma, t);
 		if((r->t > 0 & t < r->t) || (r->t <= 0))
 		{
-			*color = sq.color;
+			u->o_r = sq.red;
+			u->o_g = sq.green;
+			u->o_b = sq.blue;
+			if (u->o_n != 0)
+				free(u->o_n);
+			if (ft_vec3_dot_product(*r->d, *sq.normal) > 0)
+				u->o_n = sq.normal;
+			else if (ft_vec3_dot_product(*r->d, *sq.normal) < 0)
+				u->o_n = ft_vec3_scale(sq.normal, -1);
 			r->t = t;
 		}
 	}
-	free(sq.center);
+	if (u->o_n != sq.normal)
+		free(sq.normal);
 	free(sq.normal);
 	free(abs_up);
 	free(up);

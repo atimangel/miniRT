@@ -4,11 +4,36 @@
 typedef struct s_sphere
 {
 	t_vec3	*center;
-	double	r;
-	int	color;
+	double	radius;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
 }		t_sphere;
 
-void	ft_sphere_touch(t_ray *r, int *color)
+void	ft_make_sphere(t_sphere *s)
+{
+	s->center  = ft_vec3(0.0, 0.0, -5.0);
+	s->radius = 1.0;
+	s->red = 0x10;
+	s->red = 0xd0;
+	s->red = 0x30;
+}
+
+t_vec3	*ft_sphere_normal(t_vec3 c, t_ray *r, double t)
+{
+	t_vec3	*normal;
+	t_vec3	*p;
+	t_vec3	*tmp;
+
+	tmp = ft_vec3_scale(*r->d, t);
+	p = ft_vec3_add(*r->c, *tmp);
+	normal = ft_vec3_remove(*p, c);
+	free(p);
+	free(tmp);
+	return (normal);
+}
+
+void	ft_sphere_touch(t_ray *r, t_pixel_unit *u)
 {
 	t_sphere s;
 	double	a;
@@ -18,9 +43,7 @@ void	ft_sphere_touch(t_ray *r, int *color)
 	t_vec3	*tmp;
 
 	t = -1.0;
-	s.center = ft_vec3(0.0, 0.0, -5.0);
-	s.r = 1.0;
-	s.color = 0x01d030;
+	ft_make_sphere(&s);
 	a = ft_vec3_dot_product(*r->d, *r->d);
 	tmp = ft_vec3_remove(*r->e, *s.center);
 	c = ft_vec3_dot_product(*tmp, *tmp) - pow(s.r, 2.0);
@@ -32,11 +55,21 @@ void	ft_sphere_touch(t_ray *r, int *color)
 	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / (2 * a)) > 0 && ((r->t > 0 && t < r->t)|| r->t <= 0))
 	{
 		r->t = t;
-		*color = 0x900000;
+		u->o_r = s.red;
+		u->o_g = s.green;
+		u->o_b = s.blue;
+		if (u->o_n != 0)
+			free(u->o_n);
+		u->o_n = ft_sphere_normal(*s.c, r, t);
 	}
 	else if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && r->t > 0 && t < r->t)
 	{
 		r->t = t;
-		*color = 0x000090 * (r->t_max - r->t) / r->t_max;
+		u->o_r = s.red;
+		u->o_g = s.green;
+		u->o_b = s.blue;
+		if (u->o_n != 0)
+			free(u->o_n);
+		u->o_n = ft_sphere_normal(*s.c, r, t);
 	}
 }

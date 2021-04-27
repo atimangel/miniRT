@@ -5,51 +5,73 @@ typedef struct s_triangle
 	t_vec3	*o;
 	t_vec3	*p1;
 	t_vec3	*p2;
-	int	color;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
 }		t_triangle;
 
-void	ft_triangle_touch(t_ray *r, int *color)
+void	ft_make_triangle(t_triangle *tr)
+{
+	tr->o = ft_vec3(0.0, 0.0, -7.0);
+	tr->p1 = ft_vec3(0.0, 7.0, -7.0);
+	tr->p2 = ft_vec3(7.0, 0.0, -7.0);
+	tr->r = 0;
+	tr->g = 0x90;
+	tr->b = 0;
+	
+}
+
+t_vec3	*ft_triangle_interactoion(t_triange tr, t_ray *r, t_vec3 **n)
+{
+	t_vec3	*side1;
+	t_vec3	*side2;
+	t_vec3	*v1;
+	t_a16	*m;
+	t_a16	*m_inverse;
+
+	side1 = ft_vec3_remove(*tr.o, *tr.p1);
+	side2 = ft_vec3_remove(*tr.o, *tr.p2);
+	*n = ft_vec3_cross_product(side1, side2);
+	v1 = ft_vec3_remove(*tr.o, *r->e);
+	m = ft_matrix(*side1, *side2, *r->d);
+	m_inverse = ft_matrix_inverse(*m, ft_matrix_determinant(*m));
+	free(side1);
+	free(side2);
+	free(m);
+	side1 = ft_vec3_transform_normal(*m_inverse, *v1);
+	free(m_inverse);
+	free(v1);
+	return (side1);
+}
+void	ft_triangle_touch(t_ray *r, t_pixel_unit *u)
 {
 	t_triangle	tr;
-	t_vec3		*v1;
-	t_vec3		*v2;
-	t_vec3		*v3;
-	t_vec3		*v4;
-	t_a16		*m;
-	t_a16		*m_inverse;
 	double		beta;
 	double		gamma;
 	double		t;
+	t_vec3		*v;
+	t_vec3		*n;
 
-	tr.o = ft_vec3(0.0, 0.0, -7.0);
-	tr.p1 = ft_vec3(0.0, 7.0, -7.0);
-	tr.p2 = ft_vec3(7.0, 0.0, -7.0);
-	tr.color = 0x9000;
-	v1 = ft_vec3_remove(*tr.o, *tr.p1);
-	v2 = ft_vec3_remove(*tr.o, *tr.p2);
-	v3 = ft_vec3_remove(*tr.o, *r->e);
-	m = ft_matrix(*v1, *v2, *r->d);
-	m_inverse = ft_matrix_inverse(*m, ft_matrix_determinant(*m));
-	v4 = ft_vec3_transform_normal(*m_inverse, *v3);
-	beta = (*v4)[0];
-	gamma = (*v4)[1];
-	t = (*v4)[2];
+	ft_make_triangle(&tr);
+	v = ft_triangle_interaction(tr, r, &n);
+	beta = (*v)[0];
+	gamma = (*v)[1];
+	t = (*v)[2];
 	if ((beta >= 0 && beta <= 1) && (gamma >= 0 && gamma <= 1)
-			&& (beta+ gamma <= 1))
+			&& (beta + gamma <= 1))
 	{
 		if ((r->t > 0 && t < r->t) || (r->t <= 0))
 		{
-			*color = tr.color;
+			u->o_r = tr.r;
+			u->o_g = tr.g;
+			u->o_b = tr.b;
+			u->o_n = n;
 			r->t = t;
 		}
 	}
 	free(tr.o);
 	free(tr.p1);
 	free(tr.p2);
-	free(v1);
-	free(v2);
-	free(v3);
-	free(v4);
-	free(m);
-	free(m_inverse);
+	free(n);
+	free(v);
 }

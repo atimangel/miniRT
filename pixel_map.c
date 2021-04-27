@@ -46,13 +46,6 @@ void	ft_make_image_plane(t_image_plane *ip)
 	ip->len_h = 2 * tan(M_PI * (ip->fob_h / 180) / 2);
 	ip->fob_v = (ip->y * ip->fob_h) / ip->x;
 	ip->len_v = 2 * tan(M_PI * (ip->fob_v / 180) / 2);
-/*	printf("fob_h %f fob_v %f len_h %f len_v%f x %d y %d\n", ip->fob_h, ip->fob_v, ip->len_h, ip->len_v, ip->x, ip->y);
-	printf("tan(30) = %f\n" , tan(M_PI * (30 / 360)));
-	printf("camera, direction, right, up\n");
-	ft_putvec(*ip->camera);
-	ft_putvec(*ip->direction);
-	ft_putvec(*ip->right);
-	ft_putvec(*ip->up);*/
 }
 
 t_vec3	*ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip)
@@ -73,8 +66,6 @@ t_vec3	*ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip)
 	free(tmp);
 	free(pixel_u);
 	free(pixel_r);
-//	printf("(%d, %d) => ", u->x, u->y);
-//	ft_putvec(*pixel_p);
 	return (pixel_p);
 }
 
@@ -100,16 +91,17 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 		u.y = 0;
 		while (u.y < 500)
 		{
-			u.color = 0xf9f9ff;
+			u.p_r = 0xf9;
+			u.p_g = 0xf9;
+			u.p_b = 0xff;
 			r.t = -1.0;
 			r.d = ft_trans_image_plane(&u, ip);
-			//ft_sphere_touch(&r, &u.color);
-			//ft_plane_touch(&r, &u.color);
-			//ft_triangle_touch(&r, &u.color);
-			//ft_square_touch(&r, &u.color);
-			ft_cylinder_touch(&r, &u.color);
-			//if (((*r.d)[0] - (int)(*r.d)[0] >= -0.01 && (*r.d)[0] - (int)(*r.d)[0] <= 0.01)|| ((*r.d)[1]- (int)(*r.d)[1] >= -0.01 && (*r.d)[1] - (int)(*r.d)[1] <= 0.01))
-			//	u.color = 0;
+			//ft_sphere_touch(&r, &u);
+			//ft_plane_touch(&r, &u);
+			//ft_triangle_touch(&r, &u);
+			//ft_square_touch(&r, &u);
+			ft_cylinder_touch(&r, &u);
+			//ft_rander_ambient_light(&r, &u);
 			free(r.d);
 			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = u.color;
 			u.y++;

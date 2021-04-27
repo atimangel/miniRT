@@ -26,7 +26,13 @@ typedef struct s_pixel_unit
 {
 	int	x;
 	int	y;
-	int	color;
+	unsigned char o_r;
+	unsigned char o_g;
+	unsigned char o_b;
+	t_vec3		*o_n;
+	unsigned char p_r;
+	unsigned char p_g;
+	unsigned char p_b;
 }		t_pixel_unit;
 
 typedef struct s_ray
@@ -41,10 +47,10 @@ void	ft_make_window(t_mlx *mlx);
 void	ft_hook_event(t_mlx mlx);
 void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm);
 void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm);
-void	ft_sphere_touch(t_ray *r, int *color);
-void	ft_plane_touch(t_ray *r, int *color);
-void	ft_triangle_touch(t_ray *r, int *color);
-void	ft_square_touch(t_ray *r, int *color);
-void	ft_cylinder_touch(t_ray *r, int *color);
+void	ft_sphere_touch(t_ray *r, t_pixel_unit *u);
+void	ft_plane_touch(t_ray *r, t_pixel_unit *u);
+void	ft_triangle_touch(t_ray *r, t_pixel_unit *u);
+void	ft_square_touch(t_ray *r, t_pixel_unit *u);
+void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u);
 #endif
 
