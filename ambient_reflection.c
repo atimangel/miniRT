@@ -10,7 +10,7 @@ typedef struct s_ambient_ilumination
 
 void	ft_make_ambient_ilumination(t_ambient_ilumination *amb)
 {
-	amb->ratio = 0.0;
+	amb->ratio = 0.1;
 	amb->r = 255;
 	amb->g = 255;
 	amb->b = 255;

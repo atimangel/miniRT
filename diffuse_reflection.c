@@ -13,17 +13,17 @@ void	ft_diffuse_reflection(t_ray *r, t_pixel_unit *u, t_light light)
 	free(tmp);
 	lp = ft_vec3_remove(*light.c, *point);
 	cos = ft_vec3_dot_product(*lp, *u->o_n) / ft_vec3_len(*lp) / ft_vec3_len(*u->o_n);
-	ft_putvec(*lp);
-	ft_putvec(*u->o_n);
-	printf("cos %f\n", cos);
+	printf("cos %flight ratio%f\n", cos, light.ratio);
 	if (cos > 0)
 	{
 		ratio[0] = light.red * cos * light.ratio / 255;
 		ratio[1] = light.green * cos * light.ratio / 255;
 		ratio[2] = light.blue * cos * light.ratio / 255;
-		u->p_r += u->o_r * ratio[0];
-		u->p_g += u->o_g * ratio[1];
-		u->p_b += u->o_b * ratio[2];
+		u->p_r = u->o_r * ratio[0];
+		u->p_g = u->o_g * ratio[1];
+		u->p_b = u->o_b * ratio[2];
+		printf("ratio %f %f %f\n", ratio[0], ratio[1], ratio[2]);
+		printf("%d %d %d << %d %d %d\n", u->p_r, u->p_g, u->p_b, u->o_r, u->o_g, u->o_b);
 	}
 	free(point);
 	free(lp);
