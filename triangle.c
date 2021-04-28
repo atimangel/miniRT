@@ -33,7 +33,7 @@ t_vec3	*ft_triangle_interaction(t_triangle tr, t_ray *r, t_vec3 **n)
 	side1 = ft_vec3_remove(*tr.o, *tr.p1);
 	side2 = ft_vec3_remove(*tr.o, *tr.p2);
 	*n = ft_vec3_cross_product(*side1, *side2);
-	if (ft_vec3_dot_product(**n, *r->d) < 0)
+	if (ft_vec3_dot_product(**n, *r->d) > 0)
 	{
 		tmp = *n;
 		*n = ft_vec3_scale(*tmp, -1);

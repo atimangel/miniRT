@@ -37,10 +37,14 @@ void		ft_plane_touch(t_ray *r, t_pixel_unit *u)
 			u->o_b = pl.blue;
 			if (u->o_n != 0)
 				free(u->o_n);
-			if (ft_vec3_dot_product(*pl.normal, *r->d) > 0)
+			if (ft_vec3_dot_product(*pl.normal, *r->d) < 0)
 				u->o_n = pl.normal;
 			else
-				u->o_n = ft_vec3_scale(*pl.normal, -1);
+				u->o_n = ft_vec3_scale(*pl.normal, -1.0);
+			printf("pl.normal ");
+			ft_putvec(*pl.normal);
+			printf("u->o_n ");
+			ft_putvec(*u->o_n);
 		}
 	}
 	if (u->o_n != pl.normal)

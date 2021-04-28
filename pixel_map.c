@@ -104,8 +104,9 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 			//ft_cylinder_touch(&r, &u);
 			if (r.t != -1.0)
 			{
+				ft_putvec(*u.o_n);
 				ft_ambient_reflection(&u);
-				ft_diffuse_reflection(&r, &u, light);
+			//	ft_diffuse_reflection(&r, &u, light);
 			}
 			free(r.d);
 			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = (u.p_r << 16) + (u.p_g << 8) + u.p_b;

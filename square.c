@@ -60,11 +60,13 @@ void	ft_square_touch(t_ray *r, t_pixel_unit *u)
 			u->o_b = sq.blue;
 			if (u->o_n != 0)
 				free(u->o_n);
-			if (ft_vec3_dot_product(*r->d, *sq.normal) > 0)
+			if (ft_vec3_dot_product(*r->d, *sq.normal) < 0)
 				u->o_n = sq.normal;
-			else if (ft_vec3_dot_product(*r->d, *sq.normal) < 0)
+			else if (ft_vec3_dot_product(*r->d, *sq.normal) > 0)
 				u->o_n = ft_vec3_scale(*sq.normal, -1);
 			r->t = t;
+			printf("sq normal ");
+			ft_putvec(*sq.normal);
 		}
 	}
 	if (u->o_n != sq.normal)
