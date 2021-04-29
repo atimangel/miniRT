@@ -1,14 +1,5 @@
 #include "minirt.h"
 
-typedef struct s_plane
-{
-	t_vec3	*center;
-	t_vec3	*normal;
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-}				t_plane;
-
 void		ft_plane_touch(t_ray *r, t_pixel_unit *u)
 {
 	t_plane pl;

@@ -1,17 +1,5 @@
 #include "minirt.h"
 
-typedef struct s_cylinder
-{
-	t_vec3	*c;
-	t_vec3	*n;
-	double	r;
-	double	h;
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-	t_vec3	*c2;
-}				t_cylinder;
-
 void	ft_make_cylinder(t_cylinder *cy)
 {
 	t_vec3	*tmp;

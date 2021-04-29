@@ -1,21 +1,6 @@
 #include "minirt.h"
 #include <stdio.h>
 
-typedef struct s_image_plane
-{
-	t_vec3	*camera;
-	t_vec3	*direction;
-	double	fob_h;
-	double	fob_v;
-	t_vec3	*abs_up;
-	t_vec3	*right;
-	t_vec3	*up;
-	double	len_h;
-	double	len_v;
-	int		x;
-	int		y;
-}		t_image_plane;
-
 void	ft_free_image_plane(t_image_plane *ip)
 {
 	free(ip->camera);

@@ -1,14 +1,4 @@
 #include "minirt.h"
-#include <stdio.h>
-
-typedef struct s_sphere
-{
-	t_vec3	*center;
-	double	radius;
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
-}		t_sphere;
 
 void	ft_make_sphere(t_sphere *s)
 {
