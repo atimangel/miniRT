@@ -1,15 +1,5 @@
 #include "minirt.h"
 
-typedef struct s_square
-{
-	t_vec3	*center;
-	t_vec3	*normal;
-	double	len;
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
-}		t_square;
-
 void	ft_make_square(t_square *sq)
 {
 	sq->center = ft_vec3(0.0, 0.0, -5.0);

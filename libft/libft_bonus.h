@@ -15,6 +15,10 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 255
+# endif
 /*
 **Bonus MiniRT ARRAY & VECTOR
 */
@@ -53,4 +57,6 @@ t_a16		*ft_matrix_scailing(double x, double y, double z);
 
 void		ft_putvec(t_vec3 vec);
 void		ft_puta16(t_a16 array);
+
+int		get_next_line(int fd, char **line);
 #endif
