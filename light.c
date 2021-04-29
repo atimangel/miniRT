@@ -8,3 +8,13 @@ void	ft_make_light(t_light *light)
 	light->green = 255;
 	light->blue = 255;
 }
+
+void	ft_light_max(t_pixel_unit *u)
+{
+	if (u->p_r > 255)
+		u->p_r = 255;
+	if (u->p_g > 255)
+		u->p_g = 255;
+	if (u->p_b > 255)
+		u->p_b = 255;
+}

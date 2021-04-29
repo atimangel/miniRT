@@ -30,9 +30,9 @@ typedef struct s_pixel_unit
 	unsigned char o_g;
 	unsigned char o_b;
 	t_vec3		*o_n;
-	unsigned char p_r;
-	unsigned char p_g;
-	unsigned char p_b;
+	int p_r;
+	int p_g;
+	int p_b;
 }		t_pixel_unit;
 
 typedef struct s_ray
@@ -63,5 +63,7 @@ void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u);
 void	ft_ambient_reflection(t_pixel_unit *u);
 void	ft_make_light(t_light *light);
 void	ft_diffuse_reflection(t_ray *r, t_pixel_unit *u, t_light light);
+void	ft_specular_reflection(t_ray *r, t_pixel_unit *u, t_light light);
+void	ft_light_max(t_pixel_unit *u);
 #endif
 

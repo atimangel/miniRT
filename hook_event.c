@@ -9,7 +9,7 @@ static int	ft_exit_event(int a, void *parm)
 static int	ft_key_press(int key, void *parm)
 {
 	printf("press %d\n", key);
-	if (key == 53)
+	if (key == 53 || key == 65307)
 		exit(0);
 	return (0);
 }
