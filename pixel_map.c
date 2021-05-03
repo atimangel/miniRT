@@ -54,13 +54,20 @@ t_vec3	*ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip)
 	return (pixel_p);
 }
 
-void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm)
+void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj)
 {
+	t_resolution *res;
+
+	while (((t_resolution *)obj->content)->id != R)
+		obj = obj->next;
+	if (!obj)
+		printf("error\nno resolution\n");
+	res = obj->content;
 	pm->img_ptr = mlx_new_image(mlx.ptr, 500, 500);
 	pm->pixel_str = mlx_get_data_addr(pm->img_ptr, &pm->bpp, &pm->l_len, &pm->endian);
 }
 
-void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
+void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm, t_list *obj)
 {
 	t_pixel_unit	u;
 	t_image_plane	ip;
@@ -82,17 +89,18 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm)
 			r.t = -1.0;
 			r.d = ft_trans_image_plane(&u, ip);
 			u.o_n = 0;
-			ft_sphere_touch(&r, &u);
+			//ft_touch(&r, &u, obj);
+			//ft_sphere_touch(&r, &u);
 			//ft_plane_touch(&r, &u);
 			//ft_triangle_touch(&r, &u);
 			//ft_square_touch(&r, &u);
 			//ft_cylinder_touch(&r, &u);
 			if (r.t != -1.0)
 			{
-				ft_ambient_reflection(&u);
-				ft_diffuse_reflection(&r, &u, light);
-				ft_specular_reflection(&r, &u, light);
-				ft_light_max(&u);
+			//	ft_ambient_reflection(&u, obj);
+			//	ft_diffuse_reflection(&r, &u, light);
+			//	ft_specular_reflection(&r, &u, light);
+			//	ft_light_max(&u);
 			}
 			free(r.d);
 			*(unsigned int *)(pm.pixel_str + pm.l_len * u.y + pm.bpp * u.x / 8) = (u.p_r << 16) + (u.p_g << 8) + u.p_b;

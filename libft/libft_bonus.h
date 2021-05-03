@@ -59,4 +59,5 @@ void		ft_putvec(t_vec3 vec);
 void		ft_puta16(t_a16 array);
 
 int		get_next_line(int fd, char **line);
+double		ft_atof(const char *string);
 #endif

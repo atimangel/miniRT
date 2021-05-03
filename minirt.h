@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+enum e_obj {R = 1, A, c, l, sp, pl, cy, tr};
+
 typedef struct s_mlx
 {
 	void	*ptr;
@@ -106,21 +108,39 @@ typedef struct	s_square
 	unsigned char	blue;
 }		t_square;
 
-void	ft_make_window(t_mlx *mlx);
+typedef struct s_resolution
+{
+	enum e_obj	id;
+	int		x;
+	int		y;
+}		t_resolution;
+
+typedef struct s_ambient_reflection
+{
+	enum e_obj	id;
+	double		ratio;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;
+}		t_ambient_reflection;
+
+void	ft_make_window(t_mlx *mlx, t_list *obj);
 void	ft_hook_event(t_mlx mlx);
-void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm);
-void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm);
+void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj);
+void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm, t_list *obj);
 void	ft_sphere_touch(t_ray *r, t_pixel_unit *u);
 void	ft_plane_touch(t_ray *r, t_pixel_unit *u);
 void	ft_triangle_touch(t_ray *r, t_pixel_unit *u);
 void	ft_square_touch(t_ray *r, t_pixel_unit *u);
 void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u);
-void	ft_ambient_reflection(t_pixel_unit *u);
+void	ft_ambient_reflection(t_pixel_unit *u, t_list *obj);
 void	ft_make_light(t_light *light);
 void	ft_diffuse_reflection(t_ray *r, t_pixel_unit *u, t_light light);
 void	ft_specular_reflection(t_ray *r, t_pixel_unit *u, t_light light);
 void	ft_light_max(t_pixel_unit *u);
 
-int	ft_parse_rt(char *filename, void **object_list);
+t_list	*ft_parse_rt(char *filename);
+void	*ft_make_resolution(char *line);
+void	*ft_make_ambient_reflection(char *line);
 #endif
 
