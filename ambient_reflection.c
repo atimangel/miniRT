@@ -8,36 +8,13 @@ void	*ft_make_ambient_reflection(char *line)
 	if (!amb)
 		printf("error\namb_ref malloc error\n");
 	line += 1;
-	while (*line == ' ')
-		line++;
-	if (*line == '-' || *line == '+' || ft_isdigit(*line))
-		amb->ratio = ft_atof(line);
-	while (ft_isdigit(*line))
-		line++;
-	if (*line == '.')
-		line++;
-	while(ft_isdigit(*line))
-		line++;
-	while (*line == ' ')
-		line++;
-	if (ft_isdigit(*line))
-		amb->red = ft_atoi(line);
-	while (ft_isdigit(*line))
-		line++;
-	if (*line == ',')
-		line++;
-	if (ft_isdigit(*line))
-		amb->green = ft_atoi(line);
-	while (ft_isdigit(*line))
-		line++;
-	if (*line == ',')
-		line++;
-	if (ft_isdigit(*line))
-		amb->blue = ft_atoi(line);
-	while (ft_isdigit(*line))
-		line++;
-	while (*line == ' ')
-		line++;
+	line = ft_pass_space(line);
+	line = ft_read_float(line, &amb->ratio, 0);
+	line = ft_pass_space(line);
+	line = ft_read_char(line, &amb->red, 1);
+	line = ft_read_char(line, &amb->green, 1);
+	line = ft_read_char(line, &amb->blue, 0);
+	line = ft_pass_space(line);
 	if (*line != '\0')
 		printf("error\nstring's blank should be space and end is null character\nAmb_ref");
 	if (amb->ratio < 0.0 || amb->ratio > 1.0)

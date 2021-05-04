@@ -10,9 +10,7 @@ void	*ft_make_light(char *line)
 	li->id = l;
 	line++;
 	line = ft_pass_space(line);
-	line = ft_read_float(line, &li->point[0], 1);
-	line = ft_read_float(line, &li->point[1], 1);
-	line = ft_read_float(line, &li->point[2], 0);
+	line = ft_read_vec3(line, li->point);
 	line = ft_pass_space(line);
 	line = ft_read_float(line, &li->ratio, 0);
 	line = ft_pass_space(line);

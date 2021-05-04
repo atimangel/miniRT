@@ -6,20 +6,17 @@ void	*ft_make_resolution(char *line)
 
 	res = (t_resolution *)malloc(sizeof(t_resolution));
 	line += 1;
-	while (*line == ' ')
-		line++;
+	line = ft_pass_space(line);
 	if (ft_isdigit(*line))
 		res->x = ft_atoi(line);
 	while (ft_isdigit(*line))
 		line++;
-	while (*line == ' ')
-		line++;
+	line = ft_pass_space(line);
 	if (ft_isdigit(*line))
 		res->y = ft_atoi(line);
-	while (*line == ' ' || *line != '\0')
-		line++;
+	line = ft_pass_space(line);
 	if (*line != '\0')
-		printf("error\n wtf? %c\n", *line);
+		printf("error\n string is not end null character\n");
 	res->id = R;
 	return (res);
 }

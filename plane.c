@@ -11,13 +11,9 @@ void		*ft_make_plane(char *line)
 	pl->id = 6;
 	line += 2;
 	line = ft_pass_space(line);
-	line = ft_read_float(line, &pl->center[0], 1);
-	line = ft_read_float(line, &pl->center[1], 1);
-	line = ft_read_float(line, &pl->center[2], 0);
+	line = ft_read_vec3(line, pl->center);
 	line = ft_pass_space(line);
-	line = ft_read_float(line, &pl->normal[0], 1);
-	line = ft_read_float(line, &pl->normal[1], 1);
-	line = ft_read_float(line, &pl->normal[2], 0);
+	line = ft_read_vec3(line, pl->normal);
 	line = ft_pass_space(line);
 	line = ft_read_char(line, &pl->red, 1);
 	line = ft_read_char(line, &pl->green, 1);

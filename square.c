@@ -11,13 +11,9 @@ void	*ft_make_square(char *line)
 	line += 2;
 	s->id = sq;
 	line = ft_pass_space(line);
-	line = ft_read_float(line, &s->center[0], 1);
-	line = ft_read_float(line, &s->center[1], 1);
-	line = ft_read_float(line, &s->center[2], 0);
+	line = ft_read_vec3(line, s->center);
 	line = ft_pass_space(line);
-	line = ft_read_float(line, &s->normal[0], 1);
-	line = ft_read_float(line, &s->normal[1], 1);
-	line = ft_read_float(line, &s->normal[2], 0);
+	line = ft_read_vec3(line, s->normal);
 	line = ft_pass_space(line);
 	line = ft_read_float(line, &s->len, 0);
 	line = ft_pass_space(line);
@@ -33,6 +29,8 @@ void	*ft_make_square(char *line)
 		ft_memcpy(&s->normal, normal, sizeof(t_vec3));
 		free(normal);
 	}
+	ft_putvec(s->center);
+	ft_putvec(s->normal);
 	return (s);
 }
 void	ft_square_touch(t_ray *r, t_pixel_unit *u)

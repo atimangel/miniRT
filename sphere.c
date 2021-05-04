@@ -10,9 +10,7 @@ void	*ft_make_sphere(char *line)
 	sp->id = 5;
 	line += 2;
 	line = ft_pass_space(line);
-	line = ft_read_float(line, &sp->center[0], 1);
-	line = ft_read_float(line, &sp->center[1], 1);
-	line = ft_read_float(line, &sp->center[2], 0);
+	line = ft_read_vec3(line, sp->center);
 	line = ft_pass_space(line);
 	line = ft_read_float(line, &sp->radius, 0);
 	line = ft_pass_space(line);

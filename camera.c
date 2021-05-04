@@ -10,13 +10,9 @@ void	*ft_make_camera(char *line)
 	line++;
 	cam->id = c;
 	line = ft_pass_space(line);
-	line = ft_read_float(line, &cam->camera[0], 1);
-	line = ft_read_float(line, &cam->camera[1], 1);
-	line = ft_read_float(line, &cam->camera[2], 0);
+	line = ft_read_vec3(line, cam->camera);
 	line = ft_pass_space(line);
-	line = ft_read_float(line, &cam->direction[0], 1);
-	line = ft_read_float(line, &cam->direction[1], 1);
-	line = ft_read_float(line, &cam->direction[2], 0);
+	line = ft_read_vec3(line, cam->direction);
 	line = ft_pass_space(line);
 	line = ft_read_float(line, &cam->fov, 0);
 	line = ft_pass_space(line);
