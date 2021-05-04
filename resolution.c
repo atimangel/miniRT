@@ -14,6 +14,8 @@ void	*ft_make_resolution(char *line)
 	line = ft_pass_space(line);
 	if (ft_isdigit(*line))
 		res->y = ft_atoi(line);
+	while (ft_isdigit(*line))
+		line++;
 	line = ft_pass_space(line);
 	if (*line != '\0')
 		printf("error\n string is not end null character\n");
