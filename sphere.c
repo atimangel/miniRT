@@ -12,7 +12,7 @@ void	*ft_make_sphere(char *line)
 	line = ft_pass_space(line);
 	line = ft_read_vec3(line, sp->center);
 	line = ft_pass_space(line);
-	line = ft_read_float(line, &sp->radius, 0);
+	line = ft_read_float(line, &sp->diameter, 0);
 	line = ft_pass_space(line);
 	line = ft_read_char(line, &sp->red, 1);
 	line = ft_read_char(line, &sp->green, 1);
@@ -20,8 +20,8 @@ void	*ft_make_sphere(char *line)
 	line = ft_pass_space(line);
 	if (*line != '\0')
 		printf("error\nstring is not end null character sphere.c");
-	if (sp->radius <= 0.0)
-		printf("error\nspher's radius is same or under zero\n");
+	if (sp->diameter <= 0.0)
+		printf("error\nspher's diameter is same or under zero\n");
 	return (sp);
 }
 
