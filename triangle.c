@@ -1,26 +1,30 @@
 #include "minirt.h"
 
-typedef struct s_triangle
+void	*ft_make_triangle(char *line)
 {
-	t_vec3	*o;
-	t_vec3	*p1;
-	t_vec3	*p2;
-	unsigned char	r;
-	unsigned char	g;
-	unsigned char	b;
-}		t_triangle;
+	t_triangle	*t;
 
-void	ft_make_triangle(t_triangle *tr)
-{
-	tr->o = ft_vec3(0.0, 0.0, -7.0);
-	tr->p1 = ft_vec3(0.0, 7.0, -7.0);
-	tr->p2 = ft_vec3(7.0, 0.0, -7.0);
-	tr->r = 0;
-	tr->g = 0x90;
-	tr->b = 0;
-	
+	t = (t_triangle *)malloc(sizeof(t_triangle));
+	if (!t)
+		printf("error\nmalloc error triangl.c\n");
+	line += 2;
+	t->id = tr;
+	line = ft_pass_space(line);
+	line = ft_read_vec3(line, t->point_1);
+	line = ft_pass_space(line);
+	line = ft_read_vec3(line, t->point_2);
+	line = ft_pass_space(line);
+	line = ft_read_vec3(line, t->point_3);
+	line = ft_pass_space(line);
+	line = ft_read_char(line, &t->red, 1);
+	line = ft_read_char(line, &t->green, 1);
+	line = ft_read_char(line, &t->blue, 0);
+	line = ft_pass_space(line);
+	if (*line != '\0')
+		printf("error\nstring is not end null character triangle.c\n");
+	return (t);
 }
-
+/*
 t_vec3	*ft_triangle_interaction(t_triangle tr, t_ray *r, t_vec3 **n)
 {
 	t_vec3	*side1;
@@ -84,4 +88,4 @@ void	ft_triangle_touch(t_ray *r, t_pixel_unit *u)
 	if (u->o_n != n)
 		free(n);
 	free(v);
-}
+}*/

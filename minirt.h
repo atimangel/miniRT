@@ -137,13 +137,24 @@ typedef struct s_camera
 	double		fov;
 }		t_camera;
 
+typedef struct s_triangle
+{
+	enum e_obj	id;
+	t_vec3		point_1;
+	t_vec3		point_2;
+	t_vec3		point_3;
+	unsigned char	red;
+	unsigned char	green;
+	unsigned char	blue;	
+}		t_triangle;
+
 void	ft_make_window(t_mlx *mlx, t_list *obj);
 void	ft_hook_event(t_mlx mlx);
 void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj);
 void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm, t_list *obj);
 void	ft_sphere_touch(t_ray *r, t_pixel_unit *u);
 void	ft_plane_touch(t_ray *r, t_pixel_unit *u);
-void	ft_triangle_touch(t_ray *r, t_pixel_unit *u);
+//void	ft_triangle_touch(t_ray *r, t_pixel_unit *u);
 void	ft_square_touch(t_ray *r, t_pixel_unit *u);
 void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u);
 void	ft_ambient_reflection(t_pixel_unit *u, t_list *obj);
@@ -166,5 +177,6 @@ void	*ft_make_sphere(char *line);
 void	*ft_make_plane(char *line);
 void	*ft_make_square(char *line);
 void	*ft_make_cylinder(char *line);
+void	*ft_make_triangle(char *line);
 #endif
 

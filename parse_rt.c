@@ -43,8 +43,8 @@ void	*ft_make_obj(char *line)
 		return(ft_make_square(line));
 	if (ft_isobj(line) == 8)
 		return(ft_make_cylinder(line));
-/*	if (ft_isobj(line) == 9)
-		return(ft_make_triangle(line));*/
+	if (ft_isobj(line) == 9)
+		return(ft_make_triangle(line));
 }
 
 t_list	*ft_parse_rt(char *file_name)
