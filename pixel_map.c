@@ -72,11 +72,10 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm, t_list *obj)
 	t_pixel_unit	u;
 	t_image_plane	ip;
 	t_ray			r;
-	t_light			light;
 
 	u.x = 0;
 	ft_make_image_plane(&ip);
-	ft_make_light(&light);
+	//ft_make_light(&light);
 	r.e = ip.camera;
 	while (u.x < 500)
 	{

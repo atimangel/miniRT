@@ -46,7 +46,8 @@ typedef struct s_ray
 
 typedef struct s_light
 {
-	t_vec3			*c;
+	enum e_obj		id;
+	t_vec3			point;
 	double			ratio;
 	unsigned char	red;
 	unsigned char 	green;
@@ -142,16 +143,20 @@ void	ft_triangle_touch(t_ray *r, t_pixel_unit *u);
 void	ft_square_touch(t_ray *r, t_pixel_unit *u);
 void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u);
 void	ft_ambient_reflection(t_pixel_unit *u, t_list *obj);
-void	ft_make_light(t_light *light);
 void	ft_diffuse_reflection(t_ray *r, t_pixel_unit *u, t_light light);
 void	ft_specular_reflection(t_ray *r, t_pixel_unit *u, t_light light);
 void	ft_light_max(t_pixel_unit *u);
 
 t_list	*ft_parse_rt(char *filename);
+
+char	*ft_read_float(char *line, double *vec, char flag);
+char	*ft_pass_space(char *line);
+char	*ft_read_char(char *line, char *rgb, char flag);
+
 void	*ft_make_resolution(char *line);
 void	*ft_make_ambient_reflection(char *line);
 void	*ft_make_camera(char *line);
-char	*ft_read_vec3(char *line, double *vec, char flag);
-char	*ft_pass_space(char *line);
+void	*ft_make_light(char *line);
+
 #endif
 

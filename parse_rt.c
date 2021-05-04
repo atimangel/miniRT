@@ -33,9 +33,9 @@ void	*ft_make_obj(char *line)
 		return(ft_make_ambient_reflection(line));
 	if (ft_isobj(line) == 3)
 		return(ft_make_camera(line));
-/*	if (ft_isobj(line) == 4)
-		return(ft_make_r());
-	if (ft_isobj(line) == 5)
+	if (ft_isobj(line) == 4)
+		return(ft_make_light(line));
+/*	if (ft_isobj(line) == 5)
 		return(ft_make_r());
 	if (ft_isobj(line) == 6)
 		return(ft_make_r());

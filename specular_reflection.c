@@ -14,7 +14,7 @@ void	ft_specular_reflection(t_ray *r, t_pixel_unit *u, t_light light)
 	point = ft_vec3_add(*r->e, *tmp);
 	free(tmp);
 
-	lp = ft_vec3_remove(*light.c, *point);
+	lp = ft_vec3_remove(light.point, *point);
 	up = ft_vec3_scale(*u->o_n, ft_vec3_dot_product(*lp, *u->o_n) * -1 / ft_vec3_len(*u->o_n) * 2);
 	reflected_ray = ft_vec3_add(*lp, *up);
 

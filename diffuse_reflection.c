@@ -12,7 +12,7 @@ void	ft_diffuse_reflection(t_ray *r, t_pixel_unit *u, t_light light)
 	tmp = ft_vec3_scale(*r->d, r->t);
 	point = ft_vec3_add(*r->e, *tmp);
 	free(tmp);
-	lp = ft_vec3_remove(*light.c, *point);
+	lp = ft_vec3_remove(light.point, *point);
 	cos = ft_vec3_dot_product(*lp, *u->o_n) / ft_vec3_len(*lp) / ft_vec3_len(*u->o_n);
 	distance = ft_vec3_len(*lp);
 	if (cos > 0)
