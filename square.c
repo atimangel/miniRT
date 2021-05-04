@@ -1,17 +1,43 @@
 #include "minirt.h"
 
-void	ft_make_square(t_square *sq)
+void	*ft_make_square(char *line)
 {
-	sq->center = ft_vec3(0.0, 0.0, -5.0);
-	sq->normal = ft_vec3(0.0, 0.0, -1.0);
-	sq->len = 1.0;
-	sq->red = 0xa0;
-	sq->green = 0x00;
-	sq->blue = 0x00;
+	t_square	*s;
+	t_vec3		*normal;
+
+	s = (t_square *)malloc(sizeof(t_square));
+	if (!s)
+		printf("error\nmalloc error square.c\n");
+	line += 2;
+	s->id = sq;
+	line = ft_pass_space(line);
+	line = ft_read_float(line, &s->center[0], 1);
+	line = ft_read_float(line, &s->center[1], 1);
+	line = ft_read_float(line, &s->center[2], 0);
+	line = ft_pass_space(line);
+	line = ft_read_float(line, &s->normal[0], 1);
+	line = ft_read_float(line, &s->normal[1], 1);
+	line = ft_read_float(line, &s->normal[2], 0);
+	line = ft_pass_space(line);
+	line = ft_read_float(line, &s->len, 0);
+	line = ft_pass_space(line);
+	line = ft_read_char(line, &s->red, 1);
+	line = ft_read_char(line, &s->green, 1);
+	line = ft_read_char(line, &s->blue, 0);
+	line = ft_pass_space(line);
+	if (*line != '\0')
+		printf("error\nstring is not end null character square.c\n");
+	if (ft_vec3_len(s->normal) != 1.0)
+	{
+		normal = ft_vec3_normalize(s->normal);
+		ft_memcpy(&s->normal, normal, sizeof(t_vec3));
+		free(normal);
+	}
+	return (s);
 }
 void	ft_square_touch(t_ray *r, t_pixel_unit *u)
 {
-	t_square	sq;
+/*	t_square	sq;
 	t_vec3		*abs_up;
 	t_vec3		*up;
 	t_vec3		*right;
@@ -24,7 +50,7 @@ void	ft_square_touch(t_ray *r, t_pixel_unit *u)
 	double		gamma;
 	double		t;
 
-	ft_make_square(&sq);
+//	ft_make_square(&sq);
 	abs_up = ft_vec3(0.0, 1.0, 0.0);
 	right = ft_vec3_cross_product(*sq.normal, *abs_up);
 	up = ft_vec3_cross_product(*sq.normal, *right);
@@ -67,5 +93,5 @@ void	ft_square_touch(t_ray *r, t_pixel_unit *u)
 	free(v3);
 	free(v4);
 	free(m);
-	free(m_inverse);
+	free(m_inverse);*/
 }

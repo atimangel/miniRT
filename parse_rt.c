@@ -38,13 +38,10 @@ void	*ft_make_obj(char *line)
 	if (ft_isobj(line) == 5)
 		return(ft_make_sphere(line));
 	if (ft_isobj(line) == 6)
-	{
-		printf("plane\n");
 		return(ft_make_plane(line));
-	}
-/*	if (ft_isobj(line) == 7)
+	if (ft_isobj(line) == 7)
 		return(ft_make_square(line));
-	if (ft_isobj(line) == 8)
+/*	if (ft_isobj(line) == 8)
 		return(ft_make_cylinder(line));
 	if (ft_isobj(line) == 9)
 		return(ft_make_triangle(line));*/

@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-enum e_obj {R = 1, A, c, l, sp, pl, cy, tr};
+enum e_obj {R = 1, A, c, l, sp, pl, sq, cy, tr};
 
 typedef struct s_mlx
 {
@@ -103,8 +103,9 @@ typedef struct	s_sphere
 
 typedef struct	s_square
 {
-	t_vec3		*center;
-	t_vec3		*normal;
+	enum e_obj	id;
+	t_vec3		center;
+	t_vec3		normal;
 	double		len;
 	unsigned char	red;
 	unsigned char	green;
@@ -161,5 +162,6 @@ void	*ft_make_camera(char *line);
 void	*ft_make_light(char *line);
 void	*ft_make_sphere(char *line);
 void	*ft_make_plane(char *line);
+void	*ft_make_square(char *line);
 #endif
 
