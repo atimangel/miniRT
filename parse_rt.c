@@ -41,9 +41,9 @@ void	*ft_make_obj(char *line)
 		return(ft_make_plane(line));
 	if (ft_isobj(line) == 7)
 		return(ft_make_square(line));
-/*	if (ft_isobj(line) == 8)
+	if (ft_isobj(line) == 8)
 		return(ft_make_cylinder(line));
-	if (ft_isobj(line) == 9)
+/*	if (ft_isobj(line) == 9)
 		return(ft_make_triangle(line));*/
 }
 

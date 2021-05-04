@@ -71,11 +71,12 @@ typedef struct s_image_plane
 
 typedef struct s_cylinder
 {
-	t_vec3		*c;
-	t_vec3		*n;
-	t_vec3		*c2;
-	double		r;
-	double		h;
+	enum e_obj	id;
+	t_vec3		center;
+	t_vec3		normal;
+	t_vec3		center2;
+	double		diameter;
+	double		height;
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char	blue;
@@ -95,7 +96,7 @@ typedef struct	s_sphere
 {
 	enum e_obj	id;
 	t_vec3		center;
-	double		radius;
+	double		diameter;
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char	blue;
@@ -164,5 +165,6 @@ void	*ft_make_light(char *line);
 void	*ft_make_sphere(char *line);
 void	*ft_make_plane(char *line);
 void	*ft_make_square(char *line);
+void	*ft_make_cylinder(char *line);
 #endif
 
