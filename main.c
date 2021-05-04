@@ -15,9 +15,9 @@ int	main(int arg_c, char **arg_v)
 	}
 	//if (arg_c >= 3 && ft_strncmp(arg_v[2], "-save", 5))
 		//ft_save_bmp();
-	ft_make_window(&mlx, obj);
-	ft_make_pixel_map(mlx, &pm, obj);
-	ft_draw_pixel_map(mlx, pm, obj);
-	ft_hook_event(mlx);
-	mlx_loop(mlx.ptr);
+	//ft_make_window(&mlx, obj);
+	//ft_make_pixel_map(mlx, &pm, obj);
+	//ft_draw_pixel_map(mlx, pm, obj);
+	//ft_hook_event(mlx);
+	//mlx_loop(mlx.ptr);
 }

@@ -124,6 +124,14 @@ typedef struct s_ambient_reflection
 	unsigned char	blue;
 }		t_ambient_reflection;
 
+typedef struct s_camera
+{
+	enum e_obj	id;
+	t_vec3		camera;
+	t_vec3		direction;
+	double		fov;
+}		t_camera;
+
 void	ft_make_window(t_mlx *mlx, t_list *obj);
 void	ft_hook_event(t_mlx mlx);
 void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj);
@@ -142,5 +150,8 @@ void	ft_light_max(t_pixel_unit *u);
 t_list	*ft_parse_rt(char *filename);
 void	*ft_make_resolution(char *line);
 void	*ft_make_ambient_reflection(char *line);
+void	*ft_make_camera(char *line);
+char	*ft_read_vec3(char *line, double *vec, char flag);
+char	*ft_pass_space(char *line);
 #endif
 

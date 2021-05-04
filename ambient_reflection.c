@@ -38,7 +38,6 @@ void	*ft_make_ambient_reflection(char *line)
 		line++;
 	while (*line == ' ')
 		line++;
-	printf("%s\n", line);
 	if (*line != '\0')
 		printf("error\nstring's blank should be space and end is null character\nAmb_ref");
 	if (amb->ratio < 0.0 || amb->ratio > 1.0)

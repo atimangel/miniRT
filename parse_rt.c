@@ -31,9 +31,9 @@ void	*ft_make_obj(char *line)
 		return(ft_make_resolution(line));
 	if (ft_isobj(line) == 2)
 		return(ft_make_ambient_reflection(line));
-/*	if (ft_isobj(line) == 3)
-		return(ft_make_());
-	if (ft_isobj(line) == 4)
+	if (ft_isobj(line) == 3)
+		return(ft_make_camera(line));
+/*	if (ft_isobj(line) == 4)
 		return(ft_make_r());
 	if (ft_isobj(line) == 5)
 		return(ft_make_r());
@@ -67,9 +67,7 @@ t_list	*ft_parse_rt(char *file_name)
 		if (flag & 0x02 || flag & 0x08)
 			printf("error\nyou can't make two R or A\n");
 		if (ft_isobj(line))
-		{
 			ft_lstadd_back(&obj, ft_lstnew(ft_make_obj(line)));
-		}
 		printf("%s\n", line);	
 	}
 	close(fd);

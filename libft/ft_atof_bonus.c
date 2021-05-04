@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 static	int	ft_isspace(char c)
 {
 	if ((c >= 9 && c <= 13) || c == 32)
@@ -37,7 +37,6 @@ double			ft_atof(const char *string)
 	i = 0;
 	number = ft_atoi(string);
 	under_dot = 0;
-	printf("%s\n", string);
 	while (ft_isspace(string[i]))
 		i++;
 	if (ft_ispm(string[i]))
