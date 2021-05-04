@@ -43,3 +43,11 @@ char	*ft_read_char(char *line, char *rgb, char flag)
 	}
 	return (line);
 }
+
+char	*ft_read_vec3(char *line, t_vec3 vec)
+{
+	line = ft_read_float(line, &vec[0], 1);
+	line = ft_read_float(line, &vec[1], 1);
+	line = ft_read_float(line, &vec[2], 0);
+	return (line);
+}

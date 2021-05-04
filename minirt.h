@@ -155,6 +155,7 @@ t_list	*ft_parse_rt(char *filename);
 char	*ft_read_float(char *line, double *vec, char flag);
 char	*ft_pass_space(char *line);
 char	*ft_read_char(char *line, char *rgb, char flag);
+char	*ft_read_vec3(char *line, t_vec3 vec);
 
 void	*ft_make_resolution(char *line);
 void	*ft_make_ambient_reflection(char *line);
