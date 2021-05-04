@@ -92,7 +92,8 @@ typedef struct	s_plane
 
 typedef struct	s_sphere
 {
-	t_vec3		*center;
+	enum e_obj	id;
+	t_vec3		center;
 	double		radius;
 	unsigned char	red;
 	unsigned char	green;
@@ -157,6 +158,6 @@ void	*ft_make_resolution(char *line);
 void	*ft_make_ambient_reflection(char *line);
 void	*ft_make_camera(char *line);
 void	*ft_make_light(char *line);
-
+void	*ft_make_sphere(char *line);
 #endif
 

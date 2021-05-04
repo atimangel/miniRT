@@ -1,12 +1,31 @@
 #include "minirt.h"
 
-void	ft_make_sphere(t_sphere *s)
+void	*ft_make_sphere(char *line)
 {
-	s->center  = ft_vec3(0.0, 0.0, -5.0);
-	s->radius = 1.0;
-	s->red = 0x0;
-	s->green = 0xff;
-	s->blue = 0xff;
+	t_sphere *sp;
+
+	sp = (t_sphere *)malloc(sizeof(t_sphere));
+	if (!sp)
+		printf("error\nmalloc error sphere.c\n");
+	sp->id = (enum e_obj)sp;
+	line += 2;
+	line = ft_pass_space(line);
+	line = ft_read_float(line, &sp->center[0], 1);
+	line = ft_read_float(line, &sp->center[1], 1);
+	line = ft_read_float(line, &sp->center[2], 0);
+	line = ft_pass_space(line);
+	line = ft_read_float(line, &sp->radius, 0);
+	line = ft_pass_space(line);
+	line = ft_read_char(line, &sp->red, 1);
+	line = ft_read_char(line, &sp->green, 1);
+	line = ft_read_char(line, &sp->blue, 0);
+	line = ft_pass_space(line);
+	if (*line != '\0')
+		printf("error\nstring is not end null character sphere.c");
+	if (sp->radius <= 0.0)
+		printf("error\nspher's radius is same or under zero\n");
+	return (sp);
+
 }
 
 t_vec3	*ft_sphere_normal(t_sphere s, t_ray *r, double t)
@@ -16,11 +35,11 @@ t_vec3	*ft_sphere_normal(t_sphere s, t_ray *r, double t)
 	t_vec3	*tmp;
 	t_vec3	*aaa;
 
-	tmp = ft_vec3_scale(*r->d, t);
+/*	tmp = ft_vec3_scale(*r->d, t);
 	p = ft_vec3_add(*r->e, *tmp);
 	normal = ft_vec3_remove(*p, *s.center);
 	free(p);
-	free(tmp);
+	free(tmp);*/
 	return (normal);
 }
 
@@ -33,8 +52,8 @@ void	ft_sphere_touch(t_ray *r, t_pixel_unit *u)
 	double	t;
 	t_vec3	*tmp;
 
-	t = -1.0;
-	ft_make_sphere(&s);
+/*	t = -1.0;
+//	ft_make_sphere(&s);
 	a = ft_vec3_dot_product(*r->d, *r->d);
 	tmp = ft_vec3_remove(*r->e, *s.center);
 	c = ft_vec3_dot_product(*tmp, *tmp) - pow(s.radius, 2.0);
@@ -63,5 +82,5 @@ void	ft_sphere_touch(t_ray *r, t_pixel_unit *u)
 		tmp = ft_sphere_normal(s, r, t);
 		u->o_n = ft_vec3_scale(*tmp, -1.0);
 	}
-	free(s.center);
+	free(s.center);*/
 }

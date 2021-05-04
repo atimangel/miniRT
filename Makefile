@@ -14,6 +14,8 @@ SRC = main.c\
       specular_reflection.c\
       parse_rt.c\
       resolution.c\
+      camera.c\
+      parse_utils.c\
 
 NAME = raytracing.out
 
