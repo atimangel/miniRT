@@ -7,7 +7,7 @@ void	*ft_make_sphere(char *line)
 	sp = (t_sphere *)malloc(sizeof(t_sphere));
 	if (!sp)
 		printf("error\nmalloc error sphere.c\n");
-	sp->id = (enum e_obj)sp;
+	sp->id = 5;
 	line += 2;
 	line = ft_pass_space(line);
 	line = ft_read_float(line, &sp->center[0], 1);
@@ -25,7 +25,6 @@ void	*ft_make_sphere(char *line)
 	if (sp->radius <= 0.0)
 		printf("error\nspher's radius is same or under zero\n");
 	return (sp);
-
 }
 
 t_vec3	*ft_sphere_normal(t_sphere s, t_ray *r, double t)

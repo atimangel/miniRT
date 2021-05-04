@@ -1,8 +1,42 @@
 #include "minirt.h"
 
+void		*ft_make_plane(char *line)
+{
+	t_plane	*pl;
+	t_vec3	*normal;
+
+	pl = (t_plane *)malloc(sizeof(t_plane));
+	if (!pl)
+		printf("error\nmalloc error plane.c");
+	pl->id = 6;
+	line += 2;
+	line = ft_pass_space(line);
+	line = ft_read_float(line, &pl->center[0], 1);
+	line = ft_read_float(line, &pl->center[1], 1);
+	line = ft_read_float(line, &pl->center[2], 0);
+	line = ft_pass_space(line);
+	line = ft_read_float(line, &pl->normal[0], 1);
+	line = ft_read_float(line, &pl->normal[1], 1);
+	line = ft_read_float(line, &pl->normal[2], 0);
+	line = ft_pass_space(line);
+	line = ft_read_char(line, &pl->red, 1);
+	line = ft_read_char(line, &pl->green, 1);
+	line = ft_read_char(line, &pl->blue, 0);
+	line = ft_pass_space(line);
+	if (*line != '\0')
+		printf("error\nstring is not end null character plane.c");
+	if (ft_vec3_len(pl->normal) != 1.0)
+	{
+		normal = ft_vec3_normalize(pl->normal);
+		ft_memcpy(&pl->normal, normal, sizeof(t_vec3));
+		free(normal);
+	}
+	return (pl);
+}
+
 void		ft_plane_touch(t_ray *r, t_pixel_unit *u)
 {
-	t_plane pl;
+/*	t_plane pl;
 	double	t;
 	t_vec3	*tmp;
 	double	len;
@@ -40,5 +74,5 @@ void		ft_plane_touch(t_ray *r, t_pixel_unit *u)
 	}
 	if (u->o_n != pl.normal)
 		free(pl.normal);
-	free(pl.center);
+	free(pl.center);*/
 }

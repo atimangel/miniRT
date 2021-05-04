@@ -83,8 +83,9 @@ typedef struct s_cylinder
 
 typedef struct	s_plane
 {
-	t_vec3		*center;
-	t_vec3		*normal;
+	enum e_obj	id;
+	t_vec3		center;
+	t_vec3		normal;
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char 	blue;
@@ -159,5 +160,6 @@ void	*ft_make_ambient_reflection(char *line);
 void	*ft_make_camera(char *line);
 void	*ft_make_light(char *line);
 void	*ft_make_sphere(char *line);
+void	*ft_make_plane(char *line);
 #endif
 

@@ -37,14 +37,17 @@ void	*ft_make_obj(char *line)
 		return(ft_make_light(line));
 	if (ft_isobj(line) == 5)
 		return(ft_make_sphere(line));
-/*	if (ft_isobj(line) == 6)
-		return(ft_make_r());
-	if (ft_isobj(line) == 7)
-		return(ft_make_r());
+	if (ft_isobj(line) == 6)
+	{
+		printf("plane\n");
+		return(ft_make_plane(line));
+	}
+/*	if (ft_isobj(line) == 7)
+		return(ft_make_square(line));
 	if (ft_isobj(line) == 8)
-		return(ft_make_r());
+		return(ft_make_cylinder(line));
 	if (ft_isobj(line) == 9)
-		return(ft_make_r());*/
+		return(ft_make_triangle(line));*/
 }
 
 t_list	*ft_parse_rt(char *file_name)
