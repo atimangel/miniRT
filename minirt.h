@@ -171,5 +171,7 @@ void	*ft_make_plane(char *line);
 void	*ft_make_square(char *line);
 void	*ft_make_cylinder(char *line);
 void	*ft_make_triangle(char *line);
+
+void	*ft_find_obj(t_list *obj, enum e_obj id, int order);
 #endif
 

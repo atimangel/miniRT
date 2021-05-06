@@ -1,6 +1,6 @@
 #include "minirt.h"
 #include <stdio.h>
-
+/*
 void	ft_free_image_plane(t_image_plane *ip)
 {
 	free(ip->camera);
@@ -14,12 +14,12 @@ void	ft_make_image_plane(t_image_plane *ip)
 {
 	t_vec3	*tmp;
 
-	ip->x = 500;
-	ip->y = 500;
-	ip->camera = ft_vec3(0.0, 0.0, -1.0);
-	ip->direction = ft_vec3(0.0, 0.0, -1.0);
-	ip->fob_h = 120;
-	ip->abs_up = ft_vec3(0.0, 1.0, 0.0);
+//	ip->x = 500;
+//	ip->y = 500;
+//	ip->camera = ft_vec3(0.0, 0.0, -1.0);
+//	ip->direction = ft_vec3(0.0, 0.0, -1.0);
+//	ip->fob_h = 120;
+//	ip->abs_up = ft_vec3(0.0, 1.0, 0.0);
 	ip->right = ft_vec3_cross_product(*ip->direction, *ip->abs_up);
 	ip->up = ft_vec3_cross_product(*ip->direction, *ip->right);
 	tmp = ip->right;
@@ -53,21 +53,19 @@ t_vec3	*ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip)
 	free(pixel_r);
 	return (pixel_p);
 }
-
+*/
 void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj)
 {
 	t_resolution *res;
 
-	while (((t_resolution *)obj->content)->id != R)
+	while (obj->id != R)
 		obj = obj->next;
-	if (!obj)
-		printf("error\nno resolution\n");
-	res = obj->content;
-	pm->img_ptr = mlx_new_image(mlx.ptr, 500, 500);
+	res = obj->content;//ft_find_obj(obj, id, order)
+	pm->img_ptr = mlx_new_image(mlx.ptr, res->x, res->y);
 	pm->pixel_str = mlx_get_data_addr(pm->img_ptr, &pm->bpp, &pm->l_len, &pm->endian);
 }
-
-void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm, t_list *obj)
+/*
+void	ft_draw_pixel_map(t_pixel_map pm, t_list *obj, t_resolution res, t_camera cam)
 {
 	t_pixel_unit	u;
 	t_image_plane	ip;
@@ -109,4 +107,4 @@ void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm, t_list *obj)
 	}
 	mlx_put_image_to_window(mlx.ptr, mlx.win, pm.img_ptr, 0, 0);
 	ft_free_image_plane(&ip);
-}
+}*/

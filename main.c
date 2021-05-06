@@ -1,5 +1,24 @@
 #include "minirt.h"
 
+void	*ft_find_obj(t_list *obj, enum e_obj id, int order)
+{
+	if (!obj)
+		printf("error\nyou give null pointer to ft_find_obj\n");
+	if (order < 0)
+		printf("error\nyou try to find %dth %uobj\n", order, id);
+	while (obj)
+	{
+		if (obj->id == id && !order)
+			return (obj->content);
+		else if (obj->id == id)
+			order--;
+		obj = obj->next;
+	}
+	if (!obj)
+		printf("error\ncan't find object\n");
+	return (0);
+}
+
 int	main(int arg_c, char **arg_v)
 {
 	t_mlx	mlx;
@@ -13,11 +32,12 @@ int	main(int arg_c, char **arg_v)
 		printf("error\n no *.rt file\n");
 		return (0);
 	}
-	//if (arg_c >= 3 && ft_strncmp(arg_v[2], "-save", 5))
-		//ft_save_bmp();
 	ft_make_window(&mlx, obj);
 	//ft_make_pixel_map(mlx, &pm, obj);
-	//ft_draw_pixel_map(mlx, pm, obj);
-	ft_hook_event(mlx);
-	mlx_loop(mlx.ptr);
+	//ft_draw_pixel_map(pm, obj, res, cam);
+	//mlx_put_image_to_window(mlx.ptr, mlx.win, pm.img_ptr, 0, 0);
+	//if (arg_c >= 3 && ft_strncmp(arg_v[2], "-save", 5))
+		//ft_save_bmp();
+	//ft_hook_event(mlx);
+	//mlx_loop(mlx.ptr);
 }
