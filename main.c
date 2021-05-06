@@ -24,6 +24,7 @@ int	main(int arg_c, char **arg_v)
 	t_mlx	mlx;
 	t_pixel_map	pm;
 	t_list		*obj;
+	t_image_plane	ip;
 	
 	if (arg_c >= 2 && ft_strnstr(arg_v[1], ".rt", ft_strlen(arg_v[1])) == arg_v[1] + ft_strlen(arg_v[1]) - 3)
 		obj = ft_parse_rt(arg_v[1]);
@@ -33,11 +34,11 @@ int	main(int arg_c, char **arg_v)
 		return (0);
 	}
 	ft_make_window(&mlx, obj);
-	//ft_make_pixel_map(mlx, &pm, obj);
-	//ft_draw_pixel_map(pm, obj, res, cam);
-	//mlx_put_image_to_window(mlx.ptr, mlx.win, pm.img_ptr, 0, 0);
+	ft_make_pixel_map(mlx, &pm, obj);
+	ft_draw_pixel_map(pm, obj, *(t_resolution *)ft_find_obj(obj, R, 0), *(t_camera *)ft_find_obj(obj, c, 0));
+	mlx_put_image_to_window(mlx.ptr, mlx.win, pm.img_ptr, 0, 0);
 	//if (arg_c >= 3 && ft_strncmp(arg_v[2], "-save", 5))
 		//ft_save_bmp();
-	//ft_hook_event(mlx);
-	//mlx_loop(mlx.ptr);
+	ft_hook_event(mlx);
+	mlx_loop(mlx.ptr);
 }

@@ -41,8 +41,8 @@ typedef struct s_pixel_unit
 
 typedef struct s_ray
 {
-	t_vec3	*e;
-	t_vec3	*d;
+	t_vec3	e;
+	t_vec3	d;
 	double	t;
 }				t_ray;
 
@@ -58,15 +58,11 @@ typedef struct s_light
 
 typedef struct s_image_plane
 {
-	double		fob_h;
-	double		fob_v;
-	t_vec3		*abs_up;
-	t_vec3		*right;
-	t_vec3		*up;
+	double		fov_v;
+	t_vec3		right;
+	t_vec3		up;
 	double		len_h;
 	double		len_v;
-	int		x;
-	int		y;
 }		t_image_plane;
 
 typedef struct s_cylinder
@@ -144,15 +140,15 @@ typedef struct s_triangle
 void	ft_make_window(t_mlx *mlx, t_list *obj);
 void	ft_hook_event(t_mlx mlx);
 void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj);
-void	ft_draw_pixel_map(t_mlx mlx, t_pixel_map pm, t_list *obj);
+void	ft_draw_pixel_map(t_pixel_map pm, t_list *obj, t_resolution res, t_camera cam);
 void	ft_sphere_touch(t_ray *r, t_pixel_unit *u);
 void	ft_plane_touch(t_ray *r, t_pixel_unit *u);
 //void	ft_triangle_touch(t_ray *r, t_pixel_unit *u);
 void	ft_square_touch(t_ray *r, t_pixel_unit *u);
 void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u);
 void	ft_ambient_reflection(t_pixel_unit *u, t_list *obj);
-void	ft_diffuse_reflection(t_ray *r, t_pixel_unit *u, t_light light);
-void	ft_specular_reflection(t_ray *r, t_pixel_unit *u, t_light light);
+//void	ft_diffuse_reflection(t_ray *r, t_pixel_unit *u, t_light light);
+//void	ft_specular_reflection(t_ray *r, t_pixel_unit *u, t_light light);
 void	ft_light_max(t_pixel_unit *u);
 
 t_list	*ft_parse_rt(char *filename);

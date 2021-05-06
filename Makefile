@@ -2,7 +2,6 @@
 SRC = main.c\
       ambient_reflection.c\
       cylinder.c\
-      diffuse_reflection.c\
       hook_event.c\
       light.c\
       make_window.c\
@@ -11,11 +10,12 @@ SRC = main.c\
       sphere.c\
       square.c\
       triangle.c\
-      specular_reflection.c\
       parse_rt.c\
       resolution.c\
       camera.c\
       parse_utils.c\
+      #diffuse_reflection.c\
+      specular_reflection.c\
 
 NAME = raytracing.out
 
