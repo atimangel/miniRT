@@ -10,7 +10,6 @@ void	*ft_make_cylinder(char *line)
 	if (!c)
 		printf("error\nmalloc error cylinder\n");
 	line += 2;
-	c->id = cy;
 	line = ft_pass_space(line);
 	line = ft_read_vec3(line, c->center);
 	line = ft_pass_space(line);

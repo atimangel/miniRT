@@ -7,7 +7,6 @@ void	*ft_make_light(char *line)
 	li = (t_light *)malloc(sizeof(t_light));
 	if (!li)
 		printf("error\nmalloc error light.c");
-	li->id = l;
 	line++;
 	line = ft_pass_space(line);
 	line = ft_read_vec3(line, li->point);

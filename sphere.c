@@ -7,7 +7,6 @@ void	*ft_make_sphere(char *line)
 	sp = (t_sphere *)malloc(sizeof(t_sphere));
 	if (!sp)
 		printf("error\nmalloc error sphere.c\n");
-	sp->id = 5;
 	line += 2;
 	line = ft_pass_space(line);
 	line = ft_read_vec3(line, sp->center);

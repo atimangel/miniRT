@@ -53,6 +53,7 @@ t_list	*ft_parse_rt(char *file_name)
 	int	fd;
 	t_list	*obj;
 	char	flag;
+	t_list	*last;
 
 	flag = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
@@ -67,8 +68,11 @@ t_list	*ft_parse_rt(char *file_name)
 		if (flag & 0x02 || flag & 0x08)
 			printf("error\nyou can't make two R or A\n");
 		if (ft_isobj(line))
+		{
 			ft_lstadd_back(&obj, ft_lstnew(ft_make_obj(line)));
-		printf("%s\n", line);	
+			ft_lstlast(obj)->id = ft_isobj(line);
+		}
+		printf("id = %u %s\n", ft_lstlast(obj)->id, line);
 	}
 	close(fd);
 	if (flag & 0x01 == 0)

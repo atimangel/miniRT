@@ -19,6 +19,5 @@ void	*ft_make_resolution(char *line)
 	line = ft_pass_space(line);
 	if (*line != '\0')
 		printf("error\n string is not end null character\n");
-	res->id = R;
 	return (res);
 }

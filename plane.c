@@ -8,7 +8,6 @@ void		*ft_make_plane(char *line)
 	pl = (t_plane *)malloc(sizeof(t_plane));
 	if (!pl)
 		printf("error\nmalloc error plane.c");
-	pl->id = 6;
 	line += 2;
 	line = ft_pass_space(line);
 	line = ft_read_vec3(line, pl->center);

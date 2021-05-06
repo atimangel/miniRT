@@ -7,7 +7,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-enum e_obj {R = 1, A, c, l, sp, pl, sq, cy, tr};
+/*
+**enum e_obj {R = 1, A, c, l, sp, pl, sq, cy, tr};
+*/
 
 typedef struct s_mlx
 {
@@ -56,8 +58,6 @@ typedef struct s_light
 
 typedef struct s_image_plane
 {
-	t_vec3		*camera;
-	t_vec3		*direction;
 	double		fob_h;
 	double		fob_v;
 	t_vec3		*abs_up;
@@ -71,7 +71,6 @@ typedef struct s_image_plane
 
 typedef struct s_cylinder
 {
-	enum e_obj	id;
 	t_vec3		center;
 	t_vec3		normal;
 	t_vec3		center2;
@@ -94,7 +93,6 @@ typedef struct	s_plane
 
 typedef struct	s_sphere
 {
-	enum e_obj	id;
 	t_vec3		center;
 	double		diameter;
 	unsigned char	red;
@@ -104,7 +102,6 @@ typedef struct	s_sphere
 
 typedef struct	s_square
 {
-	enum e_obj	id;
 	t_vec3		center;
 	t_vec3		normal;
 	double		len;
@@ -115,14 +112,12 @@ typedef struct	s_square
 
 typedef struct s_resolution
 {
-	enum e_obj	id;
 	int		x;
 	int		y;
 }		t_resolution;
 
 typedef struct s_ambient_reflection
 {
-	enum e_obj	id;
 	double		ratio;
 	unsigned char	red;
 	unsigned char	green;
@@ -131,7 +126,6 @@ typedef struct s_ambient_reflection
 
 typedef struct s_camera
 {
-	enum e_obj	id;
 	t_vec3		camera;
 	t_vec3		direction;
 	double		fov;
@@ -139,7 +133,6 @@ typedef struct s_camera
 
 typedef struct s_triangle
 {
-	enum e_obj	id;
 	t_vec3		point_1;
 	t_vec3		point_2;
 	t_vec3		point_3;

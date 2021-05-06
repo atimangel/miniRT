@@ -9,7 +9,6 @@ void	*ft_make_square(char *line)
 	if (!s)
 		printf("error\nmalloc error square.c\n");
 	line += 2;
-	s->id = sq;
 	line = ft_pass_space(line);
 	line = ft_read_vec3(line, s->center);
 	line = ft_pass_space(line);

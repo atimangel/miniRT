@@ -8,7 +8,6 @@ void	*ft_make_triangle(char *line)
 	if (!t)
 		printf("error\nmalloc error triangl.c\n");
 	line += 2;
-	t->id = tr;
 	line = ft_pass_space(line);
 	line = ft_read_vec3(line, t->point_1);
 	line = ft_pass_space(line);

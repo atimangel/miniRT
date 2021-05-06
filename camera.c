@@ -8,7 +8,6 @@ void	*ft_make_camera(char *line)
 	if (!cam)
 		printf("error\nmalloc error cam.c\n");
 	line++;
-	cam->id = c;
 	line = ft_pass_space(line);
 	line = ft_read_vec3(line, cam->camera);
 	line = ft_pass_space(line);

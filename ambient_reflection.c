@@ -19,7 +19,6 @@ void	*ft_make_ambient_reflection(char *line)
 		printf("error\nstring's blank should be space and end is null character\nAmb_ref");
 	if (amb->ratio < 0.0 || amb->ratio > 1.0)
 		printf("error\namb ratio should be in 0.0 ~ 1.0");
-	amb->id = A;
 	return(amb);
 //형식에 맞춰서 안적을 경우
 //범위를 넘어서는 값을 적을 경우
