@@ -89,7 +89,7 @@ CC = gcc
 CCFLAG = -Wall -Werror -Wextra
 ARFLAG = -rc
 
-all : $(NAME)
+all : bonus $(NAME)
 
 $(NAME) : $(OBJS)
 	ar $(ARFLAG) $@ $^

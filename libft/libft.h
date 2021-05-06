@@ -67,11 +67,17 @@ void			ft_putnbr_fd(int n, int fd);
 /*
 **Bonus
 */
+
+/*
+enum e_obj {R = 1, A, c, l, sp, pl, sq, cy, tr};
+
 typedef struct	s_list
 {
+	enum e_obj		id;
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
 t_list			*ft_lstnew(void *constent);
 void			ft_lstadd_front(t_list **lst, t_list *new);
 int				ft_lstsize(t_list *lst);
@@ -82,4 +88,5 @@ void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*del)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *),
 		void (*del)(void *));
+		*/
 #endif
