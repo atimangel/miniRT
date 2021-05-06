@@ -24,59 +24,66 @@ void	*ft_make_sphere(char *line)
 	return (sp);
 }
 
-t_vec3	*ft_sphere_normal(t_sphere s, t_ray *r, double t)
+t_vec3	*ft_sphere_normal(t_sphere *sp, t_ray *r, double t)
 {
 	t_vec3	*normal;
 	t_vec3	*p;
 	t_vec3	*tmp;
-	t_vec3	*aaa;
 
-/*	tmp = ft_vec3_scale(*r->d, t);
-	p = ft_vec3_add(*r->e, *tmp);
-	normal = ft_vec3_remove(*p, *s.center);
+	tmp = ft_vec3_scale(*r->d, t);
+	p = ft_vec3_add(r->e, *tmp);
+	free (tmp);
+	tmp = ft_vec3_remove(*p, sp->center);
+	normal = ft_vec3_normalize(*tmp);
 	free(p);
-	free(tmp);*/
+	free(tmp);
 	return (normal);
 }
 
-void	ft_sphere_touch(t_ray *r, t_pixel_unit *u)
+double	ft_sphere_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 {
-	t_sphere s;
+	t_sphere *sp;
 	double	a;
 	double	b;
 	double	c;
 	double	t;
 	t_vec3	*tmp;
 
-/*	t = -1.0;
-//	ft_make_sphere(&s);
+	sp = obj;
+	t = -1.0;
 	a = ft_vec3_dot_product(*r->d, *r->d);
-	tmp = ft_vec3_remove(*r->e, *s.center);
-	c = ft_vec3_dot_product(*tmp, *tmp) - pow(s.radius, 2.0);
+	tmp = ft_vec3_remove(r->e, sp->center);
 	b = ft_vec3_dot_product(*r->d, *tmp) * 2;
+	c = ft_vec3_dot_product(*tmp, *tmp) - pow(sp->diameter, 2.0);
 	free(tmp);
 	if (pow(b, 2.0) - 4 * a * c < 0)
-		t = -1;
+		return (-1);
 	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / (2 * a)) > 0 && ((r->t > 0 && t < r->t)|| r->t <= 0))
 	{
+		if (flag == 1)
+			return (t);
 		r->t = t;
-		u->o_r = s.red;
-		u->o_g = s.green;
-		u->o_b = s.blue;
+		u->o_r = sp->red;
+		u->o_g = sp->green;
+		u->o_b = sp->blue;
 		if (u->o_n != 0)
 			free(u->o_n);
-		u->o_n = ft_sphere_normal(s, r, t);
+		u->o_n = ft_sphere_normal(sp, r, t);
+		return (t);
 	}
 	else if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && r->t > 0 && t < r->t)
 	{
-		r->t = t;
-		u->o_r = s.red;
-		u->o_g = s.green;
-		u->o_b = s.blue;
+		if (flag == 1)
+			return (t);
+		u->o_r = sp->red;
+		u->o_g = sp->green;
+		u->o_b = sp->blue;
 		if (u->o_n != 0)
 			free(u->o_n);
-		tmp = ft_sphere_normal(s, r, t);
+		tmp = ft_sphere_normal(sp, r, t);
 		u->o_n = ft_vec3_scale(*tmp, -1.0);
+		free(tmp);
+		return (t);
 	}
-	free(s.center);*/
+	return (-1);
 }

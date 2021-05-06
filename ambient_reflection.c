@@ -28,10 +28,6 @@ void	ft_ambient_reflection(t_pixel_unit *u, t_list *obj)
 {
 	t_ambient_reflection *amb;
 
-/*	while (((t_ambient_reflection *)obj->content)->id != A)
-		obj = obj->next;
-	if (obj != 0 && ((t_ambient_reflection *)obj->content)->id == A)
-		amb = obj->content;*/
 	amb = ft_find_obj(obj, A, 0);
 	u->p_r = u->o_r * amb->ratio * amb->red / 255;
 	u->p_g = u->o_g * amb->ratio * amb->green / 255;

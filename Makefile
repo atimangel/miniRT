@@ -14,6 +14,7 @@ SRC = main.c\
       resolution.c\
       camera.c\
       parse_utils.c\
+      touch.c\
       #diffuse_reflection.c\
       specular_reflection.c\
 
