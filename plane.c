@@ -29,7 +29,7 @@ void		*ft_make_plane(char *line)
 	return (pl);
 }
 
-double		ft_plane_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
+void		ft_plane_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 {
 	t_plane *pl;
 	double	t;
@@ -41,21 +41,18 @@ double		ft_plane_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 		tmp = ft_vec3_remove(pl->center, r->e);
 		t = ft_vec3_dot_product(pl->normal, *tmp) / ft_vec3_dot_product(pl->normal, *r->d);
 		free(tmp);
-		if (t > 0 && ((r->t > 0 && t < r->t) || r->t <= 0))
+		if (ft_isclose(r->t, t) && flag == 0)
 		{
-			if (flag == 1)
-				return (t);
-			u->o_r = pl->red;
-			u->o_g = pl->green;
-			u->o_b = pl->blue;
+			r->t = t;
+			ft_putcolor(u, pl->red, pl->green, pl->blue);
 			if (u->o_n != 0)
 				free(u->o_n);
 			if (ft_vec3_dot_product(pl->normal, *r->d) < 0)
 				u->o_n = ft_vec3(pl->normal[0], pl->normal[1], pl->normal[2]);
 			else
 				u->o_n = ft_vec3_scale(pl->normal, -1.0);
-			return (t);
 		}
+		if (ft_isclose(r->t, t) && flag == 1)
+			r->t = t;
 	}
-	return (-1);
 }

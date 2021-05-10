@@ -54,7 +54,7 @@ t_vec3	*ft_triangle_interaction(t_triangle tr, t_ray *r, t_vec3 **n)
 	return (side1);
 }
 
-double	ft_triangle_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
+void	ft_triangle_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 {
 	t_triangle	*tr;
 	double		t;
@@ -67,15 +67,16 @@ double	ft_triangle_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 	if (t != -1.0 && ((*v)[0] >= 0 && (*v)[0] <= 1) && ((*v)[1] >= 0 && (*v)[1] <= 1)
 			&& ((*v)[0] + (*v)[1] <= 1) && ft_vec3_dot_product(*n, *r->d) != 0 && ft_isclose(r->t, t))
 	{
-		ft_putcolor(u, tr->red, tr->green, tr->blue);
-		if (u->o_n != 0)
-			free(u->o_n);
-		u->o_n = n;
+		r->t = t;
+		if (flag == 0)
+		{
+			ft_putcolor(u, tr->red, tr->green, tr->blue);
+			if (u->o_n != 0)
+				free(u->o_n);
+			u->o_n = n;
+		}
 	}
-	else
-		t = -1.0;
 	if (u->o_n != n)
 		free(n);
 	free(v);
-	return (t);
 }

@@ -72,7 +72,7 @@ double	ft_root_fomula(t_ray *r, t_cylinder cy, t_vec3 *ce, char negative)
 	return ((-b + negative * sqrt(pow(b, 2.0) - a * c)) / a);
 }
 
-double	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u)
+void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u, char flag)
 {
 	double	t;
 	double	alpha;
@@ -84,19 +84,23 @@ double	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 	if ((t = ft_root_fomula(r, cy, ce, -1)) >= 0 && ft_isclose(r->t, t))
 	{
 		alpha = ft_vec3_dot_product(*ce, cy.normal) + t * ft_vec3_dot_product(*r->d, cy.normal);
-		if (alpha >= 0 && alpha <= cy.height)
+		if (alpha >= 0 && alpha <= cy.height && flag == 0)
 		{
+			r->t = t;
 			ft_putcolor(u, cy.red, cy.green, cy.blue);
 			if (u->o_n != 0)
 				free(u->o_n);
 			u->o_n = ft_cylinder_side_normal(*r, cy, t, alpha);
 		}
+		if (alpha >= 0 && alpha <= cy.height && flag == 1)
+			r->t = t;
 	}
 	if ((t = ft_root_fomula(r, cy, ce, 1)) >= 0 && ft_isclose(r->t, t))
 	{
 		alpha = ft_vec3_dot_product(*ce, cy.normal) + t * ft_vec3_dot_product(*r->d, cy.normal);
-		if (alpha >= 0 && alpha <= cy.height)
+		if (alpha >= 0 && alpha <= cy.height && flag == 0)
 		{
+			r->t = t;
 			ft_putcolor(u, cy.red, cy.green, cy.blue);
 			if (u->o_n != 0)
 				free(u->o_n);
@@ -104,14 +108,13 @@ double	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 			u->o_n = ft_vec3_scale(*tmp, -1);
 			free(tmp);
 		}
+		if (alpha >= 0 && alpha <= cy.height && flag == 1)
+			r->t = t;
 	}
 	free(ce);
-	if (alpha >= 0 && alpha <= cy.height)
-		return (t);
-	return (-1.0);
 }
 
-double	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, t_pixel_unit *u)
+void	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, t_pixel_unit *u, char flag)
 {
 	t_vec3	*tmp;
 	double	t;
@@ -127,8 +130,9 @@ double	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 		free(tmp);
 		free(cp);
 		radius = ft_vec3_len(*cp);
-		if (radius >= -cy.diameter && radius <= cy.diameter)
+		if (radius >= -cy.diameter && radius <= cy.diameter && flag == 0)
 		{
+			r->t = t;
 			ft_putcolor(u, cy.red, cy.green, cy.blue);
 			if (u->o_n != 0)
 				free(u->o_n);
@@ -136,9 +140,9 @@ double	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 				u->o_n = ft_vec3_scale(cy.normal, -1);
 			else if (ft_vec3_dot_product(cy.normal, *r->d) < 0)//inside
 				ft_memcpy(u->o_n, &cy.normal, sizeof(t_vec3));
-			free(ec);
-			return (t);
 		}
+		if (radius >= -cy.diameter && radius <= cy.diameter && flag == 1)
+			r->t = t;
 	}
 	free(ec);
 	ec = ft_vec3_remove(cy.center2, r->e);
@@ -149,8 +153,9 @@ double	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 		radius = ft_vec3_len(*cp);
 		free(cp);
 		free(tmp);
-		if (radius >= -cy.diameter && radius <= cy.diameter)
+		if (radius >= -cy.diameter && radius <= cy.diameter && flag == 0)
 		{
+			r->t = t;
 			ft_putcolor(u, cy.red, cy.green, cy.blue);
 			if (u->o_n != 0)
 				free(u->o_n);
@@ -158,26 +163,18 @@ double	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 				ft_memcpy(u->o_n, &cy.normal, sizeof(t_vec3));
 			else if (ft_vec3_dot_product(cy.normal, *r->d) > 0)//inside
 				u->o_n = ft_vec3_scale(cy.normal, -1);
-			free(ec);
-			return (t);
 		}
+		if (radius >= -cy.diameter && radius <= cy.diameter && flag == 1)
+			r->t = t;
 	}
 	free(ec);
-	return (-1.0);
 }
 
-double	ft_cylinder_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
+void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 {
 	t_cylinder	*cy;
-	double		t1;
-	double		t2;
 
 	cy = obj;
-	t1 = ft_cylinder_touch_side(r, *cy, u);
-	t2 = ft_cylinder_touch_circle(r, *cy, u);
-	if (t1 != -1 && t2 == -1)
-		return (t1);
-	if (t2 != -1)
-		return (t2);
-	return (-1);
+	ft_cylinder_touch_side(r, *cy, u, flag);
+	ft_cylinder_touch_circle(r, *cy, u, flag);
 }

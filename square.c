@@ -46,7 +46,7 @@ static t_a16	*ft_square_matrix(t_ray *r, t_square *sq)
 	return (ft_matrix_inverse(*m, ft_matrix_determinant(*m)));
 }
 
-double	ft_square_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
+void	ft_square_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 {
 	t_square	*sq;
 	t_vec3		*v3;
@@ -60,26 +60,21 @@ double	ft_square_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 	v4 = ft_vec3_transform_normal(*m_inverse, *v3);
 	t = (*v4)[2];
 	if (((*v4)[0] >= sq->len / -2 && (*v4)[0] <= sq->len / 2) &&
-			((*v4)[1] >= sq->len / -2 && (*v4)[1] <= sq->len / 2))
+			((*v4)[1] >= sq->len / -2 && (*v4)[1] <= sq->len / 2) && ft_isclose(r->t, t))
 	{
-		if((r->t > 0 & t < r->t) || (r->t <= 0))
+		r->t = t;
+		if (flag == 0)
 		{
-			if (flag == 1)
-				return (t);
-			u->o_r = sq->red;
-			u->o_g = sq->green;
-			u->o_b = sq->blue;
+			ft_putcolor(u, sq->red, sq->green, sq->blue);
 			if (u->o_n != 0)
 				free(u->o_n);
 			if (ft_vec3_dot_product(*r->d, sq->normal) < 0)
 				u->o_n = ft_vec3(sq->normal[0], sq->normal[1], sq->normal[2]);
 			else if (ft_vec3_dot_product(*r->d, sq->normal) > 0)
 				u->o_n = ft_vec3_scale(sq->normal, -1);
-			return (t);
 		}
 	}
 	free(v3);
 	free(v4);
 	free(m_inverse);
-	return (-1);
 }

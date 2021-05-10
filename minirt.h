@@ -143,11 +143,11 @@ void	ft_hook_event(t_mlx mlx);
 void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj);
 void	ft_draw_pixel_map(t_pixel_map pm, t_list *obj, t_resolution res, t_camera cam);
 
-double	ft_sphere_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
-double	ft_plane_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
-double	ft_triangle_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
-double	ft_square_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
-double	ft_cylinder_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
+void	ft_sphere_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
+void	ft_plane_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
+void	ft_triangle_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
+void	ft_square_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
+void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 void	ft_touch(t_ray *r, t_pixel_unit *u, t_list *obj);
 
 char	ft_isclose(double origin, double new);

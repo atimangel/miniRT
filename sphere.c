@@ -40,7 +40,7 @@ t_vec3	*ft_sphere_normal(t_sphere *sp, t_ray *r, double t)
 	return (normal);
 }
 
-double	ft_sphere_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
+void	ft_sphere_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 {
 	t_sphere *sp;
 	double	a;
@@ -57,33 +57,27 @@ double	ft_sphere_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 	c = ft_vec3_dot_product(*tmp, *tmp) - pow(sp->diameter, 2.0);
 	free(tmp);
 	if (pow(b, 2.0) - 4 * a * c < 0)
-		return (-1);
-	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / (2 * a)) > 0 && ((r->t > 0 && t < r->t)|| r->t <= 0))
+		return;
+	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / (2 * a)) > 0 && ft_isclose(r->t, t) && flag == 0)
 	{
-		if (flag == 1)
-			return (t);
 		r->t = t;
-		u->o_r = sp->red;
-		u->o_g = sp->green;
-		u->o_b = sp->blue;
+		ft_putcolor(u, sp->red, sp->green, sp->blue);
 		if (u->o_n != 0)
 			free(u->o_n);
 		u->o_n = ft_sphere_normal(sp, r, t);
-		return (t);
 	}
-	else if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && r->t > 0 && t < r->t)
+	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / (2 * a)) > 0 && ft_isclose(r->t, t) && flag == 1)
+		r->t = t;
+	if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && ft_isclose(r->t, t) && flag == 0)
 	{
-		if (flag == 1)
-			return (t);
-		u->o_r = sp->red;
-		u->o_g = sp->green;
-		u->o_b = sp->blue;
+		r->t = t;
+		ft_putcolor(u, sp->red, sp->green, sp->blue);
 		if (u->o_n != 0)
 			free(u->o_n);
 		tmp = ft_sphere_normal(sp, r, t);
 		u->o_n = ft_vec3_scale(*tmp, -1.0);
 		free(tmp);
-		return (t);
 	}
-	return (-1);
+	if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && ft_isclose(r->t, t) && flag == 1)
+		r->t = t;
 }
