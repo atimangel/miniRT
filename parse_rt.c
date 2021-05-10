@@ -73,10 +73,11 @@ t_list	*ft_parse_rt(char *file_name)
 			ft_lstadd_back(&obj, ft_lstnew(ft_make_obj(line)));
 			ft_lstlast(obj)->id = ft_isobj(line);
 		}
-		printf("id = %u %s\n", ft_lstlast(obj)->id, line);
+		printf("%s\n", line);
+		free(line);
 	}
-	close(fd);
 	if ((flag & 0x01) == 0)
 		printf("error\nyou should set R");
+	close(fd);
 	return (obj);
 }

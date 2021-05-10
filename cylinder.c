@@ -69,20 +69,9 @@ double	ft_root_fomula(t_ray *r, t_cylinder cy, t_vec3 *ce, char negative)
 	c = pow(cy.diameter, 2.0) - ft_vec3_dot_product(*ce, *ce) + pow(ft_vec3_dot_product(*ce, cy.normal), 2);
 	if (pow(b, 2.0) - a * c < 0)
 		return (-1.0);
-	return ((-b + negative * sqrt(pow(b, 2.0) - a * c)) /  a);
+	return ((-b + negative * sqrt(pow(b, 2.0) - a * c)) / a);
 }
 
-char	ft_isclose(double origin, double new)
-{
-	return ((origin > 0 && new < origin) || origin <= 0);
-}
-
-void	ft_putcolor(t_pixel_unit *u, char red, char green, char blue)
-{
-	u->o_r = red;
-	u->o_g = green;
-	u->o_b = blue;
-}
 double	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u)
 {
 	double	t;

@@ -23,7 +23,7 @@ void	*ft_make_triangle(char *line)
 		printf("error\nstring is not end null character triangle.c\n");
 	return (t);
 }
-/*
+
 t_vec3	*ft_triangle_interaction(t_triangle tr, t_ray *r, t_vec3 **n)
 {
 	t_vec3	*side1;
@@ -33,8 +33,8 @@ t_vec3	*ft_triangle_interaction(t_triangle tr, t_ray *r, t_vec3 **n)
 	t_a16	*m_inverse;
 	t_vec3	*tmp;
 
-	side1 = ft_vec3_remove(*tr.o, *tr.p1);
-	side2 = ft_vec3_remove(*tr.o, *tr.p2);
+	side1 = ft_vec3_remove(tr.point_1, tr.point_2);
+	side2 = ft_vec3_remove(tr.point_1, tr.point_3);
 	*n = ft_vec3_cross_product(*side1, *side2);
 	if (ft_vec3_dot_product(**n, *r->d) > 0)
 	{
@@ -42,7 +42,7 @@ t_vec3	*ft_triangle_interaction(t_triangle tr, t_ray *r, t_vec3 **n)
 		*n = ft_vec3_scale(*tmp, -1);
 		free(tmp);
 	}
-	v1 = ft_vec3_remove(*tr.o, *r->e);
+	v1 = ft_vec3_remove(tr.point_1, r->e);
 	m = ft_matrix(*side1, *side2, *r->d);
 	m_inverse = ft_matrix_inverse(*m, ft_matrix_determinant(*m));
 	free(side1);
@@ -53,38 +53,29 @@ t_vec3	*ft_triangle_interaction(t_triangle tr, t_ray *r, t_vec3 **n)
 	free(v1);
 	return (side1);
 }
-void	ft_triangle_touch(t_ray *r, t_pixel_unit *u)
+
+double	ft_triangle_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 {
-	t_triangle	tr;
-	double		beta;
-	double		gamma;
+	t_triangle	*tr;
 	double		t;
 	t_vec3		*v;
 	t_vec3		*n;
 
-	ft_make_triangle(&tr);
-	v = ft_triangle_interaction(tr, r, &n);
-	beta = (*v)[0];
-	gamma = (*v)[1];
+	tr = obj;
+	v = ft_triangle_interaction(*tr, r, &n);
 	t = (*v)[2];
-	if ((beta >= 0 && beta <= 1) && (gamma >= 0 && gamma <= 1)
-			&& (beta + gamma <= 1) && ft_vec3_dot_product(*n, *r->d) != 0)
+	if (t != -1.0 && ((*v)[0] >= 0 && (*v)[0] <= 1) && ((*v)[1] >= 0 && (*v)[1] <= 1)
+			&& ((*v)[0] + (*v)[1] <= 1) && ft_vec3_dot_product(*n, *r->d) != 0 && ft_isclose(r->t, t))
 	{
-		if ((r->t > 0 && t < r->t) || (r->t <= 0))
-		{
-			u->o_r = tr.r;
-			u->o_g = tr.g;
-			u->o_b = tr.b;
-			if (u->o_n != 0)
-				free(u->o_n);
-			u->o_n = n;
-			r->t = t;
-		}
+		ft_putcolor(u, tr->red, tr->green, tr->blue);
+		if (u->o_n != 0)
+			free(u->o_n);
+		u->o_n = n;
 	}
-	free(tr.o);
-	free(tr.p1);
-	free(tr.p2);
+	else
+		t = -1.0;
 	if (u->o_n != n)
 		free(n);
 	free(v);
-}*/
+	return (t);
+}
