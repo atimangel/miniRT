@@ -25,7 +25,7 @@ char	*ft_pass_space(char *line)
 	return (line);
 }
 
-char	*ft_read_char(char *line, char *rgb, char flag)
+char	*ft_read_char(char *line, unsigned char *rgb, char flag)
 {
 	int	color;
 

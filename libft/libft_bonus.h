@@ -60,7 +60,7 @@ void		ft_puta16(t_a16 array);
 
 int		get_next_line(int fd, char **line);
 double		ft_atof(const char *string);
-enum e_obj {R = 1, A, c, l, sp, ql, sq, cy, tr};
+enum e_obj {R = 1, A, c, l, sp, pl, sq, cy, tr};
 typedef struct	s_list
 {
 	enum e_obj	id;

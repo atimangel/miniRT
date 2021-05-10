@@ -45,6 +45,7 @@ void	*ft_make_obj(char *line)
 		return(ft_make_cylinder(line));
 	if (ft_isobj(line) == 9)
 		return(ft_make_triangle(line));
+	return (0);
 }
 
 t_list	*ft_parse_rt(char *file_name)
@@ -75,7 +76,7 @@ t_list	*ft_parse_rt(char *file_name)
 		printf("id = %u %s\n", ft_lstlast(obj)->id, line);
 	}
 	close(fd);
-	if (flag & 0x01 == 0)
+	if ((flag & 0x01) == 0)
 		printf("error\nyou should set R");
 	return (obj);
 }
