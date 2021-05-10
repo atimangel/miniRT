@@ -1,18 +1,13 @@
 #include "minirt.h"
 
-char	ft_isshadow()
-{
-
-}
-
-void	ft_reflection(t_ray *r, t_pixel_unit *u, t_list *obj)
+void	ft_reflection(t_ray r, t_pixel_unit *u, t_list *obj)
 {
 	t_ray	trace;
 	t_vec3	*tmp;
 	t_light	*li;
 
-	tmp = ft_vec3_scale(*r->d, r->t);
-	trace.d = ft_vec3_add(r->e, *tmp);
+	tmp = ft_vec3_scale(*r.d, r.t);
+	trace.d = ft_vec3_add(r.e, *tmp);
 	free(tmp);
 	trace.t = 1.0;
 	while(obj)
@@ -21,10 +16,11 @@ void	ft_reflection(t_ray *r, t_pixel_unit *u, t_list *obj)
 		{
 			li = obj->content;
 			ft_memcpy(&trace.e, &li->point, sizeof(t_vec3));
-			if (!ft_isshadow(trace, obj))//0 == light 1 == shadow
+			ft_touch(&trace, u, obj, 1);
+			if (trace.t == 1.0)
 			{
-				ft_diffuse_reflection();
-				ft_specular_reflection();
+				ft_diffuse_reflection(trace, u, *li);
+				ft_specular_reflection(r, trace, u, *li);
 			}
 		}
 		obj = obj->next;

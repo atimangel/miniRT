@@ -14,16 +14,18 @@ SRC = main.c\
       resolution.c\
       camera.c\
       parse_utils.c\
-      touch.c\
-      #diffuse_reflection.c\
+	  touch.c\
+	  touch_utils.c\
+	  reflection.c\
       specular_reflection.c\
+      diffuse_reflection.c\
+
 
 NAME = raytracing.out
 
 libft = -I libft -L libft -lft
 mlx = -I mlx -L mlx -lmlx
-inclib = -I /usr/include/lib -lXext -lX11 -lm -lbsd
-
+inclib = -framework Appkit -framework opengl
 all : $(NAME)
 
 $(NAME) :

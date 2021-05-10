@@ -78,13 +78,14 @@ void	ft_draw_pixel_map(t_pixel_map pm, t_list *obj, t_resolution res, t_camera c
 		{
 			ft_reset(&u, &r);
 			r.d = ft_trans_image_plane(&u, *ip, res, cam);
-			ft_touch(&r, &u, obj);
+			ft_touch(&r, &u, obj, 0);
 			if (r.t != -1.0)
 			{
 				ft_ambient_reflection(&u, obj);
+				ft_reflection(r, &u, obj);
 			//	ft_diffuse_reflection(&r, &u, light);
 			//	ft_specular_reflection(&r, &u, light);
-			//	ft_light_max(&u);
+				ft_light_max(&u);
 				free(u.o_n);
 			}
 			free(r.d);

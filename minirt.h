@@ -148,14 +148,15 @@ void	ft_plane_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 void	ft_triangle_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 void	ft_square_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
-void	ft_touch(t_ray *r, t_pixel_unit *u, t_list *obj);
+void	ft_touch(t_ray *r, t_pixel_unit *u, t_list *obj, char flag);
 
 char	ft_isclose(double origin, double new);
 void	ft_putcolor(t_pixel_unit *u, unsigned char red, unsigned char green, unsigned char blue);
 
+void	ft_reflection(t_ray r, t_pixel_unit *u, t_list *obj);
 void	ft_ambient_reflection(t_pixel_unit *u, t_list *obj);
-//void	ft_diffuse_reflection(t_ray *r, t_pixel_unit *u, t_light light);
-//void	ft_specular_reflection(t_ray *r, t_pixel_unit *u, t_light light);
+void	ft_diffuse_reflection(t_ray trace, t_pixel_unit *u, t_light light);
+void	ft_specular_reflection(t_ray r, t_ray trace, t_pixel_unit *u, t_light light);
 void	ft_light_max(t_pixel_unit *u);
 
 t_list	*ft_parse_rt(char *filename);
