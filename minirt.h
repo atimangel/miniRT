@@ -146,7 +146,7 @@ double	ft_sphere_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 double	ft_plane_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 //double	ft_triangle_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 double	ft_square_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
-//double	ft_cylinder_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
+double	ft_cylinder_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 void	ft_touch(t_ray *r, t_pixel_unit *u, t_list *obj);
 
 void	ft_ambient_reflection(t_pixel_unit *u, t_list *obj);
