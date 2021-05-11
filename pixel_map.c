@@ -17,9 +17,9 @@ t_image_plane	*ft_make_image_plane(t_resolution res, t_camera cam)
 	tmp = ft_vec3_cross_product(cam.direction, ip->right);
 	ft_memcpy(&ip->up, tmp, sizeof(t_vec3));
 	free(tmp);
-	ip->len_h = 2 * tan(M_PI * (cam.fov/ 180) / 2);
+	ip->len_h = 2 * tan(M_PI * (cam.fov / 180) / 2);
 	ip->fov_v = (res.y * cam.fov) / res.x;
-	ip->len_v = 2 * tan(M_PI * (ip->fov_v / 180) / 2);
+	ip->len_v = ip->len_h * res.y / res.x;
 	free(abs_up);
 	return (ip);
 }
@@ -83,8 +83,6 @@ void	ft_draw_pixel_map(t_pixel_map pm, t_list *obj, t_resolution res, t_camera c
 			{
 				ft_ambient_reflection(&u, obj);
 				ft_reflection(r, &u, obj);
-			//	ft_diffuse_reflection(&r, &u, light);
-			//	ft_specular_reflection(&r, &u, light);
 				ft_light_max(&u);
 				free(u.o_n);
 			}

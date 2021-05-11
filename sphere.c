@@ -29,6 +29,7 @@ t_vec3	*ft_sphere_normal(t_sphere *sp, t_ray *r, double t)
 	t_vec3	*normal;
 	t_vec3	*p;
 	t_vec3	*tmp;
+	double	dot;
 
 	tmp = ft_vec3_scale(*r->d, t);
 	p = ft_vec3_add(r->e, *tmp);
@@ -37,6 +38,14 @@ t_vec3	*ft_sphere_normal(t_sphere *sp, t_ray *r, double t)
 	normal = ft_vec3_normalize(*tmp);
 	free(p);
 	free(tmp);
+	if ((dot = ft_vec3_dot_product(*normal, *r->d)) < 0)
+		return (normal);
+	else if (dot > 0)
+	{
+		tmp = normal;
+		normal = ft_vec3_scale(*tmp, -1.0);
+		free(tmp);
+	}
 	return (normal);
 }
 
@@ -68,16 +77,14 @@ void	ft_sphere_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)
 	}
 	if ((t = (-b - sqrt(pow(b, 2.0) - 4 * a * c)) / (2 * a)) > 0 && ft_isclose(r->t, t) && flag == 1)
 		r->t = t;
-	if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && ft_isclose(r->t, t) && flag == 0)
+	if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / (2 * a)) > 0 && ft_isclose(r->t, t) && flag == 0)
 	{
 		r->t = t;
 		ft_putcolor(u, sp->red, sp->green, sp->blue);
 		if (u->o_n != 0)
 			free(u->o_n);
-		tmp = ft_sphere_normal(sp, r, t);
-		u->o_n = ft_vec3_scale(*tmp, -1.0);
-		free(tmp);
+		u->o_n = ft_sphere_normal(sp, r, t);
 	}
-	if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / 2 * a) > 0 && ft_isclose(r->t, t) && flag == 1)
+	if ((t = (- b + sqrt(pow(b, 2.0) - 4 * a * c)) / (2 * a)) > 0 && ft_isclose(r->t, t) && flag == 1)
 		r->t = t;
 }
