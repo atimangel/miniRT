@@ -128,8 +128,8 @@ void	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, t_pixel_unit *u, char fla
 		tmp = ft_vec3_scale(*r->d, t);
 		cp = ft_vec3_remove(*tmp, *ec);
 		free(tmp);
-		free(cp);
 		radius = ft_vec3_len(*cp);
+		free(cp);
 		if (radius >= -cy.diameter && radius <= cy.diameter && flag == 0)
 		{
 			r->t = t;
@@ -146,7 +146,7 @@ void	ft_cylinder_touch_circle(t_ray *r, t_cylinder cy, t_pixel_unit *u, char fla
 	}
 	free(ec);
 	ec = ft_vec3_remove(cy.center2, r->e);
-	if ((t = ft_vec3_dot_product(*ec, cy.normal) / ft_vec3_dot_product(*r->d, cy.normal)) > 0 && ft_isclose(r->t, t))//괄호 때문에 2시간 씀
+	if ((t = ft_vec3_dot_product(*ec, cy.normal) / ft_vec3_dot_product(*r->d, cy.normal)) > 0 && ft_isclose(r->t, t))
 	{
 		tmp = ft_vec3_scale(*r->d, t);
 		cp = ft_vec3_remove(*tmp, *ec);
