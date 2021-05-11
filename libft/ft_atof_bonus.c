@@ -33,13 +33,14 @@ double			ft_atof(const char *string)
 	int			i;
 	double			number;
 	double			under_dot;
+	int			pm;
 
 	i = 0;
 	number = ft_atoi(string);
 	under_dot = 0;
 	while (ft_isspace(string[i]))
 		i++;
-	if (ft_ispm(string[i]))
+	if (pm = ft_ispm(string[i]))
 		i++;
 	while (ft_isdigit(string[i]))
 		i++;
@@ -50,6 +51,9 @@ double			ft_atof(const char *string)
 		while (under_dot >= 1.0)
 			under_dot /= 10;
 	}
-	number += under_dot;
+	if (pm == -1)
+		number -= under_dot;
+	else
+		number += under_dot;
 	return (number);
 }
