@@ -29,7 +29,7 @@ static int	sub_get(char **dest, char *src, char **save)
 		free(tmp);
 		if (!*dest)
 			return (-1);
-		if (*(ft_strchr(src, '\n') + 1) != '\0')
+		if (ft_strchr(src, '\n') != src + ft_strlen(src) - 1)
 		{
 			*save = ft_substr(src, ft_strchr(src, '\n') - src + 1,
 					ft_strlen(src) - (ft_strchr(src, '\n') - src)- 1);
