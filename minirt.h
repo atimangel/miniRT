@@ -138,8 +138,13 @@ typedef struct s_triangle
 	unsigned char	blue;	
 }		t_triangle;
 
+typedef struct s_free
+{
+	t_mlx		mlx;
+	t_list		**obj;
+}		t_free;
 void	ft_make_window(t_mlx *mlx, t_list *obj);
-void	ft_hook_event(t_mlx mlx);
+void	ft_hook_event(t_free *parm);
 void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj);
 void	ft_draw_pixel_map(t_pixel_map pm, t_list *obj, t_resolution res, t_camera cam);
 
