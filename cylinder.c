@@ -54,7 +54,15 @@ t_vec3	*ft_cylinder_side_normal(t_ray r, t_cylinder cy, double t, double alpha)
 	tmp = ft_vec3_scale(*r.d, t);
 	point = ft_vec3_add(r.e, *tmp);
 	free(tmp);
-	normal = ft_vec3_remove(*point, *center);
+	tmp = ft_vec3_remove(*point, *center);
+	normal = ft_vec3_normalize(*tmp);
+	free(tmp);
+	if (ft_vec3_dot_product(*r.d, *normal) > 0)
+	{
+		tmp = normal;
+		normal = ft_vec3_scale(*normal, -1);
+		free(tmp);
+	}
 	return (normal);
 }
 
@@ -104,9 +112,7 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u, char flag)
 			ft_putcolor(u, cy.red, cy.green, cy.blue);
 			if (u->o_n != 0)
 				free(u->o_n);
-			tmp = ft_cylinder_side_normal(*r, cy, t, alpha);
-			u->o_n = ft_vec3_scale(*tmp, -1);
-			free(tmp);
+			u->o_n = ft_cylinder_side_normal(*r, cy, t, alpha);
 		}
 		if (alpha >= 0 && alpha <= cy.height && flag == 1)
 			r->t = t;
