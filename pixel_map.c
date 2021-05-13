@@ -56,9 +56,9 @@ void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj)
 
 void	ft_reset(t_pixel_unit *u, t_ray *r)
 {
-	u->p_r = 0xf0;
-	u->p_g = 0xf9;
-	u->p_b = 0xff;
+	u->p_r = 0x00;
+	u->p_g = 0x00;
+	u->p_b = 0x00;
 	r->t = -1.0;
 	u->o_n = 0;
 }
