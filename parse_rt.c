@@ -76,6 +76,7 @@ t_list	*ft_parse_rt(char *file_name)
 		printf("%s\n", line);
 		free(line);
 	}
+	free(line);
 	if ((flag & 0x01) == 0)
 		printf("error\nyou should set R");
 	close(fd);
