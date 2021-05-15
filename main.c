@@ -36,10 +36,10 @@ int	main(int arg_c, char **arg_v)
 	}
 	ft_make_window(&mlx, obj);
 	ft_make_pixel_map(mlx, &pm, obj);
-	/*ft_draw_pixel_map(pm, obj, *(t_resolution *)ft_find_obj(obj, R, 0), *(t_camera *)ft_find_obj(obj, c, 0));
+	ft_draw_pixel_map(pm, obj, *(t_resolution *)ft_find_obj(obj, R, 0), *(t_camera *)ft_find_obj(obj, c, 0));
 	mlx_put_image_to_window(mlx.ptr, mlx.win, pm.img_ptr, 0, 0);
 	//if (arg_c >= 3 && ft_strncmp(arg_v[2], "-save", 5))
-		//ft_save_bmp();*/
+		//ft_save_bmp();
 	parm.win = mlx.win;
 	parm.ptr = mlx.ptr;
 	parm.img = pm.img_ptr;

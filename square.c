@@ -37,13 +37,18 @@ static t_a16	*ft_square_matrix(t_ray *r, t_square *sq)
 	t_vec3		*abs_up;
 	t_vec3		*up;
 	t_vec3		*right;
-	t_vec3		*tmp;
+	t_a16		*m_inverse;
 
 	abs_up = ft_vec3(0.0, 1.0, 0.0);
 	right = ft_vec3_cross_product(sq->normal, *abs_up);
 	up = ft_vec3_cross_product(sq->normal, *right);
 	m = ft_matrix(*up, *right, *r->d);
-	return (ft_matrix_inverse(*m, ft_matrix_determinant(*m)));
+	m_inverse = ft_matrix_inverse(*m, ft_matrix_determinant(*m));
+	free(m);
+	free(abs_up);
+	free(right);
+	free(up);
+	return (m_inverse);
 }
 
 void	ft_square_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag)

@@ -55,6 +55,8 @@ t_vec3	*ft_cylinder_side_normal(t_ray r, t_cylinder cy, double t, double alpha)
 	point = ft_vec3_add(r.e, *tmp);
 	free(tmp);
 	tmp = ft_vec3_remove(*point, *center);
+	free(center);
+	free(point);
 	normal = ft_vec3_normalize(*tmp);
 	free(tmp);
 	if (ft_vec3_dot_product(*r.d, *normal) > 0)
@@ -85,7 +87,6 @@ void	ft_cylinder_touch_side(t_ray *r, t_cylinder cy, t_pixel_unit *u, char flag)
 	double	t;
 	double	alpha;
 	t_vec3	*ce;
-	t_vec3	*tmp;
 
 	ce = ft_vec3_remove(r->e, cy.center);
 	alpha = -1.0;
