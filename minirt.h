@@ -140,7 +140,9 @@ typedef struct s_triangle
 
 typedef struct s_free
 {
-	t_mlx		mlx;
+	void		*win;
+	void		*ptr;
+	void		*img;
 	t_list		**obj;
 }		t_free;
 void	ft_make_window(t_mlx *mlx, t_list *obj);
