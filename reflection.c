@@ -29,6 +29,7 @@ void	ft_reflection(t_ray r, t_pixel_unit *u, t_list *obj)
 				ft_diffuse_reflection(trace, u, *li);
 				ft_specular_reflection(r, trace, u, *li);
 			}
+			free(trace.d);
 		}
 		obj = obj->next;
 	}
