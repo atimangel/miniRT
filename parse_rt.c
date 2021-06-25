@@ -16,12 +16,8 @@ char	ft_isobj(char *line)
 		return (5);
 	if(ft_strnstr(line, "pl ", 3))
 		return (6);
-	if(ft_strnstr(line, "sq ", 3))
-		return (7);
 	if(ft_strnstr(line, "cy ", 3))
 		return (8);
-	if(ft_strnstr(line, "tr ", 3))
-		return (9);
 	return (0);
 }
 
@@ -39,12 +35,8 @@ void	*ft_make_obj(char *line)
 		return(ft_make_sphere(line));
 	if (ft_isobj(line) == 6)
 		return(ft_make_plane(line));
-	if (ft_isobj(line) == 7)
-		return(ft_make_square(line));
 	if (ft_isobj(line) == 8)
 		return(ft_make_cylinder(line));
-	if (ft_isobj(line) == 9)
-		return(ft_make_triangle(line));
 	return (0);
 }
 

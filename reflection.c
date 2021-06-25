@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-void	ft_reflection(t_ray r, t_pixel_unit *u, t_list *obj)
+void	ft_reflection(t_ray r, t_pixel_unit *u, t_list *obj, void *touched)
 {
 	t_ray	trace;
 	t_vec3	*tmp;
@@ -23,8 +23,8 @@ void	ft_reflection(t_ray r, t_pixel_unit *u, t_list *obj)
 			tmp = trace.d;
 			trace.d = ft_vec3_normalize(*trace.d);
 			free(tmp);
-			ft_touch(&trace, u, obj, 1);
-			if (trace.t >= 0.999 * t &&  trace.t <= 1.001 *t)
+			ft_touch(&trace, u,obj, 1);
+			if (trace.t >= 0.9999 * t && trace.t <= 1.0001 * t)//if (touched == ft_touch(&trace, u, obj, 1))
 			{
 				ft_diffuse_reflection(trace, u, *li);
 				ft_specular_reflection(r, trace, u, *li);

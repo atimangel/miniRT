@@ -29,7 +29,7 @@ void	ft_ambient_reflection(t_pixel_unit *u, t_list *obj)
 	t_ambient_reflection *amb;
 
 	amb = ft_find_obj(obj, A, 0);
-	u->p_r = u->o_r * amb->ratio * amb->red / 255;
-	u->p_g = u->o_g * amb->ratio * amb->green / 255;
-	u->p_b = u->o_b * amb->ratio * amb->blue / 255;
+	u->p_r += u->o_r * amb->ratio * amb->red / 255;
+	u->p_g += u->o_g * amb->ratio * amb->green / 255;
+	u->p_b += u->o_b * amb->ratio * amb->blue / 255;
 }

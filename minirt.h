@@ -97,16 +97,6 @@ typedef struct	s_sphere
 	unsigned char	blue;
 }		t_sphere;
 
-typedef struct	s_square
-{
-	t_vec3		center;
-	t_vec3		normal;
-	double		len;
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;
-}		t_square;
-
 typedef struct s_resolution
 {
 	int		x;
@@ -128,16 +118,6 @@ typedef struct s_camera
 	double		fov;
 }		t_camera;
 
-typedef struct s_triangle
-{
-	t_vec3		point_1;
-	t_vec3		point_2;
-	t_vec3		point_3;
-	unsigned char	red;
-	unsigned char	green;
-	unsigned char	blue;	
-}		t_triangle;
-
 typedef struct s_free
 {
 	void		*win;
@@ -153,15 +133,13 @@ void	ft_draw_pixel_map(t_pixel_map pm, t_list *obj, t_resolution res, t_camera c
 
 void	ft_sphere_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 void	ft_plane_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
-void	ft_triangle_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
-void	ft_square_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
 void	ft_cylinder_touch(t_ray *r, t_pixel_unit *u, void *obj, char flag);
-void	ft_touch(t_ray *r, t_pixel_unit *u, t_list *obj, char flag);
+void	*ft_touch(t_ray *r, t_pixel_unit *u, t_list *obj, char flag);
 
 char	ft_isclose(double origin, double new);
 void	ft_putcolor(t_pixel_unit *u, unsigned char red, unsigned char green, unsigned char blue);
 
-void	ft_reflection(t_ray r, t_pixel_unit *u, t_list *obj);
+void	ft_reflection(t_ray r, t_pixel_unit *u, t_list *obj, void *touched);
 void	ft_ambient_reflection(t_pixel_unit *u, t_list *obj);
 void	ft_diffuse_reflection(t_ray trace, t_pixel_unit *u, t_light light);
 void	ft_specular_reflection(t_ray r, t_ray trace, t_pixel_unit *u, t_light light);
@@ -180,9 +158,7 @@ void	*ft_make_camera(char *line);
 void	*ft_make_light(char *line);
 void	*ft_make_sphere(char *line);
 void	*ft_make_plane(char *line);
-void	*ft_make_square(char *line);
 void	*ft_make_cylinder(char *line);
-void	*ft_make_triangle(char *line);
 
 void	*ft_find_obj(t_list *obj, enum e_obj id, int order);
 #endif
