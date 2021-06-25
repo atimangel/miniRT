@@ -7,13 +7,14 @@ static int	ft_exit_event(int a, void *parm)
 	void	*img;
 	t_list	**obj;
 
+	a = 0;
 	ptr = ((t_free *)parm)->ptr;
 	win = ((t_free *)parm)->win;
 	obj = ((t_free *)parm)->obj;
 	img = ((t_free *)parm)->img;
 	mlx_destroy_image(ptr, img);
 	mlx_destroy_window(ptr, win);
-	mlx_destroy_display(ptr);
+	//mlx_destroy_display(ptr);
 	free(ptr);
 	ft_lstclear(obj, free); 
 	exit(0);
@@ -36,7 +37,7 @@ static int	ft_key_press(int key, void *parm)
 	{
 		mlx_destroy_window(ptr, win);
 		mlx_destroy_image(ptr, img);
-		mlx_destroy_display(ptr);
+		//mlx_destroy_display(ptr);
 		free(ptr);
 		ft_lstclear(obj, free); 
 		exit(0);

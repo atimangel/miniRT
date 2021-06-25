@@ -45,12 +45,9 @@ t_vec3	*ft_trans_image_plane(t_pixel_unit *u, t_image_plane ip, t_resolution res
 	return (pixel_p);
 }
 
-void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_list *obj)
+void	ft_make_pixel_map(t_mlx mlx, t_pixel_map *pm, t_resolution res)
 {
-	t_resolution *res;
-
-	res = ft_find_obj(obj, R, 0);
-	pm->img_ptr = mlx_new_image(mlx.ptr, res->x, res->y);
+	pm->img_ptr = mlx_new_image(mlx.ptr, res.x, res.y);
 	pm->pixel_str = mlx_get_data_addr(pm->img_ptr, &pm->bpp, &pm->l_len, &pm->endian);
 }
 
