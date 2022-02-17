@@ -1,0 +1,7 @@
+00 basic parse test
+	take parameter as int or flaot or +-
+01	error test
+	no A or C or L
+	two A or C
+	over or under range
+	wrong format
