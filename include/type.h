@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:50:45 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/16 11:18:31 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/18 20:56:08 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,42 @@ typedef enum e_bool
 	TRUE
 }	t_bool;
 
+typedef struct	s_count
+{
+	t_bool	ambient;
+	t_bool	camera;
+	int		light;
+	int		sphere;
+	int		plane;
+	int		cylinder;
+}	t_count;
+
 typedef	union	u_color
 {
 	struct
 	{
-		int	r;
-		int	g;
-		int	b;
+		unsigned char r;
+		unsigned char g;
+		unsigned char b;
+		unsigned char a;
 	};
-	int		color[3];
+	int		color[4];
 }	t_color;
 
 typedef	union u_vector
 {
 	struct
 	{
-		double	x;
-		double	y;
-		double	z;
+		float	x;
+		float	y;
+		float	z;
 	};
-	double		coordinate[3];
+	float		coordinate[3];
 }	t_vector;
 
 typedef	struct	s_amb_light
 {
-	double	ratio;	
+	float	ratio;	
 	t_color	color;
 }	t_amb_light;
 
@@ -51,7 +62,7 @@ typedef	struct	s_camera
 {
 	t_vector	view_point;
 	t_vector	normalized_oriention_vector;
-	double		horizontal_field_of_view;
+	float		horizontal_field_of_view;
 }	t_camera;
 
 typedef	struct	s_len
@@ -65,7 +76,7 @@ typedef	struct	s_len
 typedef struct s_light
 {
 	t_vector		point;
-	double			ratio;
+	float			ratio;
 	t_color			color;
 	struct s_light	*next;
 }	t_light;
@@ -73,7 +84,7 @@ typedef struct s_light
 typedef struct s_sphere
 {
 	t_vector		point;
-	double			diameter;
+	float			diameter;
 	t_color			color;
 	struct s_phere	*next;
 }	t_sphere;
@@ -90,8 +101,8 @@ typedef struct	s_cylinder
 {
 	t_vector			point;
 	t_vector			normalized_orientation_vector;
-	double				diameter;
-	double				height;
+	float				diameter;
+	float				height;
 	t_color				color;
 	struct s_cylinder	*next;
 }	t_cylinder;
@@ -105,6 +116,7 @@ typedef struct s_rt
 	t_sphere	*sphere;
 	t_plane		*plane;
 	t_cylinder	*cylinder;
+	t_count		count;
 }	t_rt;
 
 #endif

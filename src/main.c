@@ -6,57 +6,96 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:22:51 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/16 16:45:11 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/19 12:07:30 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minirt.h"
 
-t_bool is_rtfile(char *filename)
-{
-	const char *extension = ".rt";
+#include <stdio.h>
 
-	while (*(filename + 3))
-		++filename;
-	while (*filename)
-		if (*extension++ != *filename++)
-			return (FALSE);
-	return (TRUE);
+void	print_color(t_color c)
+{
+	printf("color: %d %d %d ", c.r, c.g, c.b);
 }
 
-char	*get_next_line(int fd)
+void	print_vector(t_vector v)
 {
-	static char		buffer[1024];
-	static int		offset = 0;
-	int				readlen;
+	printf("vector: %f %f %f ", v.x, v.y, v.z);
+}
 
-	if (offset == 0)
+void	print_img_format(t_rt img)
+{	
+	if (img.count.ambient)
 	{
-		readlen = read(fd, buffer, 1024);
-		if (readlen == -1)
-			exit(1);
-		else if (readlen == 0)
-			return (NULL);
+		printf("A ratio %f ", img.amb.ratio);
+		print_color(img.amb.color);
+		printf("\n");
 	}
-}
-
-t_rt	*parse(char *filename)
-{
-	t_rt	*format;
-	int		fd;
-
-	fd = open(filename, O_RDONLY);
-	if (fd == -1)
-		exit(1);
-
-	return (format);
+	if (img.count.camera)
+	{
+		printf("C ");
+		print_vector(img.cam.view_point);
+		print_vector(img.cam.normalized_oriention_vector);
+		printf("fov %f\n", img.cam.horizontal_field_of_view);
+	}
+	while (img.count.light--)
+	{
+		printf("L ");
+		print_vector(img.light->point);
+		printf("ratio %f ", img.light->ratio);
+		print_color(img.light->color);
+		printf("\n");
+		img.light = img.light->next;
+	}
+	int i = 0;
+	while (img.count.sphere--)
+	{
+		printf("sp[%d] ", ++i);
+		print_vector(img.sphere->point);
+		printf("diameter %f ", img.sphere->diameter);
+		print_color(img.sphere->color);
+		printf("\n");
+		img.sphere = (t_sphere *)img.sphere->next;
+	}
+	i = 0;
+	while (img.count.cylinder--)
+	{
+		printf("cy[%d] ", ++i);
+		print_vector(img.cylinder->point);
+		print_vector(img.cylinder->normalized_orientation_vector);
+		printf("diameter %f height %f ", img.cylinder->diameter, img.cylinder->height);
+		print_color(img.cylinder->color);
+		printf("\n");
+		img.cylinder = img.cylinder->next;
+	}
+	i = 0;
+	while (img.count.plane--)
+	{
+		printf("pl[%d] ", ++i);
+		print_vector(img.plane->point);
+		print_vector(img.plane->normalized_orientation_vector);
+		print_color(img.plane->color);
+		printf("\n");
+		img.plane = img.plane->next;
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	t_rt	*img_format;
+	(void)argc; (void)argv;
+	t_rt	img_format;
 
+	ft_memset(&img_format, 0, sizeof(t_rt));
 	if (argc != 2 || !is_rtfile(argv[1]))
-		return (1);
-	img_format = parse(argv[1]);
+		report_error("argument should be a .rt file\n");
+	parse(argv[1], &img_format);
+	print_img_format(img_format);
+	//ray tracing
+		//view plane & camera ray
+		//shoot ray by pixel
+		//make img;
+	//mlx
+	//	make window
+	//	wait event
 }

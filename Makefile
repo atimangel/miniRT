@@ -1,16 +1,28 @@
 NAME			=	miniRT
 
+error			=	error.c
+parse			=	float.c\
+					parse.c\
+					object.c\
+					object_unique.c\
+					struct.c
+
 utility			=	utils_cpy.c\
 					utils_dup.c\
 					utils_str.c\
 					utils_mem.c\
-					utils_x.c
+					utils_num.c\
+					utils_x.c\
+					get_next_line.c
 
-src				=	$(utility:%=utility/%)
+
+src				=	main.c\
+					$(error:%=error/%)\
+					$(parse:%=parse/%)\
+					$(utility:%=utility/%)
 
 SRCS			=	$(src:%=./src/%)
 OBJ				=	$(SRCS:./src/%.c=./obj/%.o)
-main			=	./src/main.c
 
 42flag			=	-Wall -Werror -Wextra
 
@@ -23,10 +35,10 @@ compiler		=	gcc
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJ)
-	$(compiler) $(42flag) $(main) $(OBJ) -o $(NAME)
+	$(compiler) $(42flag) $(OBJ) -o $(NAME)
 
 clean	:
-	rm -rf $(OBJ)
+	rm -rf ./obj 
 
 fclean	:	clean
 	rm -rf $(NAME)

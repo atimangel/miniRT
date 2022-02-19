@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 14:38:12 by minjakim          #+#    #+#             */
-/*   Updated: 2022/02/17 16:35:46 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/19 11:17:52 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	*ft_memset(void *s, int c, size_t n)
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char *dst_write;
-	const char *src_write;
+	char		*dst_write;
+	const char	*src_write;
 	const int	ll_size = sizeof(long long);
 
 	dst_write = dst;
