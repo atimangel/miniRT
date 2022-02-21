@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:22:51 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/19 12:07:30 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/21 11:35:41 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	print_img_format(t_rt img)
 	{
 		printf("C ");
 		print_vector(img.cam.view_point);
-		print_vector(img.cam.normalized_oriention_vector);
-		printf("fov %f\n", img.cam.horizontal_field_of_view);
+		print_vector(img.cam.normal);
+		printf("fov %f\n", img.cam.h_fov);
 	}
 	while (img.count.light--)
 	{
@@ -63,7 +63,7 @@ void	print_img_format(t_rt img)
 	{
 		printf("cy[%d] ", ++i);
 		print_vector(img.cylinder->point);
-		print_vector(img.cylinder->normalized_orientation_vector);
+		print_vector(img.cylinder->normal);
 		printf("diameter %f height %f ", img.cylinder->diameter, img.cylinder->height);
 		print_color(img.cylinder->color);
 		printf("\n");
@@ -74,7 +74,7 @@ void	print_img_format(t_rt img)
 	{
 		printf("pl[%d] ", ++i);
 		print_vector(img.plane->point);
-		print_vector(img.plane->normalized_orientation_vector);
+		print_vector(img.plane->normal);
 		print_color(img.plane->color);
 		printf("\n");
 		img.plane = img.plane->next;
@@ -85,12 +85,24 @@ int	main(int argc, char **argv)
 {
 	(void)argc; (void)argv;
 	t_rt	img_format;
+	t_mlx	mlx;
+
 
 	ft_memset(&img_format, 0, sizeof(t_rt));
 	if (argc != 2 || !is_rtfile(argv[1]))
 		report_error("argument should be a .rt file\n");
 	parse(argv[1], &img_format);
-	print_img_format(img_format);
+	img_plane_unit(&img_format.cam);
+
+	mlx.mlx = mlx_init();
+	mlx.win = mlx_new_window(mlx.mlx, WIDTH, HEIGHT, "miniRT");
+
+	mlx.img = mlx_new_image(mlx.mlx, WIDTH, HEIGHT);
+	mlx.buffer = (unsigned int *)mlx_get_data_addr(mlx.img, &mlx.bpp, &mlx.llen, &mlx.endian);
+
+	raytracing(img_format, mlx.buffer);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
+	mlx_loop(mlx.mlx);
 	//ray tracing
 		//view plane & camera ray
 		//shoot ray by pixel

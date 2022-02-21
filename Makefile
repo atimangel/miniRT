@@ -6,6 +6,11 @@ parse			=	float.c\
 					object.c\
 					object_unique.c\
 					struct.c
+raytracing		=	raytracing.c\
+					reflection.c\
+					shoot_ray.c
+
+ray_utils		=	vector.c
 
 utility			=	utils_cpy.c\
 					utils_dup.c\
@@ -19,12 +24,19 @@ utility			=	utils_cpy.c\
 src				=	main.c\
 					$(error:%=error/%)\
 					$(parse:%=parse/%)\
+					$(raytracing:%=raytracing/%)\
+					$(ray_utils:%=ray_utils/%)\
 					$(utility:%=utility/%)
 
 SRCS			=	$(src:%=./src/%)
 OBJ				=	$(SRCS:./src/%.c=./obj/%.o)
 
 42flag			=	-Wall -Werror -Wextra
+MLX42flag		=	-L "/opt/homebrew/opt/glfw/lib/" -lglfw
+MLX42			=	./lib/MLX42/libmlx42.a
+
+mlxflag			=	-L ./lib/mlx -I ./lib/mlx -lmlx -framework Appkit -framework opengl
+mlx				=	./lib/mlx/libmlx.a
 
 compiler		=	gcc
 
@@ -35,9 +47,11 @@ compiler		=	gcc
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJ)
-	$(compiler) $(42flag) $(OBJ) -o $(NAME)
+	@make -C ./lib/mlx/
+	$(compiler) $(42flag) $(mlxflag) $(OBJ) -o $(NAME)
 
 clean	:
+	@make clean -C ./lib/mlx
 	rm -rf ./obj 
 
 fclean	:	clean

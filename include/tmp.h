@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resource.h                                         :+:      :+:    :+:   */
+/*   tmp.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/18 11:10:57 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/21 12:34:14 by snpark           ###   ########.fr       */
+/*   Created: 2022/02/19 19:13:47 by snpark            #+#    #+#             */
+/*   Updated: 2022/02/19 19:18:05 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RESOURCE_H
-# define RESOURCE_H
-# define	BUFFER_SIZE 1024
-# define	WIDTH		700//1920
-# define	HEIGHT		500//1080	
-# define	RESOLUTION	WIDTH * HEIGHT
-# define	LIGHT_RATIO_HARF_DISTANCE 10
+//for test
+#ifndef TMP_H
+#define TMP_H
+#include <stdio.h>
+#include "./type.h"
+
+void	print_color(t_color c);
+void	print_vector(t_vector v);
+void	print_img_format(t_rt img);
 #endif

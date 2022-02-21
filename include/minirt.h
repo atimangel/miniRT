@@ -6,18 +6,25 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:21:50 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/18 22:47:28 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/21 10:37:31 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
+#include "./tmp.h"
+
 # include "./type.h"
 # include "./resource.h"
+//# include "../lib/MLX42/include/MLX42/MLX42.h"
+# include "../lib/mlx/mlx.h"
+
 
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <math.h>
 
 //parse
 void		parse(const char *const filename, t_rt *const img_format);
@@ -66,4 +73,23 @@ float		ft_atof(const char **s);
 
 //error
 void		report_error(const char *str);
+
+//raytracing
+void		img_plane_unit(t_camera *cam);
+void		*raytracing(t_rt img_format, unsigned int *buffer);
+t_pixel		shoot_ray(t_rt img_format, t_ray camera_ray);
+t_color		ambient_reflection(t_pixel p, t_amb_light light);
+t_color		light_reflection(t_pixel obj, t_rt img_format);
+
+
+//vector
+t_vector	vec_add(t_vector a, t_vector b);
+t_vector	vec_subtract(t_vector a, t_vector b);
+t_vector	vec_normalize(t_vector v);
+t_vector	vec_cross(t_vector x, t_vector y);
+float		vec_dot(t_vector a, t_vector b);
+float		vec_scala(t_vector v);
+t_vector	vec_scailing(t_vector a, float scala);
+//math
+float		tan_d(float degree);
 #endif

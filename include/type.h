@@ -6,18 +6,35 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:50:45 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/18 20:56:08 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/21 11:52:13 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TYPE_H
 # define TYPE_H
 
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	void	*img;
+	unsigned int	*buffer;
+	int		bpp;
+	int		llen;
+	int		endian;
+}	t_mlx;
+
 typedef enum e_bool
 {
 	FALSE,
 	TRUE
 }	t_bool;
+
+typedef struct s_resolution
+{
+	unsigned int x;
+	unsigned int y;
+}	t_resolution;
 
 typedef struct	s_count
 {
@@ -29,16 +46,12 @@ typedef struct	s_count
 	int		cylinder;
 }	t_count;
 
-typedef	union	u_color
+typedef	struct	s_color
 {
-	struct
-	{
-		unsigned char r;
-		unsigned char g;
-		unsigned char b;
-		unsigned char a;
-	};
-	int		color[4];
+	unsigned char a;
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
 }	t_color;
 
 typedef	union u_vector
@@ -61,9 +74,37 @@ typedef	struct	s_amb_light
 typedef	struct	s_camera
 {
 	t_vector	view_point;
-	t_vector	normalized_oriention_vector;
-	float		horizontal_field_of_view;
+	t_vector	normal;
+	t_vector	unit_right;
+	t_vector	unit_up;
+	t_vector	img_plane_origin;
+	float		distance_to_img_plane;
+	float		h_fov;
 }	t_camera;
+
+typedef struct	s_ray
+{
+	t_vector	origin;
+	t_vector	direction;
+}	t_ray;
+
+typedef struct s_pixel
+{
+	t_bool		touched;
+	union	
+	{	
+		struct
+		{
+			t_vector	point;
+			t_vector	normal;
+		};
+		t_ray	ray;
+	};
+	t_color		obj_color;
+	t_color		pix_color;
+	float		distance;
+	void		*address;
+}	t_pixel;
 
 typedef	struct	s_len
 {
@@ -86,13 +127,13 @@ typedef struct s_sphere
 	t_vector		point;
 	float			diameter;
 	t_color			color;
-	struct s_phere	*next;
+	struct s_sphere	*next;
 }	t_sphere;
 
 typedef struct	s_plane
 {
 	t_vector		point;
-	t_vector		normalized_orientation_vector;
+	t_vector		normal;
 	t_color			color;
 	struct s_plane	*next;
 }	t_plane;
@@ -100,7 +141,7 @@ typedef struct	s_plane
 typedef struct	s_cylinder
 {
 	t_vector			point;
-	t_vector			normalized_orientation_vector;
+	t_vector			normal;
 	float				diameter;
 	float				height;
 	t_color				color;

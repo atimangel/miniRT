@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:48 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/19 11:14:22 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/19 22:23:41 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static unsigned char	color_range_check(int num)
 
 static float	normal_vector_range_check(float num)
 {
-	if (num < 0.0f || num > 1.0f)
-		report_error("normal vector out of range[0~1]\n");
+	if (num < -1.0f || num > 1.0f)
+		report_error("normal vector out of range[-1~1]\n");
 	return (num);
 }
 
@@ -66,6 +66,8 @@ t_vector	parse_normal_vector(const char **line)
 	if (**line == ',')
 		++(*line);
 	vector.z = normal_vector_range_check(ft_atof(line));
-	//normalizing vector(&vector);
+	if (vec_scala(vector) == 0.0f)
+		report_error("camera should point some point\n");
+	vector = vec_normalize(vector);
 	return (vector);
 }
