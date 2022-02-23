@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 21:53:22 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/22 12:53:32 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/23 18:46:01 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static float	measure_distance_to_sphere(t_sphere *sp, t_ray cam)
 {
 	const float		a = 1;
 	const t_vector	alpha = vec_subtract(cam.origin, sp->point);
-	const float		b = vec_dot(cam.direction, alpha) * 2; 
+	const float		b = vec_dot(cam.direction, alpha) * 2;
 	const float		c = vec_dot(alpha, alpha) - powf(sp->diameter, 2);
 
 	return (get_distance(a, b, c));
@@ -43,17 +43,17 @@ static void	shoot_ray_to_plane(t_pixel *p, t_plane *pl, t_ray cam)
 {
 	float	dot;
 	float	distance;
-	
+
 	while (pl)
 	{
 		dot = vec_dot(pl->normal, cam.direction);
 		if (dot != 0)
 			distance = vec_dot(pl->normal, vec_subtract(pl->point, \
-						cam.origin)) / vec_dot(pl->normal, cam.direction); 
+						cam.origin)) / vec_dot(pl->normal, cam.direction);
 		if (distance > 0 && !(p->touched && distance > p->distance))
 		{
 			write_pixel_info(p, distance, pl, cam);
-			p->normal = pl->normal; 
+			p->normal = pl->normal;
 			p->obj_color = pl->color;
 		}
 		pl = pl->next;
@@ -62,12 +62,11 @@ static void	shoot_ray_to_plane(t_pixel *p, t_plane *pl, t_ray cam)
 
 t_pixel	shoot_ray(t_rt img_format, t_ray camera_ray)
 {
-	(void)img_format; (void)camera_ray;
 	t_pixel			p;
 
 	ft_memset(&p, 0, sizeof(t_pixel));
 	shoot_ray_to_sphere(&p, img_format.sphere, camera_ray);
 	shoot_ray_to_plane(&p, img_format.plane, camera_ray);
 	shoot_ray_to_cylinder(&p, img_format.cylinder, camera_ray);
-	return p;
+	return (p);
 }

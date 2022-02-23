@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:26:13 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/22 14:56:58 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/23 18:48:37 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	img_plane_unit(t_camera *cam)
 {
-	const t_vector y_axis = {{0.0, 1.0, 0.0}};
+	const t_vector	y_axis = {{0.0, 1.0, 0.0}};
 
 	cam->unit_right = vec_normalize(vec_cross(cam->normal, y_axis));
-	cam->unit_up	= vec_normalize(vec_cross(cam->unit_right, cam->normal));
-	cam->distance_to_img_plane = (float)WIDTH / 2 \
-								 / tan_d(cam->h_fov / 2);
+	cam->unit_up = vec_normalize(vec_cross(cam->unit_right, cam->normal));
+	cam->distance_to_img_plane = (float)WIDTH / 2 / tan_d(cam->h_fov / 2);
 	cam->img_plane_origin = vec_add(cam->view_point, vec_add(\
 				vec_scailing(cam->unit_right, -(float)(WIDTH - 1) / 2),
 				vec_scailing(cam->unit_up, -(float)(HEIGHT - 1) / 2)));
@@ -67,11 +66,17 @@ void	*raytracing(t_rt img_format, unsigned int *buffer)
 	while (coordinate.x < WIDTH && coordinate.y < HEIGHT)
 	{
 		ft_memset(&pixel_info, 0, sizeof(t_pixel));
-		camera_ray.direction = get_normal_camera_ray(coordinate, img_format.cam);
+		camera_ray.direction = \
+						get_normal_camera_ray(coordinate, img_format.cam);
 		pixel_info = shoot_ray(img_format, camera_ray);
-		pixel_info.pix_color = ambient_reflection(pixel_info, img_format.amb);
-		pixel_info.pix_color = light_reflection(pixel_info, img_format);
-		buffer[WIDTH * coordinate.y + coordinate.x] = get_color(pixel_info.pix_color);
+		if (pixel_info.touched)
+		{
+			pixel_info.pix_color = \
+							ambient_reflection(pixel_info, img_format.amb);
+			pixel_info.pix_color = light_reflection(pixel_info, img_format);
+		}
+		buffer[WIDTH * coordinate.y + coordinate.x] = \
+											get_color(pixel_info.pix_color);
 		coordinate = get_next_coordinate(coordinate);
 	}
 	return (buffer);

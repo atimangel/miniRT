@@ -6,20 +6,16 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:21:50 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/22 12:44:08 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/23 17:18:49 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-#include "./tmp.h"
-
 # include "./type.h"
 # include "./resource.h"
-//# include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/mlx/mlx.h"
-
 
 # include <stdlib.h>
 # include <unistd.h>

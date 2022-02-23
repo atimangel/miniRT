@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/12 11:07:20 by minjakim          #+#    #+#             */
-/*   Updated: 2022/02/19 11:16:49 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/23 13:09:22 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	xopen(const char *path, int oflag)
 {
 	const int	fd = open(path, oflag);
 
-	if (oflag == -1)
+	if (fd == -1)
 		report_error("open error\n");
 	return (fd);
 }

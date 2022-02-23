@@ -6,13 +6,14 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:31:18 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/22 15:05:46 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/23 17:28:41 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-void	write_pixel_info(t_pixel *p, float distance, void *obj_address, t_ray cam)
+void
+	write_pixel_info(t_pixel *p, float distance, void *obj_address, t_ray cam)
 {
 	p->touched = TRUE;
 	p->distance = distance;
@@ -22,9 +23,9 @@ void	write_pixel_info(t_pixel *p, float distance, void *obj_address, t_ray cam)
 
 float	get_distance(float a, float b, float c)
 {
-	float discriminant;
-	float distance;
-	
+	float	discriminant;
+	float	distance;
+
 	discriminant = powf(b, 2.0) - 4 * a * c;
 	if (discriminant < 0)
 		return (-1);
@@ -39,4 +40,3 @@ float	get_distance(float a, float b, float c)
 		distance += discriminant;
 	return (distance);
 }
-

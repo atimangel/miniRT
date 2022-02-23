@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 12:43:02 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/19 16:40:42 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/23 17:24:37 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	parse_camera(const char *line, t_rt *img_format, t_bool *flag)
 	*flag = TRUE;
 	img_format->count.camera = TRUE;
 	img_format->cam.view_point = parse_vector(&line);
-	img_format->cam.normal= parse_normal_vector(&line);
-	img_format->cam.h_fov= parse_angle(&line);
+	img_format->cam.normal = parse_normal_vector(&line);
+	img_format->cam.h_fov = parse_angle(&line);
 	skip_space(&line);
 	if (*line)
 		report_error("cam format error\n");

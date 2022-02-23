@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:30:18 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/22 14:55:48 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/23 17:32:50 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void
 			vec_scailing(cy->normal, height));
 	const float		distance = \
 			vec_dot(vec_subtract(circle_midpoint, cam.origin), cy->normal) \
-					 / vec_dot(cam.direction,cy->normal);
+			/ vec_dot(cam.direction, cy->normal);
 	const float		diameter = vec_scala(vec_subtract(circle_midpoint, \
 				vec_add(cam.origin, vec_scailing(cam.direction, distance))));
 
@@ -36,7 +36,7 @@ static void
 }
 
 /*a - (a.b)*b*/
-static t_vector cylinder_coefficient(t_vector a, t_vector b)
+static t_vector	cylinder_coefficient(t_vector a, t_vector b)
 {
 	return (vec_subtract(a, vec_scailing(b, vec_dot(a, b))));
 }
@@ -60,7 +60,7 @@ static void	shoot_ray_to_side(t_pixel *p, t_cylinder *cy, t_ray cam)
 			return ;
 		write_pixel_info(p, distance, cy, cam);
 		p->normal = vec_normalize(vec_subtract(hit_point, \
-			ray_to_vec(cy->point, cy->normal, height))); 
+					ray_to_vec(cy->point, cy->normal, height)));
 		p->obj_color = cy->color;
 	}
 }
@@ -70,7 +70,7 @@ void	shoot_ray_to_cylinder(t_pixel *p, t_cylinder *cy, t_ray cam)
 	while (cy)
 	{
 		shoot_ray_to_circle(p, cy, cam, 0);
-		shoot_ray_to_circle(p, cy, cam, cy->height); 
+		shoot_ray_to_circle(p, cy, cam, cy->height);
 		shoot_ray_to_side(p, cy, cam);
 		cy = cy->next;
 	}

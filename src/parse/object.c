@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 19:55:16 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/19 16:40:27 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/23 17:24:15 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	parse_plane(const char *line, t_rt *img_format, t_bool *flag)
 	else
 		img_format->plane = xcalloc(sizeof(t_plane));
 	img_format->plane->point = parse_vector(&line);
-	img_format->plane->normal= parse_normal_vector(&line);
+	img_format->plane->normal = parse_normal_vector(&line);
 	img_format->plane->color = parse_color(&line);
 	img_format->plane->next = NULL;
 	parse_wrap_up(line, (void **)&img_format->plane, (void *)head);
@@ -93,7 +93,7 @@ void	parse_cylinder(const char *line, t_rt *img_format, t_bool *flag)
 	else
 		img_format->cylinder = xcalloc(sizeof(t_cylinder));
 	img_format->cylinder->point = parse_vector(&line);
-	img_format->cylinder->normal= parse_normal_vector(&line);
+	img_format->cylinder->normal = parse_normal_vector(&line);
 	img_format->cylinder->diameter = parse_length(&line);
 	img_format->cylinder->height = parse_length(&line);
 	img_format->cylinder->color = parse_color(&line);

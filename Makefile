@@ -12,6 +12,7 @@ raytracing		=	raytracing.c\
 					shoot_ray_to_cylinder.c
 
 ray_utils		=	vector.c\
+					vector2.c\
 					utils.c
 
 utility			=	utils_cpy.c\
