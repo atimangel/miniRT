@@ -8,9 +8,11 @@ parse			=	float.c\
 					struct.c
 raytracing		=	raytracing.c\
 					reflection.c\
-					shoot_ray.c
+					shoot_ray.c\
+					shoot_ray_to_cylinder.c
 
-ray_utils		=	vector.c
+ray_utils		=	vector.c\
+					utils.c
 
 utility			=	utils_cpy.c\
 					utils_dup.c\

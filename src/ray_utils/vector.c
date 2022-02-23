@@ -6,11 +6,21 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 21:51:04 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/19 22:16:00 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/22 12:36:03 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
+
+t_vector	ray_to_vec(t_vector o, t_vector d, float t)
+{
+	return (vec_add(o, vec_scailing(d, t)));
+}
+
+float	vec_cosine(t_vector a, t_vector b)
+{
+	return (vec_dot(a, b) / (vec_scala(a) * vec_scala(b)));
+}
 
 t_vector	vec_cross(t_vector x, t_vector y)
 {

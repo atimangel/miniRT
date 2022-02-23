@@ -2,10 +2,11 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   raytracing.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */ /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                    +:+ +:+         +:+     */
+/*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/19 13:13:09 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/21 11:36:20 by snpark           ###   ########.fr       */
+/*   Created: 2022/02/22 12:26:13 by snpark            #+#    #+#             */
+/*   Updated: 2022/02/22 14:56:58 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +25,7 @@ void	img_plane_unit(t_camera *cam)
 				vec_scailing(cam->unit_up, -(float)(HEIGHT - 1) / 2)));
 }
 
-t_vector	get_normal_camera_ray(t_resolution coord, t_camera cam)
+static t_vector	get_normal_camera_ray(t_resolution coord, t_camera cam)
 {
 	t_vector	camera_ray;
 
@@ -38,7 +39,7 @@ t_vector	get_normal_camera_ray(t_resolution coord, t_camera cam)
 	return (camera_ray);
 }
 
-t_resolution	get_next_coordinate(t_resolution coord)
+static t_resolution	get_next_coordinate(t_resolution coord)
 {
 	++coord.y;
 	if (coord.y == HEIGHT)
@@ -49,7 +50,7 @@ t_resolution	get_next_coordinate(t_resolution coord)
 	return (coord);
 }
 
-unsigned int	get_color(t_color col)
+static unsigned int	get_color(t_color col)
 {
 	return ((col.r << 16) + (col.g << 8) + col.b);
 }
@@ -68,11 +69,9 @@ void	*raytracing(t_rt img_format, unsigned int *buffer)
 		ft_memset(&pixel_info, 0, sizeof(t_pixel));
 		camera_ray.direction = get_normal_camera_ray(coordinate, img_format.cam);
 		pixel_info = shoot_ray(img_format, camera_ray);
-		printf("top distance %f\n", pixel_info.distance);
 		pixel_info.pix_color = ambient_reflection(pixel_info, img_format.amb);
 		pixel_info.pix_color = light_reflection(pixel_info, img_format);
 		buffer[WIDTH * coordinate.y + coordinate.x] = get_color(pixel_info.pix_color);
-		//buffer[WIDTH * coordinate.y + coordinate.x] = get_color(pixel_info.obj_color);
 		coordinate = get_next_coordinate(coordinate);
 	}
 	return (buffer);

@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:21:50 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/21 10:37:31 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/22 12:44:08 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,13 @@ void		report_error(const char *str);
 void		img_plane_unit(t_camera *cam);
 void		*raytracing(t_rt img_format, unsigned int *buffer);
 t_pixel		shoot_ray(t_rt img_format, t_ray camera_ray);
+void		shoot_ray_to_cylinder(t_pixel *p, t_cylinder *cy, t_ray cam);
 t_color		ambient_reflection(t_pixel p, t_amb_light light);
 t_color		light_reflection(t_pixel obj, t_rt img_format);
-
+//ray_utils
+void		write_pixel_info(t_pixel *p, float distance, void *obj_address, \
+		t_ray cam);
+float		get_distance(float a, float b, float c);
 
 //vector
 t_vector	vec_add(t_vector a, t_vector b);
@@ -89,7 +93,9 @@ t_vector	vec_normalize(t_vector v);
 t_vector	vec_cross(t_vector x, t_vector y);
 float		vec_dot(t_vector a, t_vector b);
 float		vec_scala(t_vector v);
+float		vec_cosine(t_vector a, t_vector b);
 t_vector	vec_scailing(t_vector a, float scala);
+t_vector	ray_to_vec(t_vector o, t_vector d, float t);
 //math
 float		tan_d(float degree);
 #endif
