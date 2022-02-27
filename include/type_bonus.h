@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   type.h                                             :+:      :+:    :+:   */
+/*   type_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:50:45 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 10:34:05 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/27 12:51:49 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TYPE_H
-# define TYPE_H
+#ifndef TYPE_BONUS_H
+# define TYPE_BONUS_H
 
 typedef struct s_mlx
 {
@@ -44,6 +44,7 @@ typedef struct s_count
 	int		sphere;
 	int		plane;
 	int		cylinder;
+	int		cone;
 }	t_count;
 
 typedef struct s_color
@@ -140,6 +141,17 @@ typedef struct s_cylinder
 	struct s_cylinder	*next;
 }	t_cylinder;
 
+typedef struct s_cone
+{
+	t_vector			point;
+	t_vector			normal;
+	float				diameter;
+	float				height;
+	t_color				color;
+	float				cos;
+	struct s_cone		*next;
+}	t_cone;
+
 typedef struct s_rt
 {
 	t_amb_light	amb;
@@ -148,6 +160,7 @@ typedef struct s_rt
 	t_sphere	*sphere;
 	t_plane		*plane;
 	t_cylinder	*cylinder;
+	t_cone		*cone;
 	t_count		count;
 }	t_rt;
 
