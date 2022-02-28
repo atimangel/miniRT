@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:22:51 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/25 15:07:22 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/28 09:27:13 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,13 @@ static int	red_button(int key_num, void *parm)
 
 static int	key_event(int key_num, void *parm)
 {
-	(void)parm;
+	t_mlx *mlx;
+
+	mlx = parm;
 	if (key_num == 53)
 		exit(1);
+	if (key_num == 49)
+		filter(mlx);
 	return (0);
 }
 
@@ -34,8 +38,8 @@ static void	mlx_initialize(t_mlx *mlx)
 	mlx->img = mlx_new_image(mlx->mlx, WIDTH, HEIGHT);
 	mlx->buffer = (unsigned int *)mlx_get_data_addr(mlx->img, \
 			&mlx->bpp, &mlx->llen, &mlx->endian);
-	mlx_key_hook(mlx->win, key_event, (void *)&mlx);
-	mlx_hook(mlx->win, 17, 0, red_button, (void *)&mlx);
+	mlx_key_hook(mlx->win, key_event, (void *)mlx);
+	mlx_hook(mlx->win, 17, 0, red_button, (void *)mlx);
 }
 
 int	main(int argc, char **argv)

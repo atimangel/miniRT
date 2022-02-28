@@ -32,7 +32,8 @@ src					=	main.c\
 error_bonus			=	$(error:%.c=%_bonus.c)
 parse_bonus			=	$(parse:%.c=%_bonus.c)
 ray_utils_bonus		=	$(ray_utils:%.c=%_bonus.c)\
-						vector3_bonus.c
+						vector3_bonus.c\
+						filter_bonus.c
 raytracing_bonus	=	$(raytracing:%.c=%_bonus.c)\
 						shoot_ray_to_cone_bonus.c
 utility_bonus		=	$(utility:%.c=%_bonus.c)

@@ -1,0 +1,2 @@
+#! /bin/bash
+./miniRT_bonus $1 | cat $1

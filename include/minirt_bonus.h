@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */ /*                                                +#+#+#+#+#+   +#+           */
+/*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:21:50 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 12:03:01 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/27 22:07:55 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +85,7 @@ void			write_pixel_info(t_pixel *p, float distance, void *obj_address, \
 			t_ray cam);
 float			get_distance(float a, float b, float c);
 unsigned char	add_color(float c);
+void			filter(t_mlx *mlx);
 
 //vector
 t_vector		vec_add(t_vector a, t_vector b);

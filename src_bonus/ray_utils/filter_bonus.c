@@ -6,34 +6,26 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 16:49:32 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 13:04:33 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/28 09:30:24 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt_bonus.h"
 
-void	filter(t_color *buffer, t_mlx mlx)
+void	filter(t_mlx *mlx)
 {
 	const int		buffer_len = WIDTH * HEIGHT;
 	int				i;
-	const float		x_ratio = 0.5;
-	const float		y_ratio = 0.5;
-	const float		z_ratio = 0.5;
+	unsigned int	tmp;
 
 	i = -1;
+	tmp = 0;
 	while (++i < buffer_len)
 	{
-		if (!mlx.endian)
-		{
-			buffer->r = add_color(buffer->r + buffer->r * 0.5);
-			buffer->g = add_color(buffer->g + buffer->g * 0.5);
-			buffer->b = add_color(buffer->b + buffer->b * 0.5);
-		}
-		else
-		{
-			buffer->g = add_color(buffer->g + buffer->g * 0.5);
-			buffer->r = add_color(buffer->r + buffer->r * 0.5);
-			buffer->a = add_color(buffer->a + buffer->a * 0.5);
-		}
+		tmp = mlx->buffer[i];
+		mlx->buffer[i] = (int)(((tmp >> 16) & 0xff) * 1) << 16;
+		mlx->buffer[i] += (int)(((tmp >> 8) & 0xff) * 0) << 8; 
+		mlx->buffer[i] += (tmp & 0xff) * 0; 
 	}
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:59:52 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 19:52:50 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/27 21:11:09 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,14 @@ t_color	specular_reflection(t_pixel p, const t_light light, \
 		-vec_dot(vec_reflect(p.normal, light_ray.direction), cam.direction);
 	const float	distance_ratio = \
 		1 / powf(2, p.distance / LIGHT_RATIO_HARF_DISTANCE);
-	const float	specular_ratio = powf(cosine, 43);
-	const float	ratio = specular_ratio * light.ratio * distance_ratio / 255;
+	const float	specular_ratio = powf(cosine, 64);
+	const float	ratio = specular_ratio * light.ratio * distance_ratio;
 
 	if (cosine > 0)
 	{
-		p.pix_color.r = \
-			add_color(p.obj_color.r * light.color.r * ratio + p.pix_color.r);
-		p.pix_color.g = \
-			add_color(p.obj_color.g * light.color.g * ratio + p.pix_color.g);
-		p.pix_color.b = \
-			add_color(p.obj_color.b * light.color.b * ratio + p.pix_color.b);
+		p.pix_color.r = add_color(light.color.r * ratio + p.pix_color.r);
+		p.pix_color.g = add_color(light.color.g * ratio + p.pix_color.g);
+		p.pix_color.b = add_color(light.color.b * ratio + p.pix_color.b);
 	}
 	return (p.pix_color);
 }
@@ -78,13 +75,12 @@ t_color	light_reflection(t_pixel obj, t_rt img_format, t_ray cam)
 				vec_normalize(vec_subtract(obj.point, img_format.light->point));
 		range = vec_scala(vec_subtract(obj.point, img_format.light->point));
 		hit_obj = shoot_ray(img_format, light);
-		if (hit_obj.address == obj.address && \
-				hit_obj.distance >= range * 0.999f && \
-				hit_obj.distance <= range * 1.001f)
+		if (hit_obj.address == obj.address)// && \
+//				hit_obj.distance >= range * 0.9f && \
+//				hit_obj.distance <= range * 1.1f)
 		{
 			obj.pix_color = diffuse_reflection(obj, *img_format.light);
-			obj.pix_color = specular_reflection(\
-					obj, *img_format.light, cam, light);
+			obj.pix_color = specular_reflection(obj, *img_format.light, cam, light);
 		}
 		img_format.light = img_format.light->next;
 	}

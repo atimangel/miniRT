@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 16:57:25 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 13:02:12 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/27 20:23:28 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	shoot_ray_to_side(t_pixel *p, t_cone *co, t_ray cam)
 			return ;
 		write_pixel_info(p, distance, co, cam);
 		p->normal = vec_normalize(
-					vec_add(vec_scailing(co->normal, co->diameter), \
+					vec_add(vec_scailing(co->normal, -co->diameter), \
 					vec_scailing(vec_normalize(vec_subtract(hit_point, \
 					ray_to_vec(co->point, co->normal, height))), co->height)));
 		p->obj_color = co->color;
