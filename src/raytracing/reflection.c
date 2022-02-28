@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:59:52 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/23 18:50:13 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:40:29 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,16 @@ t_color	diffuse_reflection(t_pixel p, const t_light light)
 	const float		cosine = vec_cosine(p.normal, to_light);
 	const float		distance_ratio = \
 						1 / powf(2, p.distance / LIGHT_RATIO_HARF_DISTANCE);
+	const float		ratio = cosine * light.ratio * distance_ratio / 255;
 
 	if (cosine > 0)
 	{
-		p.pix_color.r = add_color(p.obj_color.r * cosine * light.color.r * \
-				light.ratio * distance_ratio / 255 + p.pix_color.r);
-		p.pix_color.g = add_color(p.obj_color.g * cosine * light.color.g * \
-				light.ratio * distance_ratio / 255 + p.pix_color.g);
-		p.pix_color.b = add_color(p.obj_color.b * cosine * light.color.b * \
-				light.ratio * distance_ratio / 255 + p.pix_color.b);
+		p.pix_color.r = \
+			add_color(p.obj_color.r * light.color.r * ratio + p.pix_color.r);
+		p.pix_color.g = \
+			add_color(p.obj_color.g * light.color.g * ratio + p.pix_color.g);
+		p.pix_color.b = \
+			add_color(p.obj_color.b * light.color.b * ratio + p.pix_color.b);
 	}
 	return (p.pix_color);
 }

@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:59:52 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 21:11:09 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/28 12:05:40 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_color	specular_reflection(t_pixel p, const t_light light, \
 		-vec_dot(vec_reflect(p.normal, light_ray.direction), cam.direction);
 	const float	distance_ratio = \
 		1 / powf(2, p.distance / LIGHT_RATIO_HARF_DISTANCE);
-	const float	specular_ratio = powf(cosine, 64);
+	const float	specular_ratio = powf(cosine, 128);
 	const float	ratio = specular_ratio * light.ratio * distance_ratio;
 
 	if (cosine > 0)

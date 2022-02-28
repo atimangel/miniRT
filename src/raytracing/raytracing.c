@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:26:13 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/23 18:48:37 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/28 16:37:05 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 void	img_plane_unit(t_camera *cam)
 {
 	const t_vector	y_axis = {{0.0, 1.0, 0.0}};
+	const t_vector	z_axis = {{0.0, 0.0, -1.0}};
 
-	cam->unit_right = vec_normalize(vec_cross(cam->normal, y_axis));
+	if (vec_scala(vec_cross(y_axis, cam->normal)))
+		cam->unit_right = vec_normalize(vec_cross(cam->normal, y_axis));
+	else
+		cam->unit_right = vec_normalize(vec_cross(cam->normal, z_axis));
 	cam->unit_up = vec_normalize(vec_cross(cam->unit_right, cam->normal));
 	cam->distance_to_img_plane = (float)WIDTH / 2 / tan_d(cam->h_fov / 2);
 	cam->img_plane_origin = vec_add(cam->view_point, vec_add(\

@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 21:53:22 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 12:03:16 by snpark           ###   ########.fr       */
+/*   Updated: 2022/02/28 11:36:13 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static void	shoot_ray_to_plane(t_pixel *p, t_plane *pl, t_ray cam)
 		{
 			write_pixel_info(p, distance, pl, cam);
 			p->normal = pl->normal;
+			if (vec_dot(p->normal, cam.direction) > 0)
+				p->normal = vec_scailing(p->normal, -1);
 			p->obj_color = pl->color;
 		}
 		pl = pl->next;
