@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:18:48 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/19 22:23:41 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/01 12:35:42 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_vector	parse_normal_vector(const char **line)
 		++(*line);
 	vector.z = normal_vector_range_check(ft_atof(line));
 	if (vec_scala(vector) == 0.0f)
-		report_error("camera should point some point\n");
+		report_error("normal vector shold point somewhere\n");
 	vector = vec_normalize(vector);
 	return (vector);
 }
