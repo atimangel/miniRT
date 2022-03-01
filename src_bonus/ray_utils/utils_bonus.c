@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 12:31:18 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/25 17:04:49 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/01 22:57:32 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,3 @@ unsigned char	add_color(float c)
 		return (255);
 	return ((unsigned char)c);
 }
-

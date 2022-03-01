@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 16:49:32 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/28 09:30:24 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/01 22:56:11 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	filter(t_mlx *mlx)
 	{
 		tmp = mlx->buffer[i];
 		mlx->buffer[i] = (int)(((tmp >> 16) & 0xff) * 1) << 16;
-		mlx->buffer[i] += (int)(((tmp >> 8) & 0xff) * 0) << 8; 
-		mlx->buffer[i] += (tmp & 0xff) * 0; 
+		mlx->buffer[i] += (int)(((tmp >> 8) & 0xff) * 0) << 8;
+		mlx->buffer[i] += (tmp & 0xff) * 0;
 	}
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 09:59:52 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/28 12:05:40 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/01 23:03:08 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,11 @@ t_color	light_reflection(t_pixel obj, t_rt img_format, t_ray cam)
 				vec_normalize(vec_subtract(obj.point, img_format.light->point));
 		range = vec_scala(vec_subtract(obj.point, img_format.light->point));
 		hit_obj = shoot_ray(img_format, light);
-		if (hit_obj.address == obj.address)// && \
-//				hit_obj.distance >= range * 0.9f && \
-//				hit_obj.distance <= range * 1.1f)
+		if (hit_obj.address == obj.address)
 		{
 			obj.pix_color = diffuse_reflection(obj, *img_format.light);
-			obj.pix_color = specular_reflection(obj, *img_format.light, cam, light);
+			obj.pix_color = specular_reflection(obj, \
+					*img_format.light, cam, light);
 		}
 		img_format.light = img_format.light->next;
 	}

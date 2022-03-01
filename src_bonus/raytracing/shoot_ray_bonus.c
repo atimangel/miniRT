@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 21:53:22 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/28 11:36:13 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/01 23:02:33 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,35 @@ static void	shoot_ray_to_sphere(t_pixel *p, t_sphere *sp, t_ray cam)
 	}
 }
 
+t_vector	bump_mapping(t_plane *pl, t_vector coord)
+{
+	t_vector	pixel_normal;
+	t_vector	bumpped_normal;
+	int			x;
+	int			y;
+	int			pixel;
+
+	x = (int)(vec_dot(coord, pl->bump.x) * pl->bump.width / 20) % \
+		pl->bump.width;
+	y = (int)(vec_dot(coord, pl->bump.y) * pl->bump.height / 20) % \
+		pl->bump.height;
+	if (x < 0)
+		x = pl->bump.width + x;
+	if (y < 0)
+		y = pl->bump.height + y;
+	pixel = pl->bump.buffer[pl->bump.width * y + x];
+	pixel_normal.x = (float)(((pixel >> 16) & 0xff) * 2 - 255) / 255;
+	pixel_normal.y = (float)(((pixel >> 8) & 0xff) * 2 - 255) / 255;
+	pixel_normal.z = (float)((pixel & 0xff) * 2 - 255 ) / 255;
+	bumpped_normal.x = pixel_normal.x * pl->bump.x.x + \
+				pixel_normal.y * pl->bump.y.x + pixel_normal.z * pl->bump.z.x;
+	bumpped_normal.y = pixel_normal.x * pl->bump.x.y + \
+				pixel_normal.y * pl->bump.y.y + pixel_normal.z * pl->bump.z.y;
+	bumpped_normal.z = pixel_normal.x * pl->bump.x.z + \
+				pixel_normal.y * pl->bump.y.z + pixel_normal.z * pl->bump.z.z;
+	return (bumpped_normal);
+}
+
 static void	shoot_ray_to_plane(t_pixel *p, t_plane *pl, t_ray cam)
 {
 	float	dot;
@@ -54,8 +83,9 @@ static void	shoot_ray_to_plane(t_pixel *p, t_plane *pl, t_ray cam)
 		{
 			write_pixel_info(p, distance, pl, cam);
 			p->normal = pl->normal;
-			if (vec_dot(p->normal, cam.direction) > 0)
-				p->normal = vec_scailing(p->normal, -1);
+			if (pl->bump.name)
+				p->normal = bump_mapping(pl, vec_subtract(\
+				ray_to_vec(cam.origin, cam.direction, distance), pl->point));
 			p->obj_color = pl->color;
 		}
 		pl = pl->next;

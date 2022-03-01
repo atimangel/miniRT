@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:50:45 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 12:51:49 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/01 17:46:18 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,11 +123,24 @@ typedef struct s_sphere
 	struct s_sphere	*next;
 }	t_sphere;
 
+typedef struct s_bump
+{
+	char			*name;
+	void			*img;
+	unsigned int	*buffer;
+	int				width;
+	int				height;
+	t_vector		x;
+	t_vector		y;
+	t_vector		z;
+}	t_bump;
+
 typedef struct s_plane
 {
 	t_vector		point;
 	t_vector		normal;
 	t_color			color;
+	t_bump			bump;
 	struct s_plane	*next;
 }	t_plane;
 

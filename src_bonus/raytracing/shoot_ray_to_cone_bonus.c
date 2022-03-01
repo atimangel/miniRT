@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 16:57:25 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 20:23:28 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/01 22:58:06 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ float	get_distance_cone(t_cone co, t_ray cam)
 	const float		b = 2 * (vec_dot(cam.direction, co.normal) * \
 				vec_dot(w, co.normal) - vec_dot(cam.direction, w) * ratio);
 	const float		c = powf(vec_dot(w, co.normal), 2) - vec_dot(w, w) * ratio;
-	
+
 	return (get_distance(a, b, c));
 }
 
@@ -60,7 +60,7 @@ static void	shoot_ray_to_side(t_pixel *p, t_cone *co, t_ray cam)
 		if (height < 0 || height > co->height)
 			return ;
 		write_pixel_info(p, distance, co, cam);
-		p->normal = vec_normalize(
+		p->normal = vec_normalize(\
 					vec_add(vec_scailing(co->normal, -co->diameter), \
 					vec_scailing(vec_normalize(vec_subtract(hit_point, \
 					ray_to_vec(co->point, co->normal, height))), co->height)));

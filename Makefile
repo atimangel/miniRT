@@ -30,7 +30,8 @@ src					=	main.c\
 						$(utility:%=utility/%)
 
 error_bonus			=	$(error:%.c=%_bonus.c)
-parse_bonus			=	$(parse:%.c=%_bonus.c)
+parse_bonus			=	$(parse:%.c=%_bonus.c)\
+						bump_bonus.c
 ray_utils_bonus		=	$(ray_utils:%.c=%_bonus.c)\
 						vector3_bonus.c\
 						filter_bonus.c

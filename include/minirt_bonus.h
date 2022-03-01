@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:21:50 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 22:07:55 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/01 21:19:15 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ float			parse_angle(const char **line);
 float			parse_ratio(const char **line);
 float			parse_length(const char **line);
 void			parse_wrap_up(const char *line, void **dest, void *src);
+t_bump			parse_bump(const char **line);
+void			tangent_space(t_bump *bump);
 
 void			parse_ambient(const char *line, t_rt *img_format, t_bool *flag);
 void			parse_light(const char *line, t_rt *img_format, t_bool *flag);

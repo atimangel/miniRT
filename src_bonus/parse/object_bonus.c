@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 13:04:07 by snpark            #+#    #+#             */
-/*   Updated: 2022/02/27 13:04:13 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/01 21:18:40 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	parse_plane(const char *line, t_rt *img_format, t_bool *flag)
 	img_format->plane->point = parse_vector(&line);
 	img_format->plane->normal = parse_normal_vector(&line);
 	img_format->plane->color = parse_color(&line);
+	img_format->plane->bump = parse_bump(&line);
 	img_format->plane->next = NULL;
 	parse_wrap_up(line, (void **)&img_format->plane, (void *)head);
 }
