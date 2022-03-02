@@ -6,7 +6,7 @@
 /*   By: snpark <snpark@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 18:21:50 by snpark            #+#    #+#             */
-/*   Updated: 2022/03/01 21:19:15 by snpark           ###   ########.fr       */
+/*   Updated: 2022/03/02 15:52:56 by snpark           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void			parse_light(const char *line, t_rt *img_format, t_bool *flag);
 void			parse_camera(const char *line, t_rt *img_format, t_bool *flag);
 void			parse_sphere(const char *line, t_rt *img_format, t_bool *flag);
 void			parse_plane(const char *line, t_rt *img_format, t_bool *flag);
-void			parse_cylinder(const char *line, t_rt *img_format, t_bool *flag);
+void			parse_cylinder(const char *line, t_rt *img_format, \
+		t_bool *flag);
 void			parse_cone(const char *line, t_rt *img_format, t_bool *flag);
 
 void			skip_space(const char **str);

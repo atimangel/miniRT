@@ -52,40 +52,37 @@ SRCS_BONUS			=	$(src_bonus:%=./src_bonus/%)
 OBJ_BONUS			=	$(SRCS_BONUS:./src_bonus/%.c=./obj_bonus/%.o)
 
 42flag				=	-Wall -Werror -Wextra
-MLX42flag			=	-L "/opt/homebrew/opt/glfw/lib/" -lglfw
-MLX42				=	./lib/MLX42/libmlx42.a
 
 mlxflag				=	-L ./lib/mlx -I ./lib/mlx -lmlx -framework Appkit -framework opengl
 mlx					=	./lib/mlx/libmlx.a
 
 compiler			=	gcc
 
-all		:	$(NAME)
+all					:	$(NAME)
 
 ./obj/%.o			:	./src/%.c
 	@mkdir -p $(dir ./obj/$*)
 	$(compiler) $(42flag) -c $< -o $@
 
-$(NAME)	:	$(OBJ)
+$(NAME)				:	$(OBJ)
 	@make -C ./lib/mlx/
 	$(compiler) $(42flag) $(mlxflag) $(OBJ) -o $(NAME)
 
-bonus	:	$(NAME)_bonus
+bonus				:	$(NAME)_bonus
 
-./obj_bonus/%.o			:	./src_bonus/%.c
+./obj_bonus/%.o		:	./src_bonus/%.c
 	@mkdir -p $(dir ./obj_bonus/$*)
 	$(compiler) $(42flag) -c $< -o $@
 
-$(NAME)_bonus	:	$(OBJ_BONUS)
+$(NAME)_bonus		:	$(OBJ_BONUS)
 	@make -C ./lib/mlx/
 	$(compiler) $(42flag) $(mlxflag) $(OBJ_BONUS) -o $(NAME)_bonus
 
-
-clean	:
+clean				:
 	@make clean -C ./lib/mlx
 	rm -rf ./obj ./obj_bonus
 
-fclean	:	clean
+fclean				:	clean
 	rm -rf $(NAME) $(NAME)_bonus
 
-re		:	fclean all
+re					:	fclean all
